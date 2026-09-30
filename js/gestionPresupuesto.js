@@ -33,6 +33,9 @@ function CrearGasto(descripcion, valor) {
 
     //TODO mostrarGasto - Función sin parámetros que devolverá el texto: Gasto correspondiente a DESCRIPCION con valor VALOR €, 
     // siendo VALOR y DESCRIPCION las propiedades del objeto correspondientes. 
+    this.mostrarGasto = function() {
+        return `Gasto correspondiente a ${descripcion} con valor ${valor} €`
+    }
 
 
 
