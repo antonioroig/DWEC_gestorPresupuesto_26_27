@@ -16,13 +16,13 @@ function actualizarPresupuesto(valor) {
     }
 }
 
+
 function mostrarPresupuesto() {    
     return `Tu presupuesto actual es de ${presupuesto} €`
 }
 
-function CrearGasto(descripcion, valor) {
-    // TODO Función constructora que se encargará de crear un objeto gasto. Esta función devolverá un objeto de tipo gasto. 
-    // Deberá comprobar que el valor introducido sea un núḿero no negativo; en caso contrario, asignará a la propiedad valor el valor 0.
+
+function CrearGasto(descripcion, valor) {    
     if (valor >= 0 && typeof valor === "number") {
         this.descripcion = descripcion;
         this.valor = valor;            
@@ -31,21 +31,23 @@ function CrearGasto(descripcion, valor) {
         this.valor = 0;
     }
 
-    //TODO mostrarGasto - Función sin parámetros que devolverá el texto: Gasto correspondiente a DESCRIPCION con valor VALOR €, 
-    // siendo VALOR y DESCRIPCION las propiedades del objeto correspondientes. 
+    
     this.mostrarGasto = function() {
         return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`
     }
 
-
-
-    // actualizarDescripcion - Función de 1 parámetro que actualizará la descripción del objeto. 
+    
     this.actualizarDescripcion = function(nuevaDesc) {
         this.descripcion = nuevaDesc;
     }
 
     // actualizarValor - Función de 1 parámetro que actualizará el valor del objeto. Se encargará de comprobar que el valor introducido sea un número no negativo; 
     // en caso contrario, dejará el valor como estaba.
+    this.actualizarValor = function(valor) {
+        if (valor >= 0) {
+            this.valor = valor;
+        }
+    }
 }
 
 
