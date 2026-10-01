@@ -4,8 +4,13 @@
 let presupuesto = 0;
 
 
-function actualizarPresupuesto() {
-    // TODO
+function actualizarPresupuesto(valor) {
+    if (typeof valor === "number" && !isNaN(valor) && valor >= 0) {
+        presupuesto = valor;
+        return presupuesto;
+    }
+    console.log("Error: el valor introducido no es un número no negativo");
+    return -1;
 }
 
 function mostrarPresupuesto() {
