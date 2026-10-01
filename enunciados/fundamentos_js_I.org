@@ -2,8 +2,8 @@
   El objetivo de esta práctica es aprender y poner en práctica los conceptos fundamentales de JavaScript.
 
 ** Repositorio de la práctica
-   El *repositorio base* de la práctica está disponible en: https://github.com/antonioroig/practica_dwec_gestor_presupuesto, bajo invitación pues es privado.
-
+   El *repositorio base* de la práctica está disponible en: https://github.com/antonioroig/DWEC_gestorPresupuesto_26_27.
+   Si el profesor añade enunciados o cambios al repositorio original, tendréis que clicar cuando estéis en la página de vuestro repositorio en *"Sync Fork"* para sincronizar vuestro repositorio con el repositorio base si lo hacéis de forma "gráfica" desde GitHub.
    En esta *segunda práctica* se debe configurar el *repositorio personal* (el que se creó haciendo un /fork/ del repositorio base) para añadir un *segundo repositorio remoto*. De esta manera, tu repositorio tendrá dos remotos:
    - El remoto *principal*, llamado ~origin~, que estará conectado con tu repositorio de tu cuenta de GitHub. Es el que utilizarás normalmente para subir periódicamente los cambios (mediante ~git push~) o para actualizarlo o clonarlo en otro equipo.
    - Un remoto *secundario*, llamado ~profesor~, que será de *solo lectura*. Estará conectado con el *repositorio base* y solo se utilizará para incorporar a tu repositorio personal los *enunciados y archivos base* de las siguientes prácticas que vayamos realizando.
@@ -32,9 +32,9 @@ El repositorio se ha configurado para que se *ejecuten los tests automáticament
 1. Instalar los requisitos de software indicados
 2. Abrir un terminal
 3. Situarse en la carpeta del repositorio personal de la práctica
-4. *Añadir el remoto secundario* a tu repositorio personal. Para ello hay que ejecutar el comando:
+4. *Añadir el remoto secundario* a tu repositorio personal. Para ello hay que ejecutar el comando: \(esto permitirá sincronizar desde el propio git y no tener que hacerlo desde GitHub\)
    #+begin_src shell
-     git remote add profesor https://github.com/antonioroig/practica_dwec_gestor_presupuesto.git
+     git remote add profesor https://github.com/antonioroig/DWEC_gestorPresupuesto_26_27
    #+end_src
 5. *Incorporar a tu repositorio personal los cambios* realizados por el profesor correspondientes a los archivos de esta práctica. Para ello hay que ejecutar:
    #+begin_src shell
@@ -77,7 +77,7 @@ El repositorio se ha configurado para que se *ejecuten los tests automáticament
      - ~descripcion~ - Almacenará la descripción del gasto en formato *cadena*
      - ~valor~ - Almacenará el valor del gasto en formato *numérico*
 **** Métodos
-     - ~mostrarGasto~ - Función sin parámetros que muestre el texto: ~Gasto correspondiente a DESCRIPCION con valor VALOR €~, siendo ~VALOR~ y ~DESCRIPCION~ las propiedades del objeto correspondientes.
+     - ~mostrarGasto~ - Función sin parámetros que devolverá el texto: ~Gasto correspondiente a DESCRIPCION con valor VALOR €~, siendo ~VALOR~ y ~DESCRIPCION~ las propiedades del objeto correspondientes.
      - ~actualizarDescripcion~ - Función de *1 parámetro* que actualizará la descripción del objeto.
      - ~actualizarValor~ - Función de *1 parámetro* que actualizará el valor del objeto. Se encargará de *comprobar que el valor introducido sea un número no negativo*; en caso contrario, dejará el valor como estaba.
 

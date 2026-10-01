@@ -3,11 +3,9 @@
   El objetivo de esta práctica es conocer la historia y los fundamentos de JavaScript, así como instalar las herramientas necesarias para comenzar a trabajar con dicho lenguaje.
   
 ** Repositorio de la práctica
-   El *repositorio base* de la práctica está disponible en: https://github.com/antonioroig/practica_dwec_gestor_presupuesto, bajo invitación pues es privado.
+   El *repositorio base* de la práctica está disponible en: https://github.com/antonioroig/DWEC_gestorPresupuesto_26_27.
 
-   En esta primera práctica se deberá realizar un /fork/ del repositorio base. Al realizar dicho /fork/, se creará un repositorio copia del original en tu cuenta de usuario. *Será sobre este repositorio personal sobre el que deberás trabajar*.
-
-   Dicho repositorio personal se utilizará para sucesivas prácticas. El profesor irá añadiendo nuevas tareas cada semana. En cada nueva práctica se darán las instrucciones de cómo proceder para incorporar las nuevas tareas a realizar.
+   Dicho repositorio se utilizará para sucesivas prácticas. El profesor irá añadiendo nuevas tareas. En cada nueva práctica se darán las instrucciones de cómo proceder para incorporar las nuevas tareas a realizar.
 
    En el repositorio se incluyen un conjunto de archivos que se utilizarán como base para realizar las prácticas. También se incluirá un conjunto de archivos que se utilizarán para realizar *tests*. Dichos tests se podrán utilizar para comprobar si la práctica se ha realizado correctamente. Los tests se podrán ejecutar el número de veces que sea necesario.
 
@@ -21,7 +19,7 @@ Para poder realizar esta práctica y que funcione adecuadamente el entorno de te
 
 ** Preparación
 1. Instalar los requisitos de software indicados
-2. Hacer un /fork/ del repositorio base https://github.com/antonioroig/practica_dwec_gestor_presupuesto.git en tu cuenta de GitHub
+2. Hacer un /fork/ del repositorio base https://github.com/antonioroig/DWEC_gestorPresupuesto_26_27.git en tu cuenta de GitHub
 3. Abrir un terminal
 4. Clonar *tu repositorio* (el que se ha creado en tu cuenta al hacer el /fork/, no el repositorio base) al equipo local mediante ~git clone~
 5. Acceder a la carpeta del repositorio
