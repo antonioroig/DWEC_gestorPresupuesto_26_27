@@ -2,17 +2,67 @@
 
 // TODO: Variable global
 
+"use strict";
 
-function actualizarPresupuesto() {
-    // TODO
+let presupuesto = 0;
+
+function actualizarPresupuesto(valor)
+ {
+   let cantidad = Number(valor);
+
+   if(isNaN(cantidad) || cantidad < 0)
+   {
+    console.error("error, el presupuesto introducido no es válido");
+    return -1
+   }
+    presupuesto = cantidad;
+    return presupuesto
 }
 
 function mostrarPresupuesto() {
-    // TODO
+    return "Tu presupuesto actual es de " + presupuesto + " €";
 }
 
-function CrearGasto() {
-    // TODO
+function CrearGasto(descripcion, valor)
+{
+    this.descripcion = descripcion;
+    valor = Number(valor);
+
+    if(valor <= 0 || isNaN(valor))
+    {
+        this.valor = 0;
+    }
+    else
+    {
+        this.valor= valor;
+    }
+    
+    this.mostrarGasto = function()
+    {
+        return "Gasto correspondiente a " + this.descripcion + " con valor " + this.valor + " €"
+    }
+
+    this.actualizarDescripcion = function(nuevaDescripcion)
+    {
+        this.descripcion = nuevaDescripcion;
+        return this.descripcion;
+    };
+
+    this.actualizarValor = function(nuevoValor)
+    {
+        let numero = Number(nuevoValor);
+        
+        if(isNaN(numero) || numero < 0)
+        {
+            return this.valor;
+        }
+
+        this.valor = numero;
+        this.valor;
+        
+    };
+
+
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
