@@ -25,7 +25,8 @@
     "dependencies": {
         "ci": "^2.1.1",
         "debug": "^4.3.2",
-        "eslint-plugin-cypress": "^2.12.1"
+        "eslint-plugin-cypress": "^2.12.1",
+        "yargs": "^17.7.3"
     },
     "allowScripts": {
         "cypress@13.15.0": true
