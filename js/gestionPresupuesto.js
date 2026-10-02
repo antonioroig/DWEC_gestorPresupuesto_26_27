@@ -2,17 +2,38 @@
 
 // TODO: Variable global
 
-
-function actualizarPresupuesto() {
-    // TODO
+let presupuesto = 0;
+function actualizarPresupuesto(valor) {
+    if (typeof valor === 'number' && valor >= 0) {
+        presupuesto = valor;
+        return presupuesto;
+    } else {
+        console.error("El valor del presupuesto debe ser un número no negativo.");
+        return -1;
+    }
 }
 
 function mostrarPresupuesto() {
-    // TODO
+    return `Tu presupuesto actual es de ${presupuesto} €.`;
 }
 
-function CrearGasto() {
-    // TODO
+function CrearGasto(descripcion, valor) {
+    this.descripcion = descripcion;
+    this.valor = (typeof valor === 'number' && valor >= 0) ? valor : 0;
+
+    this.mostrarGasto = function() {
+        return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
+    };
+
+    this.actualizarDescripcion = function(nuevaDescripcion) {
+        this.descripcion = nuevaDescripcion;
+    };
+
+    this.actualizarValor = function(nuevoValor) {
+        if (typeof nuevoValor === 'number' && nuevoValor >= 0) {
+            this.valor = nuevoValor;
+        }
+    };
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
