@@ -139,6 +139,7 @@ function anyadirGasto(gasto) {
 };
 
 function borrarGasto(id) {
+    
     let index = gastos.findIndex(gasto => gasto.id === id);
     if (index !== -1) {
         gastos.splice(index, 1);
