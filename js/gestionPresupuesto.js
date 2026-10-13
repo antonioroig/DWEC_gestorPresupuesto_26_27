@@ -111,19 +111,23 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     // si es mes, tendrá el formato aaaa-mm; y si es anyo, tendrá el formato aaaa
     this.obtenerPeriodoAgrupacion = function(periodo) {
         let respuestaPeriodo;
-        let fechaGasto = gasto.fecha;
+        let fechaGasto = new Date(this.fecha);
+        
+        let anyo = fechaGasto.getFullYear();
+        let mes = String(fechaGasto.getMonth() + 1).padStart(2, 0);
+        let dia = String(fechaGasto.getDate()).padStart(2, 0);
 
         switch (periodo) {
             case "dia":
-                respuestaPeriodo = `${fechaGasto.getFullYear()}-${fechaGasto.getMonth()}-${fechaGasto.getDate()}`;;
+                respuestaPeriodo = `${anyo}-${mes}-${dia}`;
                 break;
 
             case "mes":
-                respuestaPeriodo = `${fechaGasto.getFullYear()}-${fechaGasto.getMonth()}`;
+                respuestaPeriodo = `${anyo}-${mes}`;
                 break;
 
             case "anyo":
-                `${fechaGasto.getFullYear()}`
+                respuestaPeriodo = anyo;
                 break
             
             default:
@@ -218,3 +222,4 @@ export   {
     agruparGastos,
     CrearGasto
 }
+
