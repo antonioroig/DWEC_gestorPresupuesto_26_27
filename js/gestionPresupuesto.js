@@ -115,7 +115,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
 
         switch (periodo) {
             case "dia":
-                respuestaPeriodo = fechaGasto;
+                respuestaPeriodo = `${fechaGasto.getFullYear()}-${fechaGasto.getMonth()}-${fechaGasto.getDate()}`;;
                 break;
 
             case "mes":
