@@ -200,19 +200,19 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     // Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
     function filtrarGastos(filtros) {
         return gastos.filter(function(gasto){
-            if (filtros !== undefined && gasto.valor < filtros.valorMinimo) {
+            if (filtros.valorMinimo !== undefined && gasto.valor < filtros.valorMinimo) {
                 return false;
             }
 
-            if (filtros !== undefined && gasto.valor > filtros.valorMaximo) {
+            if (filtros.valorMaximo !== undefined && gasto.valor > filtros.valorMaximo) {
                 return false;
             }
 
-            if (filtros !== undefined && gasto.fecha < Date.parse(filtros.fechaDesde)) {
+            if (filtros.fechaDesde !== undefined && gasto.fecha < Date.parse(filtros.fechaDesde)) {
                 return false;
             }
 
-            if (filtros !== undefined && gasto.fecha > Date.parse(filtros.fechaHasta)) {
+            if (filtros.fechaHasta !== undefined && gasto.fecha > Date.parse(filtros.fechaHasta)) {
                 return false;
             }
 
@@ -224,6 +224,8 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                     return false;
                 }               
             }
+
+            //TODO falta etiquetasTiene. 
         });
     }
 
