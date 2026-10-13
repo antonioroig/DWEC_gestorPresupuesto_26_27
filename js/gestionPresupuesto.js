@@ -56,8 +56,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
             if (indice !== -1) {
                 this.etiquetas.splice(indice, 1);
             }
-        }
-       
+        }       
     }
 
     if (etiquetas.length > 0) {
@@ -152,6 +151,14 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         return (presupuesto - totalGastos);        
     }
 
+    function filtrarGastos() {
+
+    }
+
+    function agruparGastos() {
+        
+    }
+
 export   {
     mostrarPresupuesto,
     actualizarPresupuesto,
@@ -160,5 +167,7 @@ export   {
     borrarGasto,
     calcularTotalGastos,
     calcularBalance,
+    filtrarGastos,
+    agruparGastos,
     CrearGasto
 }
