@@ -112,7 +112,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     this.obtenerPeriodoAgrupacion = function(periodo) {
         let respuestaPeriodo;
         let fechaGasto = new Date(this.fecha);
-        
+
         let anyo = fechaGasto.getFullYear();
         let mes = String(fechaGasto.getMonth() + 1).padStart(2, 0);
         let dia = String(fechaGasto.getDate()).padStart(2, 0);
@@ -131,29 +131,10 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                 break
             
             default:
-                respuestaPeriodo = "";
+                respuestaPeriodo = ""; //No se pide en el enunciado que se tenga en cuenta que no pase ese parámetro mal o vacío
                 break;
         }
         return respuestaPeriodo;
-    }
-
-
-    // filtrarGastos Función de un parámetro que devolverá un subconjunto de los gastos existentes (variable global gastos). 
-    // Se deberá utilizar la función filter. El parámetro será un objeto que podrá tener las siguientes propiedades:
-    // 
-    // fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
-    // 
-    // fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
-    // 
-    // valorMinimo - Valor mínimo del gasto.
-    // 
-    // valorMaximo - Valor máximo del gasto.
-    // 
-    // descripcionContiene - Trozo de texto que deberá aparecer en la descripción. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
-    // 
-    // etiquetasTiene - Array de etiquetas: si un gasto contiene alguna de las etiquetas indicadas en este parámetro, se deberá devolver en el resultado. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
-    this.filtrarGastos = function(gastos) {
-
     }
 }
 
@@ -202,8 +183,48 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         return (presupuesto - totalGastos);        
     }
 
-    function filtrarGastos() {
+    // filtrarGastos -> Función de un parámetro que devolverá un subconjunto de los gastos existentes (variable global gastos). 
+    // Se deberá utilizar la función filter. El parámetro será un objeto que podrá tener las siguientes propiedades:
+    
+    // fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
+    
+    // fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
+    
+    // valorMinimo - Valor mínimo del gasto.
+    
+    // valorMaximo - Valor máximo del gasto.
+    
+    // descripcionContiene - Trozo de texto que deberá aparecer en la descripción. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
+    
+    // etiquetasTiene - Array de etiquetas: si un gasto contiene alguna de las etiquetas indicadas en este parámetro, se deberá devolver en el resultado. 
+    // Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
+    function filtrarGastos(filtros) {
+        return gastos.filter(function(gasto){
+            if (filtros !== undefined && gasto.valor < filtros.valorMinimo) {
+                return false;
+            }
 
+            if (filtros !== undefined && gasto.valor > filtros.valorMaximo) {
+                return false;
+            }
+
+            if (filtros !== undefined && gasto.fecha < Date.parse(filtros.fechaDesde)) {
+                return false;
+            }
+
+            if (filtros !== undefined && gasto.fecha > Date.parse(filtros.fechaHasta)) {
+                return false;
+            }
+
+            if (filtros.descripcioncontiene !== undefined) {
+                let descripcionGasto = gasto.descripcion.toLowerCase();
+                let filtroDescripcionContiene = filtros.descripcioncontiene.toLowerCase();
+
+                if (!descripcionGasto.includes(filtroDescripcionContiene)){
+                    return false;
+                }               
+            }
+        });
     }
 
     function agruparGastos() {
