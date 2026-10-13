@@ -104,6 +104,53 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
             this.fecha = fechaParam;
         }
     }
+
+    // obtenerPeriodoAgrupacion - Función de un parámetro que devolverá el período de agrupación correspondiente 
+    // al parámetro periodo de la función y a la fecha del gasto. 
+    // Si el período a agrupar es dia, el período de agrupación tendrá el formato aaaa-mm-dd; 
+    // si es mes, tendrá el formato aaaa-mm; y si es anyo, tendrá el formato aaaa
+    this.obtenerPeriodoAgrupacion = function(periodo) {
+        let respuestaPeriodo;
+        let fechaGasto = gasto.fecha;
+
+        switch (periodo) {
+            case "dia":
+                respuestaPeriodo = fechaGasto;
+                break;
+
+            case "mes":
+                respuestaPeriodo = `${fechaGasto.getFullYear()}-${fechaGasto.getMonth()}`;
+                break;
+
+            case "anyo":
+                `${fechaGasto.getFullYear()}`
+                break
+            
+            default:
+                respuestaPeriodo = "";
+                break;
+        }
+        return respuestaPeriodo;
+    }
+
+
+    // filtrarGastos Función de un parámetro que devolverá un subconjunto de los gastos existentes (variable global gastos). 
+    // Se deberá utilizar la función filter. El parámetro será un objeto que podrá tener las siguientes propiedades:
+    // 
+    // fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
+    // 
+    // fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
+    // 
+    // valorMinimo - Valor mínimo del gasto.
+    // 
+    // valorMaximo - Valor máximo del gasto.
+    // 
+    // descripcionContiene - Trozo de texto que deberá aparecer en la descripción. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
+    // 
+    // etiquetasTiene - Array de etiquetas: si un gasto contiene alguna de las etiquetas indicadas en este parámetro, se deberá devolver en el resultado. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
+    this.filtrarGastos = function(gastos) {
+
+    }
 }
 
 
@@ -156,7 +203,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     }
 
     function agruparGastos() {
-        
+
     }
 
 export   {
