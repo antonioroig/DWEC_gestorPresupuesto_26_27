@@ -253,7 +253,7 @@ function filtrarGastos(filtro ={}){
             }
             let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
             if (periodoAgrupacion) {
-                acc[periodoAgrupacion] = (acc[periodoAgrupacion] || 0) + gasto.valor;
+                acc[periodoAgrupacion]  = (acc[periodoAgrupacion] || 0) + gasto.valor;
             }
         }
         return acc;
