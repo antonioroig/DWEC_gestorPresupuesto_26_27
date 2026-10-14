@@ -37,7 +37,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     if (fecha && !isNaN(fechaParam)) {
         this.fecha = fechaParam;
     } else {
-        this.fecha = Date.now();
+        this.fecha = Date.now(); // No seria this.fecha = new Date????
     }
 
     this.etiquetas = [];
@@ -258,6 +258,34 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     //  - El resultado de reduce será el valor de vuelta de la función agruparGastos.
     function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
 
+        let filtros = {};
+        //Si no viene definidio, el periodo por defecto es mes
+        if (periodo === undefined) { 
+            periodo = "mes";
+        }
+
+        //Si etiquetas no es undefined, se añade a los filtros. Si no, no.
+        if (etiquetas !== undefined) {
+            filtros.etiquetasTiene = etiquetas;
+        }
+        
+        //Si fechaDesde no es undefined, se pasa a Date y se añade a filtros. Si no, no 
+        if (fechaDesde !== undefined) {            
+            filtros.fechaDesde = fechaDesde;
+        }
+
+        //Si fechaHasta es undefined se quedará con fecha de hoy. Si no es undefined, se pasa a Date y se añade a filtros        
+        if (fechaHasta !== undefined) {
+            filtros.fechaHasta = fechaHasta;
+        }
+        else {
+            filtros.fechaHasta = new Date().toISOString(); //TODO REVISAR ESTA LINEA PARA USAR DATE.NOW() Y TOLOCALSTRING
+        }
+
+        let gastosFiltrados = filtrarGastos(filtros);
+
+        let gastosFiltradosPorPeriodo = gastosFiltrados.reduce(function(acc, gasto) {
+        }, {});
     }
 
 export   {
