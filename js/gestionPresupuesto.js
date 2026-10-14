@@ -216,16 +216,33 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                 return false;
             }
 
-            if (filtros.descripcioncontiene !== undefined) {
+            if (filtros.descripcionContiene !== undefined) {
                 let descripcionGasto = gasto.descripcion.toLowerCase();
-                let filtroDescripcionContiene = filtros.descripcioncontiene.toLowerCase();
+                let filtroDescripcionContiene = filtros.descripcionContiene.toLowerCase();
 
                 if (!descripcionGasto.includes(filtroDescripcionContiene)){
                     return false;
                 }               
             }
 
-            //TODO falta etiquetasTiene. 
+            if (filtros.etiquetasTiene !== undefined) {
+                let etiquetasMinusculas = gasto.etiquetas.map(function(etiqueta) {
+                    return etiqueta.toLowerCase();
+                });
+
+                let etiquetasBuscadasMinusculas = filtros.etiquetasTiene.map(function(etiqueta) {
+                    return etiqueta.toLowerCase();
+                });
+
+                let coincideAlguna = etiquetasMinusculas.some(function(etiqueta) {
+                    return etiquetasBuscadasMinusculas.includes(etiqueta);
+                });
+
+                if (!coincideAlguna) {
+                    return false;
+                }
+            }
+            return true;
         });
     }
 
