@@ -184,20 +184,14 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     }
 
     // filtrarGastos -> Función de un parámetro que devolverá un subconjunto de los gastos existentes (variable global gastos). 
-    // Se deberá utilizar la función filter. El parámetro será un objeto que podrá tener las siguientes propiedades:
-    
-    // fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
-    
-    // fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.
-    
-    // valorMinimo - Valor mínimo del gasto.
-    
-    // valorMaximo - Valor máximo del gasto.
-    
-    // descripcionContiene - Trozo de texto que deberá aparecer en la descripción. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
-    
-    // etiquetasTiene - Array de etiquetas: si un gasto contiene alguna de las etiquetas indicadas en este parámetro, se deberá devolver en el resultado. 
-    // Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
+    // Se deberá utilizar la función filter. El parámetro será un objeto que podrá tener las siguientes propiedades:    
+    // * fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.    
+    // * fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse.    
+    // * valorMinimo - Valor mínimo del gasto.    
+    // * valorMaximo - Valor máximo del gasto.    
+    // * descripcionContiene - Trozo de texto que deberá aparecer en la descripción. Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.    
+    // * etiquetasTiene - Array de etiquetas: si un gasto contiene alguna de las etiquetas indicadas en este parámetro, se deberá devolver en el resultado. 
+    //   Deberá hacerse la comparación de manera que no se distingan mayúsculas de minúsculas.
     function filtrarGastos(filtros) {
         return gastos.filter(function(gasto){
             if (filtros.valorMinimo !== undefined && gasto.valor < filtros.valorMinimo) {
@@ -246,7 +240,23 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         });
     }
 
-    function agruparGastos() {
+    // Función agruparGastos Función de cuatro parámetros que devolverá un objeto con los resultados de realizar una agrupación por período temporal. Los parámetros son:
+    // * periodo - Período utilizado para hacer la agrupación. Podrá ser uno de estos tres valores: dia, mes y anyo. El valor por defecto será mes.
+    // * etiquetas - Array de etiquetas. Solo se seleccionarán los gastos que contengan alguna de esas etiquetas. Si no se indica o es un array vacío, se considerarán todos los gastos.
+    // * fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse. 
+    //   Si no se indica se considerarán todos los gastos independientemente de su fecha.
+    // * fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse. 
+    //   Si no se indica se considerará la fecha actual.
+
+    // La función realizará los siguientes pasos:
+    // - En primer lugar se llamará a filtrarGastos para obtener el subconjunto de gastos creados entre las fechas indicadas y que tengan alguna de las etiquetas proporcionadas 
+    //   en el parámetro correspondiente.
+    // - Ejecutar reduce sobre el conjunto de gastos filtrados. El valor inicial del acumulador de reduce será un objeto vacío. Dentro del cuerpo de la función de reduce, 
+    //   para cada gasto se obtendrá su período de agrupación (a través del método obtenerPeriodoAgrupacion del gasto y el parámetro periodo), que se utilizará para identificar 
+    //   la propiedad del acumulador sobre la que se sumará su valor. Así, si periodo = mes, un gasto con fecha 2021-11-01 tendrá un período de agrupación 2021-11, 
+    //   por lo que su valor se sumará a acc["2021-11"] (siempre que la variable del acumulador haya recibido el nombre acc en la llamada a reduce). 
+    //  - El resultado de reduce será el valor de vuelta de la función agruparGastos.
+    function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
 
     }
 
