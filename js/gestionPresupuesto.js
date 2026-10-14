@@ -87,6 +87,21 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                 this.etiquetas = this.etiquetas.filter(etiqueta => etiqueta != borrarEtiqueta)
     }
 
+    this.obtenerPeriodoAgrupacion = function (fecha){
+
+        if(typeof fecha !== "string" ){
+            return
+        }
+        let fechaString = new Date(this.fecha).toISOString()
+
+        if(fecha == "dia")
+            return fechaString.slice(0,10)
+        if(fecha == "mes")
+            return fechaString.slice(0,7)
+        if(fecha == "anyo")
+            return fechaString.slice(0,4)
+    }
+
 }
 
 function listarGastos(){
@@ -114,6 +129,10 @@ function calcularTotalGastos(){
 function calcularBalance(){
     return presupuesto - calcularTotalGastos();
 }
+function filtrarGastos(){
+}
+function agruparGastos(){
+}
 
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -129,4 +148,6 @@ export   {
     borrarGasto,
     calcularTotalGastos,
     calcularBalance,
+    filtrarGastos,
+    agruparGastos
 }

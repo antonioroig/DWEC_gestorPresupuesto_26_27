@@ -9,7 +9,7 @@ describe("Función CrearGasto y funcionamiento de objeto gasto", function() {
     it("Método 'obtenerPeriodoAgrupacion' del objeto gasto", function() {
         let gasto1 = new CrearGasto("Gasto 1", 23.55, "2021-09-06", "casa", "supermercado" );
         let gasto2 = new CrearGasto("Gasto 2", 27.55, "2021-11-24", "casa", "supermercado", "comida" );
-
+        
         assert.equal(gasto1.obtenerPeriodoAgrupacion("mes"), "2021-09");
         assert.equal(gasto1.obtenerPeriodoAgrupacion("anyo"), "2021");
         assert.equal(gasto1.obtenerPeriodoAgrupacion("dia"), "2021-09-06");
