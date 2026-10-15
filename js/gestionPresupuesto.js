@@ -107,8 +107,37 @@ function CrearGasto(descripcion, valor,fecha, ...etiquetas) {
         }
     }
 }
-function filtrarGastos(){
-
+function filtrarGastos(filtro){
+    let resultado = gastos;
+    if(filtro){
+        resultado = gastos.filter(gasto => {
+            let cumpleCondicion = true;
+            if(filtro.fechaDesde && gasto.fecha < Date.parse(filtro.fechaDesde)){
+                cumpleCondicion = false;
+            }
+            if(filtro.fechaHasta && gasto.fecha > Date.parse(filtro.fechaHasta)){
+                cumpleCondicion = false;
+            }
+            if(filtro.valorMinimo !== undefined && gasto.valor < filtro.valorMinimo){
+                cumpleCondicion = false;
+            }
+            if(filtro.valorMaximo !== undefined && gasto.valor > filtro.valorMaximo){
+                cumpleCondicion = false;
+            }
+            if(filtro.descripcionContiene && !gasto.descripcion.toLowerCase().includes(filtro.descripcionContiene.toLowerCase())){
+                cumpleCondicion = false;
+            }
+            if(filtro.etiquetasTiene && filtro.etiquetasTiene.length > 0){
+                let etiquetasBuscar = filtro.etiquetasTiene.map(e => e.toLowerCase());
+                let tieneAlguna = gasto.etiquetas.some(etiquetasGasto => etiquetasBuscar.includes(etiquetasGasto.toLowerCase()));
+                if(!tieneAlguna){
+                    cumpleCondicion = false;
+                }
+            }
+            return cumpleCondicion;
+        });
+    }
+    return resultado;
 }
 function agruparGastos(){
 
