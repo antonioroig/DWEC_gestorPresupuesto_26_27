@@ -93,6 +93,19 @@ function CrearGasto(descripcion, valor,fecha, ...etiquetas) {
             this.fecha = parsed;
         }
     };
+    this.obtenerPeriodoAgrupacion = function(periodo){
+        let fecha = new Date(this.fecha);
+        switch(periodo){
+            case 'dia':
+                return fecha.getFullYear() + '-' + fecha.getMonth() + '-' + fecha.getDate();
+            case 'mes':
+                return fecha.getFullYear() + '-' + fecha.getMonth();
+            case 'anyo':
+                return fecha.getFullYear();
+            default:
+                return null;
+        }
+    }
 }
 function filtrarGastos(){
 
