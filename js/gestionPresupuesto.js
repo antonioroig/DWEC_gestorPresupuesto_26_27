@@ -97,13 +97,13 @@ function CrearGasto(descripcion, valor,fecha, ...etiquetas) {
         let fecha = new Date(this.fecha);
         switch(periodo){
             case 'dia':
-                return fecha.getFullYear() + '-' + fecha.getMonth() + '-' + fecha.getDate();
+                return fecha.getFullYear() + '-' + (fecha.getMonth()+1).toString().padStart(2, '0') + '-' + fecha.getDate().toString().padStart(2, '0');
             case 'mes':
-                return fecha.getFullYear() + '-' + fecha.getMonth();
+                return fecha.getFullYear() + '-' + (fecha.getMonth()+1).toString().padStart(2, '0');
             case 'anyo':
                 return fecha.getFullYear();
             default:
-                return null;
+                return "";
         }
     }
 }
@@ -113,6 +113,8 @@ function filtrarGastos(){
 function agruparGastos(){
 
 }
+let gasto1 = new CrearGasto("Gasto 1", 23.55, "2021-09-06", "casa", "supermercado" );
+console.log(gasto1.obtenerPeriodoAgrupacion("dia"));
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
