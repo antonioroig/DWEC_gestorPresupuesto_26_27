@@ -90,8 +90,22 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
             }
         }
     }
-}
 
+    this.obtenerPeriodoAgrupacion = function(periodo){
+        let tipofecha = new Date(this.fecha).toISOString();
+        if(periodo == "dia"){
+            return tipofecha.slice(0,10);
+        }
+        if(periodo == "mes"){
+            return tipofecha.slice(0,7);
+        }
+        if(periodo == "anyo"){
+            return tipofecha.slice(0,4);
+        }
+    }
+
+    
+}
 
 
 function listarGastos(){
@@ -131,9 +145,8 @@ function filtrarGastos(){
 }
 
 function agruparGastos(){
-    
-}
 
+}
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
