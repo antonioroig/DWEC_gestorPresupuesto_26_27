@@ -103,6 +103,43 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     }
 
 }
+function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcionContiene, etiquetasTiene}){
+
+    let result = gastos
+
+    if(typeof fechaDesde === 'string' && !isNaN(Date.parse(fechaDesde))){
+        fechaDesde = Date.parse(fechaDesde);
+        result = result.filter(gasto => gasto.fecha >= fechaDesde )
+    }
+    
+    if(typeof fechaHasta === 'string' && !isNaN(Date.parse(fechaHasta))){
+        fechaHasta = Date.parse(fechaHasta);
+        result = result.filter(gasto => gasto.fecha <= fechaHasta );
+    }
+
+    if(typeof valorMinimo === 'number' ){
+        valorMinimo = Number.parseInt(valorMinimo)
+        result = result.filter(gasto => gasto.valor >= valorMinimo );
+    }
+
+    if(typeof valorMaximo === 'number' ){
+        valorMaximo = Number.parseInt(valorMaximo)
+        result = result.filter(gasto => gasto.valor <= valorMaximo );
+    }
+
+    if(typeof descripcionContiene === 'string'){
+        result = result.filter(gasto => gasto.descripcion.includes(descripcionContiene) );
+
+    }
+
+    if(Array.isArray(etiquetasTiene))
+    {
+        result = result.filter(gasto => gasto.etiquetas.some(etiqueta => etiquetasTiene.includes(etiqueta.toLowerCase())));
+    }
+
+    return result
+
+}
 
 function listarGastos(){
     return gastos
@@ -129,8 +166,7 @@ function calcularTotalGastos(){
 function calcularBalance(){
     return presupuesto - calcularTotalGastos();
 }
-function filtrarGastos(){
-}
+
 function agruparGastos(){
 }
 
