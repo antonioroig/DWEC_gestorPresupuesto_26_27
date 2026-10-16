@@ -184,7 +184,10 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
         result = result.filter(gasto => gasto.descripcion.includes(descripcionContiene))}
 
     if(Array.isArray(etiquetasTiene)){
-        result = result.filter(gasto => gasto.etiquetas.some(etiqueta => etiquetasTiene.includes(etiqueta)));
+
+        let etq = etiquetasTiene.map(etiqueta => etiqueta.toLowerCase());
+
+        result = result.filter(gasto => gasto.etiquetas.some(etiqueta => etq.includes(etiqueta.toLowerCase())));
     }
 
     return result;
@@ -193,6 +196,7 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
 function agruparGastos(){
 
 }
+
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
