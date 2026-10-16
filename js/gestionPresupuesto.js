@@ -114,11 +114,11 @@ function CrearGasto(descripcion,valor,fecha,...etiquetas) {
         let anyo = fecha.getFullYear();
 
         if(texto === 'dia'){
-        return anyo + '-' + mes + '-' + dia;
+            return anyo + '-' + mes + '-' + dia;
         } else if(texto === 'mes'){
-        return anyo + '-' + mes;
+            return anyo + '-' + mes;
         } else if(texto === 'anyo'){
-        return String(anyo);
+            return String(anyo);
         }
     }
 }
@@ -160,8 +160,34 @@ function calcularBalance(){
     return presupuesto - calcularTotalGastos();
 }
 
-function filtrarGastos(){
+function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcionContiene,etiquetasTiene}){
 
+    let result = gastos;
+
+    if(typeof fechaDesde === 'string' && !isNaN(Date.parse(fechaDesde))){
+        fechaDesde = Date.parse(fechaDesde);
+        result = result.filter(gasto => gasto.fecha >= fechaDesde)}
+    
+    if(typeof fechaHasta === 'string' && !isNaN(Date.parse(fechaHasta))){
+        fechaHasta = Date.parse(fechaHasta);
+        result = result.filter(gasto => gasto.fecha <= fechaHasta)}
+
+    if(typeof valorMinimo === 'number'){
+        valorMinimo = Number.parseInt(valorMinimo);
+        result = result.filter(gasto => gasto.valor >= valorMinimo)}
+
+    if(typeof valorMaximo === 'number'){
+        valorMaximo = Number.parseInt(valorMaximo);
+        result = result.filter(gasto => gasto.valor <= valorMaximo)}
+
+    if(typeof descripcionContiene === 'string'){
+        result = result.filter(gasto => gasto.descripcion.includes(descripcionContiene))}
+
+    if(Array.isArray(etiquetasTiene)){
+        result = result.filter(gasto => gasto.etiquetas.some(etiqueta => etiquetasTiene.includes(etiqueta)));
+    }
+
+    return result;
 }
 
 function agruparGastos(){
