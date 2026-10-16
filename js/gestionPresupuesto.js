@@ -31,7 +31,19 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   }
 
   this.etiquetas = [];
+  this.obtenerPeriodoAgrupacion = function(periodo) {
+  let fecha = new Date(this.fecha).toISOString();
 
+  if (periodo === "dia") {
+    return fecha.slice(0, 10);
+  }
+
+  if (periodo === "anyo") {
+    return fecha.slice(0, 4);
+  }
+
+  return fecha.slice(0, 7);
+};
   this.mostrarGasto = function() {
     return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
   };
