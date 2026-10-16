@@ -139,8 +139,25 @@ function filtrarGastos(filtro){
     }
     return resultado;
 }
-function agruparGastos(){
-
+function agruparGastos(periodo = "mes",etiquetas = [], fechaDesde, fechaHasta){
+    let filtros = {};
+    if(etiquetas && etiquetas.length > 0){
+        filtros.etiquetasTiene = etiquetas;
+    }
+    if(fechaDesde){
+        filtros.fechaDesde = fechaDesde;
+    }
+    filtros.fechaHasta = fechaHasta || new Date().toISOString();
+    let gastosFiltrados = filtrarGastos(filtros);
+    let agrupados = gastosFiltrados.reduce((acumulador, gasto) => {
+        let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
+        if(!acumulador[periodoAgrupacion]){
+            acumulador[periodoAgrupacion] = 0;
+        }
+        acumulador[periodoAgrupacion] += gasto.valor;
+        return acumulador;
+    }, {});
+    return agrupados;
 }
 let gasto1 = new CrearGasto("Gasto 1", 23.55, "2021-09-06", "casa", "supermercado" );
 console.log(gasto1.obtenerPeriodoAgrupacion("dia"));
