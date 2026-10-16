@@ -199,8 +199,30 @@ function filtrarGastos(filtros) {
     });
 }
 
-function agruparGastos(){
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
+    if (!fechaHasta || isNaN(Date.parse(fechaHasta))) {
+        fechaHasta = new Date().toISOString().substring(0, 10);
+    }
 
+    let filtro = { fechaHasta };
+
+    if (fechaDesde && !isNaN(Date.parse(fechaDesde))) {
+        filtro.fechaDesde = fechaDesde;
+    }
+
+    if (Array.isArray(etiquetas) && etiquetas.length > 0) {
+        filtro.etiquetasTiene = etiquetas;
+    }
+
+    let gastosFiltrados = filtrarGastos(filtro);
+
+    let resultado = gastosFiltrados.reduce(function (acc, gasto) {
+        let per = gasto.obtenerPeriodoAgrupacion(periodo);
+        acc[per] = (acc[per] || 0) + gasto.valor;
+        return acc;
+    }, {});
+
+    return resultado;
 }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
