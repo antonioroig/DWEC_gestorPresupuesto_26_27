@@ -1,7 +1,7 @@
 'use strict';
-// TODO: Crear las funciones, objetos y variables indicadas en el enunciadonpm audit fix
+// Crear las funciones, objetos y variables indicadas en el enunciadonpm audit fix
 
-// TODO: Variable global
+// Variable global
 let presupuesto = 0;
 let gastos = [];
 let idGasto = 0;
@@ -37,7 +37,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     if (fecha && !isNaN(fechaParam)) {
         this.fecha = fechaParam;
     } else {
-        this.fecha = Date.now(); // No seria this.fecha = new Date????
+        this.fecha = Date.now();
     }
 
     this.etiquetas = [];
@@ -131,7 +131,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                 break
             
             default:
-                respuestaPeriodo = ""; //No se pide en el enunciado que se tenga en cuenta que no pase ese parámetro mal o vacío
+                respuestaPeriodo = ""; 
                 break;
         }
         return respuestaPeriodo;
@@ -219,7 +219,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
                 }               
             }
 
-            if (filtros.etiquetasTiene !== undefined) {
+            if (filtros.etiquetasTiene !== undefined && filtros.etiquetasTiene.length > 0) {
                 let etiquetasMinusculas = gasto.etiquetas.map(function(etiqueta) {
                     return etiqueta.toLowerCase();
                 });
@@ -246,16 +246,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     // * fechaDesde - Fecha mínima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse. 
     //   Si no se indica se considerarán todos los gastos independientemente de su fecha.
     // * fechaHasta - Fecha máxima de creación del gasto. Su valor deberá ser un string con formato válido que pueda entender la función Date.parse. 
-    //   Si no se indica se considerará la fecha actual.
-
-    // La función realizará los siguientes pasos:
-    // - En primer lugar se llamará a filtrarGastos para obtener el subconjunto de gastos creados entre las fechas indicadas y que tengan alguna de las etiquetas proporcionadas 
-    //   en el parámetro correspondiente.
-    // - Ejecutar reduce sobre el conjunto de gastos filtrados. El valor inicial del acumulador de reduce será un objeto vacío. Dentro del cuerpo de la función de reduce, 
-    //   para cada gasto se obtendrá su período de agrupación (a través del método obtenerPeriodoAgrupacion del gasto y el parámetro periodo), que se utilizará para identificar 
-    //   la propiedad del acumulador sobre la que se sumará su valor. Así, si periodo = mes, un gasto con fecha 2021-11-01 tendrá un período de agrupación 2021-11, 
-    //   por lo que su valor se sumará a acc["2021-11"] (siempre que la variable del acumulador haya recibido el nombre acc en la llamada a reduce). 
-    //  - El resultado de reduce será el valor de vuelta de la función agruparGastos.
+    //   Si no se indica se considerará la fecha actual.    
     function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
 
         let filtros = {};
@@ -275,17 +266,28 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         }
 
         //Si fechaHasta es undefined se quedará con fecha de hoy. Si no es undefined, se pasa a Date y se añade a filtros        
-        if (fechaHasta !== undefined) {
+        if (fechaHasta !== undefined && etiquetas.length > 0) {
             filtros.fechaHasta = fechaHasta;
         }
         else {
-            filtros.fechaHasta = new Date().toISOString(); //TODO REVISAR ESTA LINEA PARA USAR DATE.NOW() Y TOLOCALSTRING
+            filtros.fechaHasta = new Date().toString();
         }
 
         let gastosFiltrados = filtrarGastos(filtros);
-
+        
         let gastosFiltradosPorPeriodo = gastosFiltrados.reduce(function(acc, gasto) {
+            let clave = gasto.obtenerPeriodoAgrupacion(periodo);
+
+            if (acc[clave] === undefined) {
+                acc[clave] = gasto.valor;
+            } else {
+                acc[clave] += gasto.valor;
+            }
+
+            return acc;
         }, {});
+
+        return gastosFiltradosPorPeriodo;
     }
 
 export   {
