@@ -23,6 +23,14 @@ function borrarGasto(id) {
   }
 }
 
+function agruparGastos() {
+
+}
+
+function filtrarGastos() {
+  
+}
+
 function calcularTotalGastos() {
   return gastos.reduce(function (total, gasto) {
     return total + gasto.valor;
@@ -114,10 +122,36 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
 
     this.actualizarValor = function (nuevoValor) {
       if (typeof nuevoValor === "number" && nuevoValor >= 0) {
-      this.valor = nuevoValor;
-}
-};
-}
+        this.valor = nuevoValor;
+      }
+    };
+
+    this.obtenerPeriodoAgrupacion = function (periodo) {
+      let fecha = new Date(this.fecha);
+
+      let anyo = fecha.getFullYear().toString();
+      let mes = (fecha.getMonth() + 1).toString();
+      let dia = fecha.getDate().toString();
+
+      if (mes.length === 1) {
+        mes = "0" + mes;
+      }
+      if (dia.length === 1) {
+        dia = "0" + dia;
+      }
+
+      if (periodo === "dia")
+      {
+        return anyo + "-" + mes + "-" + dia;
+      } else if (periodo === "mes") {
+        return anyo + "-" + mes;
+      } else if (periodo === "anyo" || periodo === "año") {
+        return anyo;
+      } else {
+        return `No se pudo obtener el periodo, el formato a introducir es dia, mes o anyo`;
+      }
+    };
+  };
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
@@ -130,5 +164,7 @@ export   {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    agruparGastos,
+    filtrarGastos
 }
