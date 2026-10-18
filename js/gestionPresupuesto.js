@@ -168,8 +168,29 @@ function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descri
     })
 }
 
-function agruparGastos(){
+function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta){
 
+    if(periodo !== "mes" && periodo !== "anyo" && periodo !== "dia"){
+        periodo = "mes"
+    }
+    if(etiquetas === undefined){
+        etiquetas = []
+    }
+    if(fechaHasta === undefined){
+        fechaHasta = new Date()
+    }
+
+    let gastosNuevos = filtrarGastos({fechaDesde: fechaDesde, fechaHasta: fechaHasta, etiquetasTiene: etiquetas})
+    let result = gastosNuevos.reduce(function(acc, gasto){
+        let obtenerPeriodo = gasto.obtenerPeriodoAgrupacion(periodo)
+
+        if(!acc[obtenerPeriodo]){
+            acc[obtenerPeriodo] = 0
+        }
+        acc[obtenerPeriodo] += gasto.valor
+        return acc
+    }, {})
+    return result
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
