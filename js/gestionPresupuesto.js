@@ -137,10 +137,10 @@ function calcularBalance(){
 
 function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, etiquetasTiene}){
     return gastos.filter(gasto =>{
-        if(fechaDesde != undefined && Date.parse(fechaDesde) > gasto.fecha){
+        if(!isNaN(Date.parse(fechaDesde)) && Date.parse(fechaDesde) > gasto.fecha){
             return false;
         }
-        if(fechaHasta != undefined && Date.parse(fechaHasta) < gasto.fecha){
+        if(!isNaN(Date.parse(fechaHasta)) && Date.parse(fechaHasta) < gasto.fecha){
             return false;
         }
         if(valorMinimo != undefined && valorMinimo > gasto.valor){
@@ -153,13 +153,9 @@ function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descri
             return false;
         }
         if(etiquetasTiene && etiquetasTiene.length != 0){
-            let coincide = false;
-            const gastoEtiquetas = gasto.etiquetas.map(e => e.toLowerCase())
-            for(let etiqueta of etiquetasTiene){
-                if(gastoEtiquetas.includes(etiqueta.toLowerCase())){
-                    coincide = true;
-                }
-            }
+            const gastoEtiquetas = gasto.etiquetas.map(etiqueta => etiqueta.toLowerCase())
+            let coincide = etiquetasTiene.some(etiqueta => 
+                gastoEtiquetas.includes(etiqueta.toLowerCase()))
             if(!coincide){
                 return false;
             }
