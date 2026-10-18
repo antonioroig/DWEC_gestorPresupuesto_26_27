@@ -147,8 +147,61 @@ function calcularBalance(){
     let result = presupuesto - total
     return result
 }
-function filtrarGastos(){
+function filtrarGastos(filtros = {}) {
+    let result = gastos.filter(function(gasto) {
+        // 1. Filtro por fechaDesde
+        if (filtros.fechaDesde && !isNaN(Date.parse(filtros.fechaDesde))) {
+            if (gasto.fecha < Date.parse(filtros.fechaDesde)) {
+                return false;
+            }
+        }
 
+        // 2. Filtro por fechaHasta
+        if (filtros.fechaHasta && !isNaN(Date.parse(filtros.fechaHasta))) {
+            if (gasto.fecha > Date.parse(filtros.fechaHasta)) {
+                return false;
+            }
+        }
+
+        // 3. Filtro por valorMinimo
+        if (typeof filtros.valorMinimo === 'number') {
+            if (gasto.valor < filtros.valorMinimo) {
+                return false;
+            }
+        }
+
+        // 4. Filtro por valorMaximo
+        if (typeof filtros.valorMaximo === 'number') {
+            if (gasto.valor > filtros.valorMaximo) {
+                return false;
+            }
+        }
+
+        // 5. Filtro por descripcionContiene (ignorando mayúsculas/minúsculas)
+        if (typeof filtros.descripcionContiene === 'string') {
+            let buscado = filtros.descripcionContiene.toLowerCase();
+            let actual = gasto.descripcion.toLowerCase();
+            if (!actual.includes(buscado)) {
+                return false;
+            }
+        }
+
+        // 6. Filtro por etiquetasTiene (si contiene alguna de las indicadas)
+        if (Array.isArray(filtros.etiquetasTiene) && filtros.etiquetasTiene.length > 0) {
+            let etiquetasGastoMin = gasto.etiquetas.map(e => e.toLowerCase());
+            let coincide = filtros.etiquetasTiene.some(function(eti) {
+                return etiquetasGastoMin.includes(eti.toLowerCase());
+            });
+            if (!coincide) {
+                return false;
+            }
+        }
+
+        // Si supera todas las comprobaciones que estén activas, se conserva
+        return true;
+    });
+
+    return result;
 }
 function agruparGastos(){
 
