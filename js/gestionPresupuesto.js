@@ -181,8 +181,18 @@ function filtrarGastos(filtros = {}) {
     });
 }
 
-function agruparGastos(periodo) {
+function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
+    let gastosFiltrados = filtrarGastos({fechaDesde, fechaHasta, etiquetasTiene:etiquetas})
 
+    let result = gastosFiltrados.reduce(function(acc,gasto){
+        let fecha = gasto.obtenerPeriodoAgrupacion(periodo)
+        if(!acc[fecha]){
+            acc[fecha] = 0
+        }
+        acc[fecha]+= gasto.valor
+        return acc
+    },{})
+    return result
 }
 
 export {
