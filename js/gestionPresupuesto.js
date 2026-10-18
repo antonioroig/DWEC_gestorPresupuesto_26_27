@@ -140,8 +140,41 @@ function calcularBalance(){
     return presupuesto - calcularTotalGastos();
 }
 
-function filtrarGastos(){
 
+let filtros ={
+    fechaDesde: "2021-10-10",
+    fechaHasta: "2021-10-15",
+    valorMinimo: 10,
+    valorMaximo: 50,
+    descripcionContiene: "alimentacion",
+    etiquetasTiene: ["gasolina"]
+};
+
+function filtrarGastos(filtros){
+    let resultados = gastos
+    if(filtros.fechaDesde != undefined){
+        resultados = resultados.filter(gasto => gasto.fecha >= Date.parse(filtros.fechaDesde))
+    }
+    if(filtros.fechaHasta != undefined){
+        resultados = resultados.filter(gasto => gasto.fecha <= Date.parse(filtros.fechaHasta))  
+    }
+    
+    if(filtros.valorMinimo != undefined){
+        resultados = resultados.filter(gasto => gasto.valor >= filtros.valorMinimo)
+    }
+    if(filtros.valorMaximo != undefined){
+        resultados = resultados.filter(gasto => gasto.valor <= filtros.valorMaximo)
+    }
+    
+    if(filtros.descripcionContiene != undefined){
+        resultados = resultados.filter(gasto => gasto.descripcion.toLowerCase().includes(filtros.descripcionContiene.toLowerCase()))
+    }
+    
+    if (filtros.etiquetasTiene !== undefined) {
+    resultados = resultados.filter(gasto => filtros.etiquetasTiene.some(etiqueta => gasto.etiquetas.includes(etiqueta)));
+    }   
+    
+    return resultados;
 }
 
 function agruparGastos(){
