@@ -175,9 +175,26 @@ function filtrarGastos(filtros) {
 
 }
 
-function agruparGastos(periodo, fechaDesde, fechaHasta, ...etiquetas) {
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
 
-    filtrarGastos()
+    let filtros = { etiquetasTiene: etiquetas };
+
+    if (fechaDesde !== undefined) {
+        filtros.fechaDesde = fechaDesde;
+    }
+    if (fechaHasta !== undefined) {
+        filtros.fechaHasta = fechaHasta;
+    } else {
+        filtros.fechaHasta = new Date().toISOString().slice(0, 10);
+    }
+
+    let gastosFiltrados = filtrarGastos(filtros);
+
+    return gastosFiltrados.reduce(function (acc, gasto) {
+        let clave = gasto.obtenerPeriodoAgrupacion(periodo);
+        acc[clave] = (acc[clave] || 0) + gasto.valor;
+        return acc;
+    }, {});
 }
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
