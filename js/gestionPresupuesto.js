@@ -148,6 +148,10 @@ function filtrarGastos(filtros) {
         if (filtros.valorMaximo !== undefined && gasto.valor > filtros.valorMaximo) {
             return false;
         }
+        if (filtros.descripcionContiene &&
+            !gasto.descripcion.toLowerCase().includes(filtros.descripcionContiene.toLowerCase())) {
+            return false;
+        }
         return true;
     });
 }
