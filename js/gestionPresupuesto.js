@@ -87,6 +87,19 @@ function CrearGasto(concepto, valor, fecha, ...etiquetas) {
         this.etiquetas = this.etiquetas.filter(etiqueta => !etiquetasABorrar.includes(etiqueta));
     };
 
+    this.obtenerPeriodoAgrupacion = function (periodo) {
+        let fechaISO = new Date(this.fecha).toISOString();
+
+        switch (periodo) {
+            case "dia":
+                return fechaISO.substring(0, 10);
+            case "mes":
+                return fechaISO.substring(0, 7);
+            case "anyo":
+                return fechaISO.substring(0, 4);
+        }
+    };
+
     if (etiquetas.length > 0) {
         this.anyadirEtiquetas(...etiquetas);
     }
