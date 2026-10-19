@@ -141,6 +141,22 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
 
 }
 
+function agruparGastos(periodo, {etiquetas , fechaDesde, fechaHasta}){
+
+    const gastosFiltrados = filtrarGastos({ etiquetasTiene: etiquetas, fechaDesde: fechaDesde, fechaHasta: fechaHasta });
+    return gastosFiltrados.reduce((acc, gasto) =>
+    {
+        const periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
+        if (acc[periodoAgrupacion] === undefined)
+            acc[periodoAgrupacion] = 0;
+
+
+        acc[periodoAgrupacion] += gasto.valor;
+        return acc;
+    }, {});
+    
+}
+
 function listarGastos(){
     return gastos
 }
@@ -167,8 +183,7 @@ function calcularBalance(){
     return presupuesto - calcularTotalGastos();
 }
 
-function agruparGastos(){
-}
+
 
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
