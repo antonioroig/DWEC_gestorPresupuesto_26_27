@@ -194,8 +194,7 @@ function calcularBalance() {
     return balance;
 };
 
-function filtrarGastos(filtro ={}){
-    const { fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, etiquetasTiene } = filtro;
+function filtrarGastos({ fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, etiquetasTiene }){
 
     return gastos.filter(gasto => {
        if (fechaDesde !== undefined){
@@ -243,22 +242,22 @@ function filtrarGastos(filtro ={}){
        return true;
     });
 }
-    function agruparGastos(periodo, etiquetas = [], fechaDesde, fechaHasta) {
+    function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
     let gastosFiltrados = filtrarGastos({ fechaDesde, fechaHasta, etiquetasTiene: etiquetas });
     
     return gastosFiltrados.reduce((acc, gasto) => {
-        if (typeof gasto.obtenerPeriodoAgrupacion === "function") {
+       
             if (periodo !== "dia" && periodo !== "mes" && periodo !== "anyo") {
                 periodo = "mes"; // Valor por defecto si el periodo no es válido
             }
             let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
-            if (periodoAgrupacion) {
+            if (acc[periodoAgrupacion]) {
                 acc[periodoAgrupacion]  = (acc[periodoAgrupacion] || 0) + gasto.valor;
-            }
-        }
+            }       
         return acc;
     }, {});
 }
+
     /*function agruparGastos(periodo, etiquetas = [], fechaDesde, fechaHasta) {
         let gastosFiltrados = filtrarGastos({ fechaDesde, fechaHasta, etiquetasTiene: etiquetas });
         let resultado = gastosFiltrados.reduce((acc, gasto) => {
