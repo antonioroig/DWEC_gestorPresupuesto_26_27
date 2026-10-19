@@ -88,7 +88,21 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas ) {
         }
         return resultado + "\n";
     };
-}
+
+    this.obtenerPeriodoAgrupacion = function(periodo) {
+    let fecha = new Date(this.fecha).toISOString();
+
+    if (periodo === "dia") {
+        return fecha.slice(0, 10);
+    }
+
+    if (periodo === "anyo") {
+        return fecha.slice(0, 4);
+    }
+
+    return fecha.slice(0, 7);
+    };  
+}    
 function listarGastos() {
     return gastos;
 }
@@ -112,6 +126,65 @@ function calcularTotalGastos() {
 function calcularBalance() {
     return presupuesto - calcularTotalGastos();
 }
+
+function filtrarGastos(filtro){
+    let resultado = gastos;
+    if(filtro){
+        resultado = gastos.filter(gasto => {
+            let Escorrecto = true;
+            if(filtro.fechaDesde && gasto.fecha < Date.parse(filtro.fechaDesde)){
+                Escorrecto = false;
+            }
+            if(filtro.fechaHasta && gasto.fecha > Date.parse(filtro.fechaHasta)){
+                Escorrecto = false;
+            }
+            if(filtro.valorMinimo !== undefined && gasto.valor < filtro.valorMinimo){
+                Escorrecto = false;
+            }
+            if(filtro.valorMaximo !== undefined && gasto.valor > filtro.valorMaximo){
+                Escorrecto = false;
+            }
+            if(filtro.descripcionContiene && !gasto.descripcion.toLowerCase().includes(filtro.descripcionContiene.toLowerCase())){
+                Escorrecto = false;
+            }
+            if(filtro.etiquetasTiene && filtro.etiquetasTiene.length > 0){
+                let etiquetasBuscar = filtro.etiquetasTiene.map(e => e.toLowerCase());
+                let tieneAlguna = gasto.etiquetas.some(etiquetasGasto => etiquetasBuscar.includes(etiquetasGasto.toLowerCase()));
+                if(!tieneAlguna){
+                    Escorrecto = false;
+                }
+            }
+            return Escorrecto;
+        });
+    }
+    return resultado;
+}
+function agruparGastos(periodo = "mes",etiquetas = [], fechaDesde, fechaHasta){
+    let filtros = {};
+    if(etiquetas && etiquetas.length > 0){
+        filtros.etiquetasTiene = etiquetas;
+    }
+    if(fechaDesde){
+        filtros.fechaDesde = fechaDesde;
+    }
+    filtros.fechaHasta = fechaHasta || new Date().toISOString();
+    let gastosFiltrados = filtrarGastos(filtros);
+    let agrupados = gastosFiltrados.reduce((acumulador, gasto) => {
+        let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
+        if(!acumulador[periodoAgrupacion]){
+            acumulador[periodoAgrupacion] = 0;
+        }
+        acumulador[periodoAgrupacion] += gasto.valor;
+        return acumulador;
+    }, {});
+    return agrupados;
+}
+
+
+
+
+
+
 export {
     mostrarPresupuesto,
     actualizarPresupuesto,
@@ -120,7 +193,9 @@ export {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos
 }
 
 
