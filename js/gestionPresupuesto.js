@@ -192,9 +192,34 @@ function filtrarGastos(filtros = {}) {
 }
 
 
-function agruparGastos() {
 
+
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta = new Date().toISOString()) {
+
+    let gastosFiltrados = filtrarGastos({
+        fechaDesde: fechaDesde,
+        fechaHasta: fechaHasta,
+        etiquetasTiene: etiquetas
+    });
+
+    let resultado = gastosFiltrados.reduce(function(acumulador, gasto) {
+
+        let fecha = gasto.obtenerPeriodoAgrupacion(periodo);
+
+        if (acumulador[fecha] == undefined) {
+            acumulador[fecha] = 0;
+        }
+
+        acumulador[fecha] = acumulador[fecha] + gasto.valor;
+
+        return acumulador;
+
+    }, {});
+
+    return resultado;
 }
+
+
 
 
 
