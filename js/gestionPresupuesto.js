@@ -141,7 +141,7 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
 
 }
 
-function agruparGastos(periodo, {etiquetas , fechaDesde, fechaHasta}){
+function agruparGastos(periodo, etiquetas , fechaDesde, fechaHasta){
 
     const gastosFiltrados = filtrarGastos({ etiquetasTiene: etiquetas, fechaDesde: fechaDesde, fechaHasta: fechaHasta });
     return gastosFiltrados.reduce((acc, gasto) =>
