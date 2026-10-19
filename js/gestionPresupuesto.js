@@ -150,9 +150,6 @@ function calcularTotalGastos(){
     }
     return totalGastos;
 }
-function agruparGastos(){
-
-}
 
 function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, etiquetasTiene})
  {
@@ -160,7 +157,7 @@ function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descri
      if (arguments.length === 0 || Object.keys(arguments[0]).length === 0) {
         return gastos;
         }
-        
+
     let arrayFiltro = gastos;
     if (fechaDesde !== undefined) {
         arrayFiltro = arrayFiltro.filter(gasto => gasto.fecha >= Date.parse(fechaDesde));
@@ -196,6 +193,46 @@ function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descri
 
     return arrayFiltro;
 }
+
+
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
+
+  if (fechaHasta === undefined)
+    {
+       fechaHasta = new Date().toISOString();
+    }
+
+  let filtros = {
+    fechaHasta: fechaHasta
+  };
+
+  if (etiquetas.length > 0) {
+    filtros.etiquetasTiene = etiquetas;
+  }
+
+  if (fechaDesde !== undefined) {
+    filtros.fechaDesde = fechaDesde;
+  }
+
+  let gastosFiltrados = filtrarGastos(filtros);
+
+  return gastosFiltrados.reduce(function(accumulador, gasto) {
+
+    let periodoGasto = gasto.obtenerPeriodoAgrupacion(periodo);
+
+    if (accumulador[periodoGasto] === undefined) {
+
+      accumulador[periodoGasto] = 0;
+      
+    }
+
+    accumulador[periodoGasto] += gasto.valor;
+
+    return accumulador;
+  }, {});
+}
+
+
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
