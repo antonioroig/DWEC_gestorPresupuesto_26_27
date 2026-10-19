@@ -185,7 +185,7 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
     }
 
     if(typeof descripcionContiene === 'string'){
-        result = result.filter(gasto => gasto.descripcion.toLocaleLowerCase().includes(descripcionContiene))
+        result = result.filter(gasto => gasto.descripcion.toLocaleLowerCase().includes(descripcionContiene.toLowerCase()))
     }
 
     if(Array.isArray(etiquetasTiene) && etiquetasTiene.length > 0){
