@@ -166,24 +166,29 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
 
     if(typeof fechaDesde === 'string' && !isNaN(Date.parse(fechaDesde))){
         fechaDesde = Date.parse(fechaDesde);
-        result = result.filter(gasto => gasto.fecha >= fechaDesde)}
+        result = result.filter(gasto => gasto.fecha >= fechaDesde)
+    }
     
     if(typeof fechaHasta === 'string' && !isNaN(Date.parse(fechaHasta))){
         fechaHasta = Date.parse(fechaHasta);
-        result = result.filter(gasto => gasto.fecha <= fechaHasta)}
+        result = result.filter(gasto => gasto.fecha <= fechaHasta)
+    }
 
     if(typeof valorMinimo === 'number'){
-        valorMinimo = Number.parseInt(valorMinimo);
-        result = result.filter(gasto => gasto.valor >= valorMinimo)}
+
+        result = result.filter(gasto => gasto.valor >= valorMinimo)
+    }
 
     if(typeof valorMaximo === 'number'){
-        valorMaximo = Number.parseInt(valorMaximo);
-        result = result.filter(gasto => gasto.valor <= valorMaximo)}
+
+        result = result.filter(gasto => gasto.valor <= valorMaximo)
+    }
 
     if(typeof descripcionContiene === 'string'){
-        result = result.filter(gasto => gasto.descripcion.includes(descripcionContiene))}
+        result = result.filter(gasto => gasto.descripcion.toLocaleLowerCase().includes(descripcionContiene))
+    }
 
-    if(Array.isArray(etiquetasTiene)){
+    if(Array.isArray(etiquetasTiene) && etiquetasTiene.length > 0){
 
         let etq = etiquetasTiene.map(etiqueta => etiqueta.toLowerCase());
 
@@ -193,10 +198,24 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
     return result;
 }
 
-function agruparGastos(){
+function agruparGastos(periodo = 'mes', etiquetasTiene = [],fechaDesde,fechaHasta = Date()){
 
+    let gastosFiltrados = filtrarGastos({fechaDesde,fechaHasta,etiquetasTiene});
+
+    let result = gastosFiltrados.reduce((acumulador,gasto) => {
+
+        let fecha = gasto.obtenerPeriodoAgrupacion(periodo);
+
+        if(!acumulador[fecha]){
+            acumulador[fecha] = 0;
+        }
+
+        acumulador[fecha] += gasto.valor;
+        return acumulador;
+    },{})
+
+    return result;
 }
-
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
