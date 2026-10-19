@@ -121,7 +121,14 @@ function calcularBalance() {
     return presupuesto - calcularTotalGastos(); 
 }
 
-// NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
+function filtrarGastos() {
+
+}
+
+function agruparGastos() {
+
+}
+
 export {
     mostrarPresupuesto,
     actualizarPresupuesto,
@@ -130,5 +137,7 @@ export {
     anyadirGasto,
     borrarGasto,
     calcularTotalGastos,
-    calcularBalance
+    calcularBalance,
+    filtrarGastos,
+    agruparGastos
 }
