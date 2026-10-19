@@ -27,9 +27,59 @@ function agruparGastos() {
 
 }
 
-function filtrarGastos() {
-  
+
+function filtrarGastos(filtros) {
+  return gastos.filter(function(gasto) {
+
+    if (filtros.fechaDesde !== undefined &&
+        gasto.fecha < Date.parse(filtros.fechaDesde)) {
+      return false;
+    }
+
+    if (filtros.fechaHasta !== undefined &&
+        gasto.fecha > Date.parse(filtros.fechaHasta)) {
+      return false;
+    }
+
+    if (filtros.valorMinimo !== undefined &&
+        gasto.valor < filtros.valorMinimo) {
+      return false;
+    }
+
+    if (filtros.valorMaximo !== undefined &&
+        gasto.valor > filtros.valorMaximo) {
+      return false;
+    }
+
+    if (filtros.descripcionContiene !== undefined &&
+        !gasto.descripcion.toLowerCase().includes(
+          filtros.descripcionContiene.toLowerCase()
+        )) {
+      return false;
+    }
+
+    if (filtros.etiquetasTiene !== undefined &&
+        filtros.etiquetasTiene.length > 0) {
+
+      let tieneEtiqueta = false;
+
+      for (let etiqueta of filtros.etiquetasTiene) {
+        for (let etiquetaGasto of gasto.etiquetas) {
+          if (etiqueta.toLowerCase() === etiquetaGasto.toLowerCase()) {
+            tieneEtiqueta = true;
+          }
+        }
+      }
+
+      if (!tieneEtiqueta) {
+        return false;
+      }
+    }
+
+    return true;
+  });
 }
+
 
 function calcularTotalGastos() {
   return gastos.reduce(function (total, gasto) {
@@ -152,6 +202,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
       }
     };
   };
+
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
