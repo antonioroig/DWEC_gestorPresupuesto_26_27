@@ -37,7 +37,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         this.valor = 0;
     }
 
-    if (fecha !== undefined && Date.parse(fecha) != NaN) {
+    if (typeof fecha === "string" && !isNaN(Date.parse(fecha))) {
         this.fecha = Date.parse(fecha);
     } else {
         this.fecha = Date.now();
@@ -87,7 +87,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         return result;
     }
     this.obtenerPeriodoAgrupacion = function (periodo) {
-        let Gasto = new Date(this.fecha);
+        let fechaGasto = new Date(this.fecha);
         let anyo = fechaGasto.getFullYear();
         let mes = fechaGasto.getMonth() + 1;
         let dia = fechaGasto.getDate();
@@ -105,7 +105,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         } else if (periodo === "anyo") {
             return String(anyo);
         }
-    }
+    };
 }
 
 
@@ -142,8 +142,35 @@ function calcularBalance() {
     return presupuesto - calcularTotalGastos();
 }
 
-function filtrarGastos(gastos) {
+function filtrarGastos(filtros) {
+    return gastos.filter(function (gasto) {
+        let cumple = true;
 
+        if (filtros.fechaDesde !== undefined) {
+            cumple = cumple && gasto.fecha >= Date.parse(filtros.fechaDesde);
+        }
+        if (filtros.fechaHasta !== undefined) {
+            cumple = cumple && gasto.fecha <= Date.parse(filtros.fechaHasta);
+        }
+        if (filtros.valorMinimo !== undefined) {
+            cumple = cumple && gasto.valor >= filtros.valorMinimo;
+        }
+        if (filtros.valorMaximo !== undefined) {
+            cumple = cumple && gasto.valor <= filtros.valorMaximo;
+        }
+        if (filtros.descripcionContiene !== undefined) {
+            cumple = cumple && gasto.descripcion.toLowerCase()
+                .includes(filtros.descripcionContiene.toLowerCase());
+        }
+        if (filtros.etiquetasTiene !== undefined && filtros.etiquetasTiene.length > 0) {
+            let etiquetasFiltro = filtros.etiquetasTiene.map(e => e.toLowerCase());
+            cumple = cumple && gasto.etiquetas.some(
+                e => etiquetasFiltro.includes(e.toLowerCase())
+            );
+        }
+
+        return cumple;
+    });
 
 
 }
