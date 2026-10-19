@@ -23,9 +23,44 @@ function borrarGasto(id) {
   }
 }
 
-function agruparGastos() {
 
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
+
+  if (fechaHasta === undefined) {
+    fechaHasta = new Date().toISOString();
+  }
+
+  let filtros = {
+    fechaHasta: fechaHasta
+  };
+
+  if (etiquetas.length > 0) {
+    filtros.etiquetasTiene = etiquetas;
+  }
+
+  if (fechaDesde !== undefined) {
+    filtros.fechaDesde = fechaDesde;
+  }
+
+  let gastosFiltrados = filtrarGastos(filtros);
+
+  return gastosFiltrados.reduce(function(acc, gasto) {
+
+    let periodoGasto = gasto.obtenerPeriodoAgrupacion(periodo);
+
+    if (acc[periodoGasto] === undefined) {
+
+      acc[periodoGasto] = 0;
+      
+    }
+
+    acc[periodoGasto] += gasto.valor;
+
+    return acc;
+
+  }, {});
 }
+
 
 
 function filtrarGastos(filtros) {
