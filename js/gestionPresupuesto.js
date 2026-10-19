@@ -242,14 +242,11 @@ function filtrarGastos({ fechaDesde, fechaHasta, valorMinimo, valorMaximo, descr
        return true;
     });
 }
-    function agruparGastos(periodo, etiquetas, fechaDesde, fechaHasta) {
+    function agruparGastos(periodo = "mes", etiquetas, fechaDesde, fechaHasta) {
     let gastosFiltrados = filtrarGastos({ fechaDesde, fechaHasta, etiquetasTiene: etiquetas });
     
     return gastosFiltrados.reduce((acc, gasto) => {
        
-            if (periodo !== "dia" && periodo !== "mes" && periodo !== "anyo") {
-                periodo = "mes"; // Valor por defecto si el periodo no es válido
-            }
             let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
             if (acc[periodoAgrupacion]) {
                 acc[periodoAgrupacion]  = (acc[periodoAgrupacion] || 0) + gasto.valor;
