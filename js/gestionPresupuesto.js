@@ -142,6 +142,12 @@ function filtrarGastos(filtros) {
         if (filtros.fechaHasta && gasto.fecha > Date.parse(filtros.fechaHasta)) {
             return false;
         }
+        if (filtros.valorMinimo !== undefined && gasto.valor < filtros.valorMinimo) {
+            return false;
+        }
+        if (filtros.valorMaximo !== undefined && gasto.valor > filtros.valorMaximo) {
+            return false;
+        }
         return true;
     });
 }
