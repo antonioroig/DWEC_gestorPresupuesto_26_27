@@ -43,7 +43,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
   }
 
   return fecha.slice(0, 7);
-};
+  };
   this.mostrarGasto = function() {
     return `Gasto correspondiente a ${this.descripcion} con valor ${this.valor} €`;
   };
@@ -87,7 +87,7 @@ this.mostrarGastoCompleto = function() {
     }
     return salida;
   };
-
+  
   if (etiquetas.length > 0) {
     this.anyadirEtiquetas(...etiquetas);
   }
@@ -115,6 +115,61 @@ function calcularTotalGastos() {
 function calcularBalance() {
   return presupuesto - calcularTotalGastos();
 }
+function filtrarGastos(filtros) {
+  return gastos.filter(function(gasto) {
+    // Fechas
+    if (filtros.fechaDesde !== undefined &&
+        gasto.fecha < Date.parse(filtros.fechaDesde)) {
+      return false;
+    }
+
+    if (filtros.fechaHasta !== undefined &&
+        gasto.fecha > Date.parse(filtros.fechaHasta)) {
+      return false;
+    }
+
+    // Valores
+    if (filtros.valorMinimo !== undefined &&
+        gasto.valor < filtros.valorMinimo) {
+      return false;
+    }
+
+    if (filtros.valorMaximo !== undefined &&
+        gasto.valor > filtros.valorMaximo) {
+      return false;
+    }
+
+    // Descripción
+    if (filtros.descripcionContiene !== undefined) {
+      let descripcion = gasto.descripcion.toLowerCase();
+      let texto = filtros.descripcionContiene.toLowerCase();
+
+      if (!descripcion.includes(texto)) {
+        return false;
+      }
+    }
+
+    // Etiquetas
+    if (filtros.etiquetasTiene &&
+        filtros.etiquetasTiene.length > 0) {
+      let coincide = false;
+
+      gasto.etiquetas.forEach(function(etiqueta) {
+        filtros.etiquetasTiene.forEach(function(filtro) {
+          if (etiqueta.toLowerCase() === filtro.toLowerCase()) {
+            coincide = true;
+          }
+        });
+      });
+
+      if (!coincide) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+}
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
 // Si al obtener el código de una práctica se genera un conflicto, por favor incluye todo el código que aparece aquí debajo
@@ -130,4 +185,5 @@ export {
   borrarGasto,
   calcularTotalGastos,
   calcularBalance,
+  filtrarGastos,
 };
