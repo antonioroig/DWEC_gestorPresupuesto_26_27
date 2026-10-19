@@ -59,7 +59,20 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
             return -1;
         }
     };
+    this.obtenerPeriodoAgrupacion = function(periodo){
+        let objetoFecha = new Date(this.fecha).toISOString();
 
+        if(periodo === "mes"){
+            objetoFecha = objetoFecha.slice(0,7);
+        }
+        else if(periodo === "anyo"){
+            objetoFecha = objetoFecha.slice(0,4);
+        }
+        else{
+            objetoFecha = objetoFecha.slice(0,10);
+        }
+        return objetoFecha;
+    };
     this.anyadirEtiquetas = function(...nuevasEtiquetas) {
         for (let nuevaEtiqueta of nuevasEtiquetas) {
             if (!this.etiquetas.includes(nuevaEtiqueta)) {
@@ -140,7 +153,30 @@ function calcularTotalGastos(){
 function agruparGastos(){
 
 }
-function filtrarGastos(){
+function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, ...etiquetasTiene}){
+    let arrayFiltro = gastos;
+
+    if(
+        fechaDesde === undefined &&
+        fechaHasta === undefined &&
+        valorMinimo === undefined &&
+        valorMaximo === undefined &&
+        descripcionContiene === undefined &&
+        etiquetasTiene === undefined
+     )
+     {
+        return gastos;
+     }
+     else{
+    arrayFiltro = gastos.filter(gasto => gasto.fecha > fechaDesde);
+    arrayFiltro = gastos.filter(gasto => gasto.fecha < fechaHasta);
+    arrayFiltro = arrayFiltro.filter(gasto => gasto.valor >= valorMinimo);
+    arrayFiltro = arrayFiltro.filter(gasto => gasto.valor <= valorMaximo);
+    arrayFiltro = arrayFiltro.filter(gasto => gasto.descripcion.includes(descripcionContiene.toLowerCase()));
+    arrayFiltro = arrayFiltro.filter(gasto => gasto.etiquetas.includes(...etiquetasTiene));
+
+    return arrayFiltro;
+     }
     
 }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
@@ -156,6 +192,6 @@ export   {
     calcularTotalGastos,
     calcularBalance,
     agruparGastos,
-    filtrarGastos,
+    filtrarGastos
 
 }
