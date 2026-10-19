@@ -86,6 +86,14 @@ function CrearGasto(descripcion,valor,fecha, ...etiquetas ) {
         }
         return result;
     }
+    this.obtenerPeriodoAgrupacion=function(periodo){
+        this.fechaDesde=periodo.fechaDesde;
+        this.fechaHasta=periodo.fechaHasta;
+
+        if(periodo==="dia"){
+
+        }
+    }
 }
 
 
@@ -122,11 +130,14 @@ function calcularBalance() {
     return presupuesto - calcularTotalGastos();
 }
 
-function filtrarGastos(){
+function filtrarGastos(gastos){
 
 }
 
-function agruparGastos(){}
+function agruparGastos(periodo, fechaDesde,fechaHasta, ...etiquetas ){
+    
+    filtrarGastos()
+}
 
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
