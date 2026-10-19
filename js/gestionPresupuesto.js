@@ -152,7 +152,16 @@ function filtrarGastos(filtros) {
             !gasto.descripcion.toLowerCase().includes(filtros.descripcionContiene.toLowerCase())) {
             return false;
         }
-        return true;
+        if (filtros.etiquetasTiene && filtros.etiquetasTiene.length > 0) {
+            let etiquetasFiltro = filtros.etiquetasTiene.map(e => e.toLowerCase());
+            let tieneAlguna = gasto.etiquetas.some(function (etiqueta) {
+                return etiquetasFiltro.includes(etiqueta.toLowerCase());
+            });
+            if (!tieneAlguna) {
+                return false;
+            }   
+        }
+                return true;
     });
 }
 
