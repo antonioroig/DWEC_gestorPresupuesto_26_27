@@ -215,11 +215,43 @@ function filtrarGastos(filtros) {
 }
 
 
+function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) {
 
+    if (fechaHasta === undefined) {
+        fechaHasta = new Date().toISOString().split("T")[0];
+    }
 
-function agruparGastos(){
+    let filtros = {
+        fechaHasta: fechaHasta
+    };
 
+    if (etiquetas.length > 0) {
+        filtros.etiquetasTiene = etiquetas;
+    }
+
+    if (fechaDesde !== undefined) {
+        filtros.fechaDesde = fechaDesde;
+    }
+
+    let gastosFiltrados = filtrarGastos(filtros);
+
+    return gastosFiltrados.reduce(function(acc, gasto) {
+
+        let clave = gasto.obtenerPeriodoAgrupacion(periodo);
+
+        if (acc[clave] === undefined) {
+            acc[clave] = 0;
+        }
+
+        acc[clave] += gasto.valor;
+
+        return acc;
+
+    }, {});
 }
+
+
+
 
 
 
