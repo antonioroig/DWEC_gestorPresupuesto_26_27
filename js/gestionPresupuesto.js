@@ -248,9 +248,10 @@ function filtrarGastos({ fechaDesde, fechaHasta, valorMinimo, valorMaximo, descr
     return gastosFiltrados.reduce((acc, gasto) => {
        
             let periodoAgrupacion = gasto.obtenerPeriodoAgrupacion(periodo);
-            if (acc[periodoAgrupacion]) {
-                acc[periodoAgrupacion]  = (acc[periodoAgrupacion] || 0) + gasto.valor;
-            }       
+          
+            acc[periodoAgrupacion]  = (acc[periodoAgrupacion] || 0);
+            acc[periodoAgrupacion] += gasto.valor;
+                  
         return acc;
     }, {});
 
