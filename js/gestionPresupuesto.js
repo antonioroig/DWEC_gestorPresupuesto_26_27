@@ -153,31 +153,48 @@ function calcularTotalGastos(){
 function agruparGastos(){
 
 }
-function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, ...etiquetasTiene}){
-    let arrayFiltro = gastos;
 
-    if(
-        fechaDesde === undefined &&
-        fechaHasta === undefined &&
-        valorMinimo === undefined &&
-        valorMaximo === undefined &&
-        descripcionContiene === undefined &&
-        etiquetasTiene === undefined
-     )
-     {
+function filtrarGastos({fechaDesde, fechaHasta, valorMinimo, valorMaximo, descripcionContiene, etiquetasTiene})
+ {
+
+     if (arguments.length === 0 || Object.keys(arguments[0]).length === 0) {
         return gastos;
-     }
-     else{
-    arrayFiltro = gastos.filter(gasto => gasto.fecha > fechaDesde);
-    arrayFiltro = gastos.filter(gasto => gasto.fecha < fechaHasta);
-    arrayFiltro = arrayFiltro.filter(gasto => gasto.valor >= valorMinimo);
-    arrayFiltro = arrayFiltro.filter(gasto => gasto.valor <= valorMaximo);
-    arrayFiltro = arrayFiltro.filter(gasto => gasto.descripcion.includes(descripcionContiene.toLowerCase()));
-    arrayFiltro = arrayFiltro.filter(gasto => gasto.etiquetas.includes(...etiquetasTiene));
+        }
+        
+    let arrayFiltro = gastos;
+    if (fechaDesde !== undefined) {
+        arrayFiltro = arrayFiltro.filter(gasto => gasto.fecha >= Date.parse(fechaDesde));
+    }
+
+    if (fechaHasta !== undefined) {
+        arrayFiltro = arrayFiltro.filter(gasto => gasto.fecha <= Date.parse(fechaHasta));
+    }
+
+    if (valorMinimo !== undefined) {
+        arrayFiltro = arrayFiltro.filter(gasto => gasto.valor >= valorMinimo);
+    }
+
+    if (valorMaximo !== undefined) {
+        arrayFiltro = arrayFiltro.filter(gasto => gasto.valor <= valorMaximo);
+    }
+
+    if (descripcionContiene !== undefined) {
+        arrayFiltro = arrayFiltro.filter(gasto =>
+            gasto.descripcion.toLowerCase().includes(descripcionContiene.toLowerCase())
+        );
+    }
+
+    if (etiquetasTiene !== undefined) {
+        arrayFiltro = arrayFiltro.filter(gasto =>
+            gasto.etiquetas.some(etiqueta =>
+                etiquetasTiene.some(etiquetaFiltro =>
+                    etiqueta.toLowerCase() === etiquetaFiltro.toLowerCase()
+                )
+            )
+        );
+    }
 
     return arrayFiltro;
-     }
-    
 }
 // NO MODIFICAR A PARTIR DE AQUÍ: exportación de funciones y objetos creados para poder ejecutar los tests.
 // Las funciones y objetos deben tener los nombres que se indican en el enunciado
