@@ -162,7 +162,7 @@ Función sin parámetros que devuelva el balance (presupuesto - gastos totales) 
                     return false;
                 }
             }
-            if (filtros.etiquetasTiene){
+            if (filtros.etiquetasTiene?.length){
                 const etiquetasFiltro = filtros.etiquetasTiene.map(e => e.toLowerCase());
                 const etiquetasGasto = gasto.etiquetas.map(e => e.toLowerCase());
                 if (!etiquetasGasto.some(e => etiquetasFiltro.includes(e))) {
