@@ -211,6 +211,7 @@ function agruparGastos(periodo = 'mes', etiquetasTiene = [],fechaDesde,fechaHast
         }
 
         acumulador[fecha] += gasto.valor;
+        
         return acumulador;
     },{})
 
