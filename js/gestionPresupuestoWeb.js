@@ -38,8 +38,10 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
     elemento.append(gasto);
 }
 
-function mostrarGastosAgrupadosEnId() {
+function mostrarGastosAgrupadosEnId(idElemento, agrup, periodo) {
+    const elemento = document.createElement(idElemento);
 
+    
 }
 
 export {
