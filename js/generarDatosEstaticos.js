@@ -33,3 +33,7 @@ gestion.anyadirGasto(gasto5);
 gestion.anyadirGasto(gasto6);
 web.mostrarDatoEnId("gastos-totales", gestion.calcularTotalGastos());
 web.mostrarDatoEnId("balance-total", gestion.calcularBalance());
+
+for (const gasto of gestion.listarGastos()) {
+    web.mostrarGastoWeb("listado-gastos-completo", gasto);
+}
