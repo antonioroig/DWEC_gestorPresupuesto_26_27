@@ -46,3 +46,14 @@ const gastosSeptiembre = gestion.filtrarGastos({
 for (const gasto of gastosSeptiembre) {
     web.mostrarGastoWeb("listado-gastos-filtrado-1", gasto);
 }
+const gastosMayores50 = gestion.filtrarGastos({
+    valorMinimo: 50
+});
+
+for (const gasto of gastosMayores50)
+{
+    if (gasto.valor > 50)
+    {
+        web.mostrarGastoWeb("listado-gastos-filtrado-2", gasto);
+    }
+}
