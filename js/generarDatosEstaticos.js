@@ -32,3 +32,4 @@ gestion.anyadirGasto(gasto4);
 gestion.anyadirGasto(gasto5);
 gestion.anyadirGasto(gasto6);
 web.mostrarDatoEnId("gastos-totales", gestion.calcularTotalGastos());
+web.mostrarDatoEnId("balance-total", gestion.calcularBalance());
