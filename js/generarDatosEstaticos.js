@@ -81,3 +81,10 @@ for (const gasto of gastosComidaTransporte)
         web.mostrarGastoWeb("listado-gastos-filtrado-4", gasto);
     }
 }
+const gastosPorDia = gestion.agruparGastos("dia");
+
+web.mostrarGastosAgrupadosWeb(
+    "agrupacion-dia",
+    gastosPorDia,
+    "dia"
+);
