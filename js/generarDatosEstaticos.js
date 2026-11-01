@@ -96,3 +96,10 @@ web.mostrarGastosAgrupadosWeb(
     gastosPorMes,
     "mes"
 );
+const gastosPorAnyo = gestion.agruparGastos("anyo");
+
+web.mostrarGastosAgrupadosWeb(
+    "agrupacion-anyo",
+    gastosPorAnyo,
+    "anyo"
+);
