@@ -25,3 +25,9 @@ const gasto5 = new gestion.CrearGasto(
 const gasto6 = new gestion.CrearGasto(
     "Seguro coche", 195.78, "2021-10-06", "transporte", "seguros"
 );
+gestion.anyadirGasto(gasto1);
+gestion.anyadirGasto(gasto2);
+gestion.anyadirGasto(gasto3);
+gestion.anyadirGasto(gasto4);
+gestion.anyadirGasto(gasto5);
+gestion.anyadirGasto(gasto6);
