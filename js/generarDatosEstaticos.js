@@ -57,3 +57,15 @@ for (const gasto of gastosMayores50)
         web.mostrarGastoWeb("listado-gastos-filtrado-2", gasto);
     }
 }
+const gastosSeguros = gestion.filtrarGastos({
+    valorMinimo: 200,
+    etiquetasTiene: ["seguros"]
+});
+
+for (const gasto of gastosSeguros)
+{
+    if (gasto.valor > 200)
+    {
+        web.mostrarGastoWeb("listado-gastos-filtrado-3", gasto);
+    }
+}
