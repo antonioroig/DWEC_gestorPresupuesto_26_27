@@ -69,3 +69,15 @@ for (const gasto of gastosSeguros)
         web.mostrarGastoWeb("listado-gastos-filtrado-3", gasto);
     }
 }
+const gastosComidaTransporte = gestion.filtrarGastos({
+    valorMaximo: 50,
+    etiquetasTiene: ["comida", "transporte"]
+});
+
+for (const gasto of gastosComidaTransporte)
+{
+    if (gasto.valor < 50)
+    {
+        web.mostrarGastoWeb("listado-gastos-filtrado-4", gasto);
+    }
+}
