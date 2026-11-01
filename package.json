@@ -28,6 +28,6 @@
         "eslint-plugin-cypress": "^2.12.1"
     },
     "allowScripts": {
-        "cypress@13.15.0": true
+        "cypress@16.1.1": true
     }
 }
