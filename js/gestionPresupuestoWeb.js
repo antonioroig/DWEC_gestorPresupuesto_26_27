@@ -29,11 +29,11 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
     gasto.append(gastoEtiquetas);    
     
     for (const etiqueta of objetoGasto.etiquetas) {
-        const gastoEtiquetasEtiqueta = document.createElement("span");
-        gastoEtiquetasEtiqueta.className = "gasto-etiquetas-etiqueta";
-        gastoEtiquetasEtiqueta.textContent = etiqueta;
-        gastoEtiquetas.append(gastoEtiquetasEtiqueta);
-    }    
+    const gastoEtiquetasEtiqueta = document.createElement("span");
+    gastoEtiquetasEtiqueta.className = "gasto-etiquetas-etiqueta";
+    gastoEtiquetasEtiqueta.textContent = etiqueta;
+    gastoEtiquetas.append(gastoEtiquetasEtiqueta);
+}
 
     elemento.append(gasto);
 }
