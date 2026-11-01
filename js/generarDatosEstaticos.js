@@ -37,3 +37,12 @@ web.mostrarDatoEnId("balance-total", gestion.calcularBalance());
 for (const gasto of gestion.listarGastos()) {
     web.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
+
+const gastosSeptiembre = gestion.filtrarGastos({
+    fechaDesde: "2021-09-01",
+    fechaHasta: "2021-09-30T23:59:59.999Z"
+});
+
+for (const gasto of gastosSeptiembre) {
+    web.mostrarGastoWeb("listado-gastos-filtrado-1", gasto);
+}
