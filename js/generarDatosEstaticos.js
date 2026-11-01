@@ -88,3 +88,11 @@ web.mostrarGastosAgrupadosWeb(
     gastosPorDia,
     "dia"
 );
+
+const gastosPorMes = gestion.agruparGastos("mes");
+
+web.mostrarGastosAgrupadosWeb(
+    "agrupacion-mes",
+    gastosPorMes,
+    "mes"
+);
