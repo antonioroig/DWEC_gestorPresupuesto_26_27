@@ -12,70 +12,64 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     let divGasto = document.createElement('div');
     divGasto.classList.add('gasto');
-    elemento.append(divGasto);
 
-    let divGastoDescripcion = document.createElement('div');
-    divGastoDescripcion.classList.add('gasto-descripcion');
-    divGasto.append(divGastoDescripcion);
-    let p1 = document.createElement('p');
-    p1.textContent = gasto.descripcion;
-    divGastoDescripcion.append(p1);
+    let divDescripcion = document.createElement('div');
+    divDescripcion.classList.add('gasto-descripcion');
+    divDescripcion.textContent = gasto.descripcion;
+    divGasto.append(divDescripcion);
 
-    let divGastoFecha = document.createElement('div');
-    divGastoFecha.classList.add('gasto-fecha');
-    divGasto.append(divGastoFecha);
-    let p2 = document.createElement('p');
-    p2.textContent = gasto.fecha;
-    divGastoFecha.append(p2);
+    let divFecha = document.createElement('div');
+    divFecha.classList.add('gasto-fecha');
+    divFecha.textContent = new Date(gasto.fecha).toLocaleString();
+    divGasto.append(divFecha);
 
-    let divGastoValor = document.createElement('div');
-    divGastoValor.classList.add('gasto-valor');
-    divGasto.append(divGastoValor);
-    let p3 = document.createElement('p');
-    p3.textContent = gasto.valor;
-    divGastoValor.append(p3);
+    let divValor = document.createElement('div');
+    divValor.classList.add('gasto-valor');
+    divValor.textContent = gasto.valor;
+    divGasto.append(divValor);
 
-    let divGastoEtiquetas = document.createElement('div');
-    divGastoEtiquetas.classList.add('gasto-etiquetas');
-    divGasto.append(divGastoEtiquetas);
-
+    let divEtiquetas = document.createElement('div');
+    divEtiquetas.classList.add('gasto-etiquetas');
     gasto.etiquetas.forEach(etiqueta => {
-        let spanGastoEtiquetasEtiqueta = document.createElement('span');
-        spanGastoEtiquetasEtiqueta.classList.add('gasto-etiquetas-etiqueta');
-        divGastoEtiquetas.append(spanGastoEtiquetasEtiqueta);
-        let p = document.createElement('p');
-        p.textContent = etiqueta;
-        spanGastoEtiquetasEtiqueta.append(p);
+        let span = document.createElement('span');
+        span.classList.add('gasto-etiquetas-etiqueta');
+        span.textContent = etiqueta;
+        divEtiquetas.append(span);
     });
+    divGasto.append(divEtiquetas);
 
     elemento.append(divGasto);
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     let elemento = document.getElementById(idElemento);
+
     let divAgrupacion = document.createElement('div');
     divAgrupacion.classList.add('agrupacion');
-    elemento.append(divAgrupacion);
+
+    let nombresPeriodo = { dia: 'día', mes: 'mes', anyo: 'año' };
 
     let h1 = document.createElement('h1');
-    h1.textContent = `Gastos agrupados por ${periodo}`;
+    h1.textContent = `Gastos agrupados por ${nombresPeriodo[periodo]}`;
     divAgrupacion.append(h1);
 
-    agrup.forEach(a => {
-        let divAgrupacionDato = document.createElement('div');
-        divAgrupacionDato.classList.add('agrupacion-dato');
-        divAgrupacion.append(divAgrupacionDato);
+    Object.entries(agrup).forEach(([clave, valor]) => {
+        let divDato = document.createElement('div');
+        divDato.classList.add('agrupacion-dato');
 
-        let spanAgrupacionDatoClave = document.createElement('span');
-        spanAgrupacionDatoClave.classList.add('agrupacion-dato-clave');
-        spanAgrupacionDatoClave.textContent = a;
-        divAgrupacionDato.append(spanAgrupacionDatoClave);
+        let spanClave = document.createElement('span');
+        spanClave.classList.add('agrupacion-dato-clave');
+        spanClave.textContent = clave;
 
-        let spanAgrupacionDatoValor = document.createElement('span');
-        spanAgrupacionDatoValor.classList.add('agrupacion-dato-valor');
-        spanAgrupacionDatoValor.textContent = a;
-        divAgrupacionDato.append(spanAgrupacionDatoValor);
+        let spanValor = document.createElement('span');
+        spanValor.classList.add('agrupacion-dato-valor');
+        spanValor.textContent = valor;
+
+        divDato.append(spanClave, spanValor);
+        divAgrupacion.append(divDato);
     });
+
+    elemento.append(divAgrupacion);
 }
 
 export {

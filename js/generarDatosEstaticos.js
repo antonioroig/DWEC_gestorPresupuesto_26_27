@@ -47,3 +47,9 @@ gastosFiltrados4.forEach(gasto => {
 
 let gastosAgrupadosPorDia = gp.agruparGastos('dia');
 gpw.mostrarGastosAgrupadosWeb('agrupacion-dia', gastosAgrupadosPorDia, 'dia');
+
+let gastosAgrupadosPorMes = gp.agruparGastos('mes');
+gpw.mostrarGastosAgrupadosWeb('agrupacion-mes', gastosAgrupadosPorMes, 'mes');
+
+let gastosAgrupadosPorAnyo = gp.agruparGastos('anyo');
+gpw.mostrarGastosAgrupadosWeb('agrupacion-anyo', gastosAgrupadosPorAnyo, 'anyo');
