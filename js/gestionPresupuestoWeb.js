@@ -1,3 +1,6 @@
+
+"use strict"
+
 function mostrarDatoEnId(idElemento, valor) {
     const elemento = document.getElementById(idElemento);
     elemento.textContent = valor;
@@ -31,7 +34,7 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
     for (const etiqueta of objetoGasto.etiquetas) {
     const gastoEtiquetasEtiqueta = document.createElement("span");
     gastoEtiquetasEtiqueta.className = "gasto-etiquetas-etiqueta";
-    gastoEtiquetasEtiqueta.textContent = etiqueta;
+    gastoEtiquetasEtiqueta.textContent = etiqueta + " ";
     gastoEtiquetas.append(gastoEtiquetasEtiqueta);
 }
 
