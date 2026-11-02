@@ -24,7 +24,7 @@ function mostrarGastoWeb(idElemento, gasto){
     for (let e of gasto.etiquetas){
         const span = document.createElement("span");
         span.className = "gasto-etiquetas-etiqueta";
-        span.textContent = e;
-        
+        span.textContent = e;     
+        divEtiq.append(span); 
     }
 }
