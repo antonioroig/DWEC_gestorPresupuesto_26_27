@@ -1,15 +1,27 @@
 import * as  gp  from "./gestionPresupuesto.js"
 import * as gpw from "./gestionPresupuestoWeb.js"
 
-new gp.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
-new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06", "supermercado", "comida");
-new gp.CrearGasto("Bonobús", 18.60, "2020-05-26", "transporte");
-new gp.CrearGasto("Gasolina", 60.42, "2021-10-08", "transporte", "gasolina");
-new gp.CrearGasto("Seguro hogar", 206.45, "2021-09-26", "casa", "seguros");
-new gp.CrearGasto("Seguro coche", 195.78, "2021-10-06", "transporte", "seguros");
+let g1 = new gp.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
+let g2 = new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06", "supermercado", "comida");
+let g3 = new gp.CrearGasto("Bonobús", 18.60, "2020-05-26", "transporte");
+let g4 = new gp.CrearGasto("Gasolina", 60.42, "2021-10-08", "transporte", "gasolina");
+let g5 = new gp.CrearGasto("Seguro hogar", 206.45, "2021-09-26", "casa", "seguros");
+let g6 = new gp.CrearGasto("Seguro coche", 195.78, "2021-10-06", "transporte", "seguros");
+
+gp.anyadirGasto(g1);
+gp.anyadirGasto(g2);
+gp.anyadirGasto(g3);
+gp.anyadirGasto(g4);
+gp.anyadirGasto(g5);
+gp.anyadirGasto(g6);
 
 gp.actualizarPresupuesto(1500);
 
-let presupuesto = gp.mostrarPresupuesto();
+gpw.mostarDatoEnId(presupuesto, gp.mostrarPresupuesto());
+gpw.mostarDatoEnId(gastos-totales, gp.calcularTotalGastos());
+gpw.mostarDatoEnId(balance-total, gp.calcularBalance());
 
-gpw.mostarDatoEnId
+for (let g of gp.listarGastos()){
+    gpw.mostarGastoWeb(listado-gastos-completo, g);
+}
+
