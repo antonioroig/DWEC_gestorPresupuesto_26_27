@@ -39,7 +39,17 @@ for(let gasto of listaGastos) {
     gpw.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
 
-const gastosSeptiembre = gp.filtrarGastos({fechaDesde: "2021-09-01", fechaHasta: "2021-09-30"});
+const gastosSeptiembre = gp.filtrarGastos({ fechaDesde: "2021-09-01", fechaHasta: "2021-09-30" });
 for (let gastoFiltrado of gastosSeptiembre) {
     gpw.mostrarGastoWeb("listado-gastos-filtrado-1", gastoFiltrado);
+}
+
+const gastosMas50 = gp.filtrarGastos({ valorMinimo: 50 });
+for (let gastoFiltrado of gastosMas50) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-2", gastoFiltrado);
+} 
+
+const gastosMas200 = gp.filtrarGastos({ valorMinimo: 200 });
+for (let gastoFiltrado of gastosMas200) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-3", gastoFiltrado);
 }
