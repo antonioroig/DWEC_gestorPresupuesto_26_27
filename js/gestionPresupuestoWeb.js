@@ -1,12 +1,15 @@
 'use strict';
 function mostrarDatoEnId(idElemento, valor){
-
+    const elemento = document.getElementById(idElemento);
+    if(elemento){
+        elemento.textContent = valor;
+    }
 }
 function mostrarGastoWeb(idElemento, gasto){
-    
-}
-function mostrarGastosAgrupadosWeb(){
 
+}
+function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
+    
 }
 export {
     mostrarDatoEnId,
