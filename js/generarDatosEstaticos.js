@@ -61,3 +61,9 @@ for (let gastoFiltrado of gastosFiltradosPorEtiquetaYValorMax) {
 
 const gastosAgrupadosPorDia = gp.agruparGastos("dia"); 
 gpw.mostrarGastosAgrupadosWeb("agrupacion-dia", gastosAgrupadosPorDia, "dia");
+
+const gastosAgrupadosPorMes = gp.agruparGastos("mes");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-mes", gastosAgrupadosPorMes, "mes"); 
+
+const gastosAgrupadosPorAnyo = gp.agruparGastos("anyo");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-anyo", gastosAgrupadosPorAnyo, "anyo");

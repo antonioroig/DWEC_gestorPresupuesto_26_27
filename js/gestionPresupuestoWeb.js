@@ -24,7 +24,7 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
 
     const gastoValor = document.createElement("div");
     gastoValor.className = "gasto-valor";
-    gastoValor.textContent = objetoGasto.valor;
+    gastoValor.textContent = objetoGasto.valor; //TODO limito el valor a dos decimales y añado símbolo del €?
     gasto.append(gastoValor);
 
     const gastoEtiquetas = document.createElement("div");
@@ -58,7 +58,6 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
     const h1 = document.createElement("h1");
     h1.textContent = "Gastos agrupados por " + textoPeriodo;
-    console.log("Gastos agrupados por " + textoPeriodo);
     agrupacion.append(h1);
 
     for (let [clave, valor] of Object.entries(agrup)) {
@@ -68,11 +67,11 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
         const agrupacionDatoClave = document.createElement("span");
         agrupacionDatoClave.className = "agrupacion-dato-clave";
-        agrupacionDatoClave.textContent = clave;
+        agrupacionDatoClave.textContent = clave + ": "; //Hago una separación de clave y valor y añado ":". Si no, borrar los dos puntos
 
         const agrupacionDatoValor = document.createElement("span");
         agrupacionDatoValor.className = "agrupacion-dato-valor";
-        agrupacionDatoValor.textContent = valor;
+        agrupacionDatoValor.textContent = valor + "€"; //TODO Añado el simbolo de € al valor?? Si no, borrar el simbolo €
 
         agrupacionDato.append(agrupacionDatoClave, agrupacionDatoValor);
     }
