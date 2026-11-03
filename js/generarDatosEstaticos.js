@@ -58,3 +58,6 @@ const gastosFiltradosPorEtiquetaYValorMax = gp.filtrarGastos( { etiquetasTiene: 
 for (let gastoFiltrado of gastosFiltradosPorEtiquetaYValorMax) {
     gpw.mostrarGastoWeb("listado-gastos-filtrado-4", gastoFiltrado);
 }
+
+const gastosAgrupadosPorDia = gp.agruparGastos("dia"); 
+gpw.mostrarGastosAgrupadosWeb("agrupacion-dia", gastosAgrupadosPorDia, "dia");

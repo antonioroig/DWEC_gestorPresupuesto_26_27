@@ -58,6 +58,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
     const h1 = document.createElement("h1");
     h1.textContent = "Gastos agrupados por " + textoPeriodo;
+    console.log("Gastos agrupados por " + textoPeriodo);
     agrupacion.append(h1);
 
     for (let [clave, valor] of Object.entries(agrup)) {
