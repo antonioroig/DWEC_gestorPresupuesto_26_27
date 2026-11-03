@@ -53,3 +53,8 @@ const gastosMas200 = gp.filtrarGastos({ valorMinimo: 200 });
 for (let gastoFiltrado of gastosMas200) {
     gpw.mostrarGastoWeb("listado-gastos-filtrado-3", gastoFiltrado);
 }
+
+const gastosFiltradosPorEtiquetaYValorMax = gp.filtrarGastos( { etiquetasTiene: ["comida", "transporte"], valorMaximo: 50 });
+for (let gastoFiltrado of gastosFiltradosPorEtiquetaYValorMax) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-4", gastoFiltrado);
+}
