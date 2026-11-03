@@ -10,7 +10,7 @@ gpw.mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
 /*Mostrar el presupuesto en el `div#presupuesto` (funciones `mostrarPresupuesto` y `mostrarDatoEnId`)*/
 const gasto1 = new gp.CrearGasto("Compra carne", 23.44, "2021-10-06");
 gasto1.anyadirEtiquetas("casa", "comida");
-const gasto2 = new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-10-06");
+const gasto2 = new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06");
 gasto2.anyadirEtiquetas("supermercado", "comida");
 const gasto3 = new gp.CrearGasto("Bonobús", 18.60, "2020-05-26");
 gasto3.anyadirEtiquetas("transporte");
@@ -35,9 +35,11 @@ const balance = gp.calcularBalance();
 gpw.mostrarDatoEnId("balance-total", balance);
 
 const listaGastos = gp.listarGastos();
-console.log("Gastos:", listaGastos);
 for(let gasto of listaGastos) {
     gpw.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
 
-/*const gastosSeptiembre = gp.filtrarGastos();     TODO: Revisar cómo pasar el periodo a filtrar*/ 
+const gastosSeptiembre = gp.filtrarGastos({fechaDesde: "2021-09-01", fechaHasta: "2021-09-30"});
+for (let gastoFiltrado of gastosSeptiembre) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-1", gastoFiltrado);
+}
