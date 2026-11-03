@@ -1,6 +1,8 @@
 import * as  gp  from "./gestionPresupuesto.js"
 import * as gpw from "./gestionPresupuestoWeb.js"
 
+
+
 let g1 = new gp.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
 let g2 = new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06", "supermercado", "comida");
 let g3 = new gp.CrearGasto("Bonobús", 18.60, "2020-05-26", "transporte");
@@ -17,11 +19,16 @@ gp.anyadirGasto(g6);
 
 gp.actualizarPresupuesto(1500);
 
-gpw.mostarDatoEnId(presupuesto, gp.mostrarPresupuesto());
-gpw.mostarDatoEnId(gastos-totales, gp.calcularTotalGastos());
-gpw.mostarDatoEnId(balance-total, gp.calcularBalance());
+gpw.mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
+gpw.mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
+gpw.mostrarDatoEnId("balance-total", gp.calcularBalance());
 
 for (let g of gp.listarGastos()){
-    gpw.mostarGastoWeb(listado-gastos-completo, g);
+    gpw.mostrarGastoWeb("listado-gastos-completo", g);
 }
+
+for (let g of gp.filtrarGastos("01-09-2021", "30-09-2021")){
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-1", g);
+}
+
 

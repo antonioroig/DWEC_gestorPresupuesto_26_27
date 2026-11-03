@@ -22,9 +22,15 @@ function mostrarGastoWeb(idElemento, gasto){
     const divEtiq = document.createElement("div");
     divEtiq.className = "gasto-etiquetas";
     for (let e of gasto.etiquetas){
-        const span = document.createElement("span");
+        let span = document.createElement("span");
         span.className = "gasto-etiquetas-etiqueta";
         span.textContent = e;     
         divEtiq.append(span); 
     }
+    divMaestro.append(divEtiq);
+}
+
+export {
+    mostrarDatoEnId,
+    mostrarGastoWeb
 }
