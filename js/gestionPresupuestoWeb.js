@@ -24,7 +24,9 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
 
     const gastoValor = document.createElement("div");
     gastoValor.className = "gasto-valor";
-    gastoValor.textContent = objetoGasto.valor.toFixed(2); 
+    gastoValor.textContent = objetoGasto.valor.toFixed(2);     
+    gasto.append(gastoValor);
+
 
     const gastoEtiquetas = document.createElement("div");
     gastoEtiquetas.className = "gasto-etiquetas";
