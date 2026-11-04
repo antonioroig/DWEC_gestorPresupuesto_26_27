@@ -20,8 +20,8 @@ gp.anyadirGasto(g6);
 gp.actualizarPresupuesto(1500);
 
 gpw.mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
-gpw.mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
-gpw.mostrarDatoEnId("balance-total", gp.calcularBalance());
+gpw.mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos().toFixed(2));
+gpw.mostrarDatoEnId("balance-total", gp.calcularBalance().toFixed(2));
 
 for (let g of gp.listarGastos()){
     gpw.mostrarGastoWeb("listado-gastos-completo", g);
