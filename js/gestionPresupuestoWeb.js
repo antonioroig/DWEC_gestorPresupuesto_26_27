@@ -1,10 +1,10 @@
-// mostrarDatoEnId //
+// mostrarDatoEnId \\
 function mostrarDatoEnId(idElemento, valor) {
  const elemento = document.getElementById(idElemento);  
  elemento.textContent = valor;                         
 }
 
-// crearElemento //
+// crearElemento \\
 function crearElemento(etiqueta, clase, texto) {
  const el = document.createElement(etiqueta); 
  el.classList.add(clase); 
@@ -12,7 +12,7 @@ function crearElemento(etiqueta, clase, texto) {
  return el;
 }
 
-// mostrarGastoWeb //
+// mostrarGastoWeb \\
 function mostrarGastoWeb(idElemento, gasto) {
     const contenedor = document.getElementById(idElemento);
 
@@ -33,6 +33,40 @@ function mostrarGastoWeb(idElemento, gasto) {
     divGasto.append(divEtiquetas);
     contenedor.append(divGasto); 
 }
+
+// mostrarGastosAgrupadosEnWeb \\
+function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
+ const contenedor = document.getElementById(idElemento);
+
+
+
+ const nombresPeriodo = { mes: "mes", dia: "día", anyo: "año" };
+
+ const divAgrupacion = document.createElement("div");
+ divAgrupacion.classList.add("agrupacion");
+ 
+ const titulo = document.createElement("h1");
+ titulo.textContent = "Gastos agrupados por " + nombresPeriodo[periodo];
+ divAgrupacion.append(titulo);
+ 
+ for (const [clave, valor] of Object.entries(agrup)) {
+    const divDato = document.createElement("div");
+    divDato.classList.add("agrupacion-dato");
+    
+    const spanClave = document.createElement("span");
+    spanClave.classList.add("agrupacion-dato-clave");
+    spanClave.textContent = clave;
+
+    const spanValor = document.createElement("span");
+    spanValor.classList.add("agrupacion-dato-valor");
+    spanValor.textContent = valor;
+    
+    divDato.append(spanClave, spanValor); 
+    divAgrupacion.append(divDato);
+ }
+ contenedor.append(divAgrupacion);
+}
+
 
 export {
   mostrarDatoEnId,
