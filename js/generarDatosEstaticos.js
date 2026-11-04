@@ -46,3 +46,15 @@ for (const [id, criterios] of filtros) {
  gestionPresupuestoWeb.mostrarGastoWeb(id, gasto);
  }
 }
+
+// Gastos agrupados \\
+const periodos = [
+ ["agrupacion-dia", "dia"],
+ ["agrupacion-mes", "mes"],
+ ["agrupacion-anyo", "anyo"]
+];
+for (const [id, periodo] of periodos) {
+ const agrup = gestionPresupuesto.agruparGastos(periodo);
+ gestionPresupuestoWeb.mostrarGastosAgrupadosWeb(id, agrup, periodo);
+}
+
