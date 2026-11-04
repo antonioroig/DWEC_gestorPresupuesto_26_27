@@ -24,13 +24,41 @@ function mostrarGastoWeb(idElemento, gasto){
     for (let e of gasto.etiquetas){
         let span = document.createElement("span");
         span.className = "gasto-etiquetas-etiqueta";
-        span.textContent = e;     
+        span.textContent = e + " ";     
         divEtiq.append(span); 
     }
     divMaestro.append(divEtiq);
 }
 
+function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
+    if (periodo === "anyo"){periodo = "año"};
+
+    const divAgMaestro = document.getElementById(idElemento);
+    const divAgrupacion = document.createElement("div");
+    divAgrupacion.className = "agrupacion";
+    divAgMaestro.append(divAgrupacion);
+    const h1 = document.createElement("h1");
+    h1.textContent = "Gastos agrupados por " + periodo;
+    divAgrupacion.append(h1);
+
+    for (let [clave, valor] of Object.entries(agrup)){
+    const divAgDato = document.createElement("div");
+    divAgDato.className = "agrupacion-dato";  
+    const spanNom = document.createElement("span");
+    spanNom.className = "agrupacion-dato-clave";
+    spanNom.textContent = clave + ": ";
+    const spanValor = document.createElement("span");
+    spanValor.className = "agrupacion-dato-valor";
+    spanValor.textContent = valor;
+    divAgDato.append(spanNom, spanValor);  
+    divAgrupacion.append(divAgDato);  
+    }   
+
+   
+}
+
 export {
     mostrarDatoEnId,
-    mostrarGastoWeb
+    mostrarGastoWeb,
+    mostrarGastosAgrupadosWeb
 }

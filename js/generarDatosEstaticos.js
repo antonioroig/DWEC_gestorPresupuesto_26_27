@@ -27,8 +27,27 @@ for (let g of gp.listarGastos()){
     gpw.mostrarGastoWeb("listado-gastos-completo", g);
 }
 
-for (let g of gp.filtrarGastos("01-09-2021", "30-09-2021")){
+for (let g of gp.filtrarGastos({fechaDesde: "2021-09-01", fechaHasta: "2021-09-30"})){
     gpw.mostrarGastoWeb("listado-gastos-filtrado-1", g);
 }
 
+for (let g of gp.filtrarGastos({valorMinimo: 50})){
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-2", g);
+}
 
+for (let g of gp.filtrarGastos({valorMinimo: 200, etiquetasTiene: ["seguros"]})){
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-3", g);
+}
+
+for (let g of gp.filtrarGastos({etiquetasTiene: ["comida", "transporte"], valorMaximo: 50})){
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-4", g);
+}
+
+let agrupacionDia = gp.agruparGastos("dia");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-dia", agrupacionDia, "día");
+
+let agrupacionMes = gp.agruparGastos("mes");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-mes", agrupacionMes, "mes");
+
+let agrupacionAnyo = gp.agruparGastos("anyo");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-anyo", agrupacionAnyo, "anyo");
