@@ -28,7 +28,7 @@ gp.anyadirGasto(gasto4);
 gp.anyadirGasto(gasto5);
 gp.anyadirGasto(gasto6);
 
-const totalGastos = gp.calcularTotalGastos();
+const totalGastos = gp.calcularTotalGastos().toFixed(2);
 gpw.mostrarDatoEnId("gastos-totales", totalGastos);
 
 const balance = gp.calcularBalance();

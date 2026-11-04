@@ -179,7 +179,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
     // disponible. De momento no lo obtendremos por período temporal (lo haremos en 
     // sucesivas prácticas). Puede utilizar a su vez la función calcularTotalGastos.
     function calcularBalance() {
-        let totalGastos = calcularTotalGastos();
+        let totalGastos = calcularTotalGastos().toFixed(2);
         return (presupuesto - totalGastos);        
     }
 
