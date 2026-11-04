@@ -23,3 +23,13 @@ gp.anyadirGasto(gasto6);
 gpw.mostrarDatoEnId('presupuesto', gp.mostrarPresupuesto());
 gpw.mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos());
 gpw.mostrarDatoEnId('balance-total', gp.calcularBalance());
+
+//GastoWeb
+
+
+for(let gasto of gp.listarGastos()){
+
+    gpw.mostrarGastoWeb('listado-gastos-completo',gasto)
+
+}
+
