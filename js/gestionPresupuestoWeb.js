@@ -54,7 +54,6 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     divAgrupacion.append(divAgDato);  
     }   
 
-   
 }
 
 export {
