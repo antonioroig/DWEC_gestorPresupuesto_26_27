@@ -103,6 +103,10 @@ button:disabled, button:disabled:hover {
     color: red;
 }
 
+#agrupacion-dia, #agrupacion-mes, #agrupacion-anyo{
+    border: solid 2px black;
+    margin: 5px;
+}
 
 /* Pantallas grandes */
 @media screen and (min-width: 600px) {
