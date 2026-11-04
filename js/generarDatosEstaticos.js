@@ -34,3 +34,15 @@ for (const gasto of gestionPresupuesto.listarGastos()) {
     gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
 
+// Listados filtrados \\
+const filtros = [
+ ["listado-gastos-filtrado-1", { fechaDesde: "2021-09-01", fechaHasta: "2021-09-30" }],
+ ["listado-gastos-filtrado-2", { valorMinimo: 50 }],
+ ["listado-gastos-filtrado-3", { valorMinimo: 200, etiquetasTiene: ["seguros"] }],
+ ["listado-gastos-filtrado-4", { valorMaximo: 50, etiquetasTiene: ["comida", "transporte"] }]
+];
+for (const [id, criterios] of filtros) {
+ for (const gasto of gestionPresupuesto.filtrarGastos(criterios)) {
+ gestionPresupuestoWeb.mostrarGastoWeb(id, gasto);
+ }
+}
