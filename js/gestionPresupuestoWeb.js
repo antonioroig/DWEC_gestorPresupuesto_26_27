@@ -57,13 +57,26 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     let h1 = document.createElement("h1");
     h1.textContent = "Gastos agrupados por " + periodo.textContent;
 
-    let agruparDato = document.createElement("div");
-    agruparDato.className("agrupacion-dato")
-    divAgrupacion.append(agruparDato);
+    
+    for(let clave in agrup){
+        let valor = agrup[clave];
 
-    let datoClave = document.createElement("span")
-    datoClave.className("agrupacion-dato-clave")
-    datoClave.textContent = agrup.nombre;
+        let agrupDato = document.createElement("div");
+        agrupDato.className("agrupacion-dato");
+
+        let agrupClave = document.createElement("span");
+        agrupClave.className("agrupacion-dato-clave");
+        agrupClave.textContent = clave;
+        agrupDato.append(agrupClave)
+
+        let agrupValor = document.createElement("span");
+        agrupValor.className("agrupacion-dato-valor");
+        agrupValor.textContent = valor;
+        agrupDato.append(agrupValor);
+
+        contenedor.append(agrupDato);
+    }
+    
 }
 
 export{
