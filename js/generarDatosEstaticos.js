@@ -2,7 +2,7 @@ import * as gp from "./gestionPresupuesto.js";
 import * as gpw from "./gestionPresupuestoWeb.js";
 
 gp.actualizarPresupuesto(1500);
-gpw.mostarDatoEnId("presupuesto", gpw.mostrarGastosWeb());
+gpw.mostarDatoEnId("presupuesto", gp.mostrarPresupuesto());
 
 const gasto1 = new gp.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
 const gasto2 = new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06", "supermercado", "comida");
@@ -20,3 +20,15 @@ gp.anyadirGasto(gasto6);
 
 gpw.mostarDatoEnId("gastos-totales", gp.calcularTotalGastos());
 gpw.mostrarDatoEnId("balance-total", gp.calcularBalance());
+
+let listaGastos = gp.listarGastos();
+
+for(let gasto of listaGastos){
+    gpw.mostrarGastosWeb("listado-gastos-completo", gasto);
+}
+
+let listaFiltradaGastos = gp.filtrarGastos(1-9-2021, 30-9-2021);
+for(let gasto of listaFiltradaGastos){
+    gpw.mostrarGastosWeb("listado-gastos-filtrado-1", gasto);
+}
+
