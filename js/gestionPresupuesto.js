@@ -22,6 +22,7 @@ let idGasto = 0;
 
 function mostrarPresupuesto() {
     // TODO
+    
     return `Tu presupuesto actual es de ${presupuesto} €`;
 }
 
