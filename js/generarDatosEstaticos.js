@@ -34,3 +34,42 @@ gestionPresupuestoWeb.mostrarDatoEnId(
 for (const gasto of gestionPresupuesto.listarGastos()) {
     gestionPresupuestoWeb.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
+
+function mostrarFiltrado(idElemento, filtro) {
+    for (const gasto of gestionPresupuesto.filtrarGastos(filtro)) {
+        gestionPresupuestoWeb.mostrarGastoWeb(idElemento, gasto);
+    }
+}
+
+mostrarFiltrado("listado-gastos-filtrado-1", {
+    fechaDesde: "2021-09-01",
+    fechaHasta: "2021-09-30"
+});
+
+mostrarFiltrado("listado-gastos-filtrado-2", { valorMinimo: 50 });
+
+mostrarFiltrado("listado-gastos-filtrado-3", {
+    valorMinimo: 200,
+    etiquetasTiene: ["seguros"]
+});
+
+mostrarFiltrado("listado-gastos-filtrado-4", {
+    valorMaximo: 50,
+    etiquetasTiene: ["comida", "transporte"]
+});
+
+gestionPresupuestoWeb.mostrarGastosAgrupadosWeb(
+    "agrupacion-dia",
+    gestionPresupuesto.agruparGastos("dia"),
+    "dia"
+);
+gestionPresupuestoWeb.mostrarGastosAgrupadosWeb(
+    "agrupacion-mes",
+    gestionPresupuesto.agruparGastos("mes"),
+    "mes"
+);
+gestionPresupuestoWeb.mostrarGastosAgrupadosWeb(
+    "agrupacion-anyo",
+    gestionPresupuesto.agruparGastos("anyo"),
+    "anyo"
+);
