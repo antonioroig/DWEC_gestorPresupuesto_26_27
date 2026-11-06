@@ -56,11 +56,11 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo ){
 
         let span1 = document.createElement("span")
         span1.classList.add("agrupacion-dato-clave")
-        span1.textContent = key
+        span1.textContent = key + " - "
 
          let span2 = document.createElement("span")
         span2.classList.add("agrupacion-dato-valor")
-        span2.textContent = value
+        span2.textContent = value.toFixed(2)
 
         divagrup.append(span1)
         divagrup.append(span2)

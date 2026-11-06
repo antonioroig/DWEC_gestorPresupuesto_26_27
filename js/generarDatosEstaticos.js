@@ -18,8 +18,8 @@ gp.anyadirGasto(gasto4);
 gp.anyadirGasto(gasto5);
 gp.anyadirGasto(gasto6);
 
-gpw.mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos());
-gpw.mostrarDatoEnId('balance-total', gp.calcularBalance());
+gpw.mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos().toFixed(2));
+gpw.mostrarDatoEnId('balance-total', gp.calcularBalance().toFixed(2));
 
 
 let listadoCompleto = gp.listarGastos();
