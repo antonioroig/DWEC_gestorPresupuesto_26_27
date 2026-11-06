@@ -14,28 +14,28 @@ function mostrarGastoWeb(idElemento, gasto) {
     }
 
     const divGasto = document.createElement('div');
-    divGasto.className = 'gasto';
+    divGasto.classList.add('gasto');
 
     const divDescripcion = document.createElement('div');
-    divDescripcion.className = 'gasto-descripcion';
+    divDescripcion.classList.add('gasto-descripcion');
     divDescripcion.textContent = gasto.descripcion;
     divGasto.append(divDescripcion);
 
     const divFecha = document.createElement('div');
-    divFecha.className = 'gasto-fecha';
+    divFecha.classList.add('gasto-fecha');
     divFecha.textContent = new Date(gasto.fecha).toLocaleDateString();
     divGasto.append(divFecha);
 
     const divValor = document.createElement('div');
-    divValor.className = 'gasto-valor';
+    divValor.classList.add('gasto-valor');
     divValor.textContent = gasto.valor;
     divGasto.append(divValor);
 
     const divEtiquetas = document.createElement('div');
-    divEtiquetas.className = 'gasto-etiquetas';
+    divEtiquetas.classList.add('gasto-etiquetas');
     for (const etiqueta of gasto.etiquetas || []) {
         const span = document.createElement('span');
-        span.className = 'gasto-etiquetas-etiqueta';
+        span.classList.add('gasto-etiquetas-etiqueta');
         span.textContent = etiqueta;
         divEtiquetas.append(span);
     }
@@ -49,9 +49,28 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     
     const nombrePeriodo = {mes : "mes", dia: "dia", año: "año"}
 
+    const divAgrupacion = document.createElement('div');
+    divAgrupacion.classList.add('agrupacion');
+    document.body.append(divAgrupacion);
+
     const h1Titulo = document.createElement('h1');
     h1Titulo.textContent = 'Gastos agrupados por PERIODO';
+    divAgrupacion.append(h1Titulo);
 
-    const divAgrupacionDato = document.createElement('div');
-    divAgrupacionDato.className = 'Agrupacion-Dato'
+     for (const [clave, valor] of Object.entries(agrup)) {
+
+        const divAgrupacionDato = document.createElement('div');
+        divAgrupacionDato.classList.add('Agrupacion-Dato');
+        divAgrupacion.append(divAgrupacionDato);
+
+        const spanAgrupDatoClave = document.createElement('span');
+        spanAgrupDatoClave.classList.add('agrupacion-dato-clave');
+        spanAgrupDatoClave.textContent = clave;
+        spanAgrupDatoClave.append(divAgrupacionDato);
+
+        const spanAgrupDatoValor = document.createElement('span');
+        spanAgrupDatoValor.classList.add('agrupacion-dato-valor');
+        spanAgrupDatoValor.textContent = valor;
+        spanAgrupDatoValor.append(divAgrupacionDato);
+     }
 }
