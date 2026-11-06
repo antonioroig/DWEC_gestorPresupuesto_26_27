@@ -6,25 +6,25 @@ function mostrarDatoEnId(idElemento, valor){
 function mostrarGastoWeb(idElemento, gasto){
     let contenedor = document.getElementById(idElemento);
 
-    let divGasto = document.createAttribute('div');
+    let divGasto = document.createElement('div');
     divGasto.className = 'gasto';
 
-    let divDescripcion = document.createAttribute('div');
+    let divDescripcion = document.createElement('div');
     divDescripcion.className = 'gasto-descripcion';
     divDescripcion.textContent = gasto.descripcion;
     divGasto.appendChild(divDescripcion);
     
-    let divFecha = document.createAttribute('div');
+    let divFecha = document.createElement('div');
     divFecha.className = 'gasto-fecha';
     divFecha.textContent = new Date(gasto.fecha).toLocaleDateString();
     divGasto.appendChild(divFecha);
 
-    let divValor = document.createAttribute('div');
+    let divValor = document.createElement('div');
     divValor.className = 'gasto-valor';
     divValor.textContent = gasto.valor;
     divGasto.appendChild(divValor);
 
-    let divEtiquetas = document.createAttribute('div');
+    let divEtiquetas = document.createElement('div');
     divEtiquetas.className = 'gasto-etiquetas';
     for (let etiqueta of gasto.etiquetas){
         let span = document.createElement('span');
@@ -50,7 +50,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     divAgrup.className = 'agrupacion';
 
     let titulo = document.createElement('h1');
-    titulo.textContent = 'Gastos agrupados por ${textoPeriodo}';
+    titulo.textContent = 'Gastos agrupados por ' + textoPeriodo;
     divAgrup.appendChild(titulo);
 
     let claves = Object.keys(agrup);

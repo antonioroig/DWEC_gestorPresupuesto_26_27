@@ -20,3 +20,33 @@ gp.anyadirGasto(gasto6);
 
 gpw.mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos());
 gpw.mostrarDatoEnId('balance-total', gp.calcularBalance());
+
+let listaCompleta = gp.listarGastos();
+for (let gasto of listaCompleta){
+    gpw.mostrarGastoWeb('listado-gastos-completo',gasto);
+}
+
+let filtrado1 = gp.filtrarGastos({ fechaDesde: "2021-09-01", fechaHasta: "2021-09-30"});
+for (let gasto of filtrado1){
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-1', gasto);
+}
+let filtrado2 = gp.filtrarGastos({ valorMinimo: 50});
+for (let gasto of filtrado2){
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-2', gasto);
+}
+let filtrado3 = gp.filtrarGastos({valorMinimo: 200, etiquetasTiene: ["seguros"] });
+for (let gasto of filtrado3){
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-3', gasto);
+}
+let filtrado4 = gp.filtrarGastos({valorMaximo: 50, etiquetasTiene: ['comida', 'transporte'] });
+for (let gasto of filtrado4){
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-4', gasto);
+}
+let agrupDia = gp.agruparGastos('dia');
+gpw.mostrarGastosAgrupadosWeb('agrupacion-dia', agrupDia, 'dia');
+
+let agrupMes = gp.agruparGastos('mes');
+gpw.mostrarGastosAgrupadosWeb('agrupacion-mes', agrupMes, 'mes');
+
+let agrupAnyo = gp.agruparGastos('anyo');
+gpw.mostrarGastosAgrupadosWeb('agrupacion-anyo', agrupAnyo, 'anyo');
