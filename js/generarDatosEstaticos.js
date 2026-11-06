@@ -21,22 +21,36 @@ gp.anyadirGasto(gasto6);
 
 // Mostrar los resultados
 gpw.mostrarDatoEnId('presupuesto', gp.mostrarPresupuesto());
-gpw.mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos());
-gpw.mostrarDatoEnId('balance-total', gp.calcularBalance());
+gpw.mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos().toFixed(2));
+gpw.mostrarDatoEnId('balance-total', gp.calcularBalance().toFixed(2));
 
 //GastoWeb
 
 
 for(let gasto of gp.listarGastos()){
-    gpw.mostrarGastoWeb('listado-gastos-completo',gasto)
+    gpw.mostrarGastoWeb('listado-gastos-completo',gasto);
 }
 
 
 for(let gasto of gp.filtrarGastos({fechaDesde: "2021-09-01",fechaHasta: "2021-09-30"})){
-    gpw.mostrarGastoWeb('listado-gastos-filtrado-1',gasto)
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-1',gasto);
 }
 
 for(let gasto of gp.filtrarGastos({valorMinimo: 50})){
-    gpw.mostrarGastoWeb('listado-gastos-filtrado-2',gasto)
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-2',gasto);
 }
 
+for(let gasto of gp.filtrarGastos({valorMinimo: 200,etiquetasTiene: 'seguros'})){
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-3',gasto);
+}
+
+for(let gasto of gp.filtrarGastos({valorMinimo: 50,etiquetasTiene: 'comida', etiquetasTiene: 'transporte'})){
+    gpw.mostrarGastoWeb('listado-gastos-filtrado-4',gasto);
+}
+
+
+//mostrarGastosAgrupadosWeb
+
+gpw.mostrarGastosAgrupadosWeb('agrupacion-dia', gp.agruparGastos("dia"), "día");
+gpw.mostrarGastosAgrupadosWeb('agrupacion-mes', gp.agruparGastos("mes"), "mes");
+gpw.mostrarGastosAgrupadosWeb('agrupacion-anyo', gp.agruparGastos("anyo"), "año");
