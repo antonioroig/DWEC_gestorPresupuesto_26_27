@@ -13,7 +13,7 @@ function mostrarGastoWeb(idElemento, gasto)
             etiquetas += `<span class="gasto-etiquetas-etiqueta">${gasto.etiquetas[i]}</span>`;
         }
 
-    caja.innerHTML = `<div class="gasto">
+    caja.innerHTML += `<div class="gasto">
             <div class="gasto-descripcion">${gasto.descripcion}</div>
             <div class="gasto-fecha">${gasto.fecha}</div> 
             <div class="gasto-valor">${gasto.valor}</div> 
