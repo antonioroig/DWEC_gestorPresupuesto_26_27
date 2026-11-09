@@ -38,45 +38,45 @@ function mostrarGastoWeb(idElemento, gasto){
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     let contenedor = document.getElementById(idElemento);
 
+    let textoPeriodo;
     if(periodo === "dia")
     {
-        periodo.textContent = "día";
+        textoPeriodo = "día";
     }
     else if(periodo === "anyo"){
-        periodo.textContent = "año";
+        textoPeriodo = "año";
     }
     else{
-        periodo.textContent = "mes";
+        textoPeriodo = "mes";
     }
 
-
-
     let divAgrupacion = document.createElement("div");
-    divAgrupacion.className("agrupacion");
+    divAgrupacion.className = "agrupacion";
 
     let h1 = document.createElement("h1");
-    h1.textContent = "Gastos agrupados por " + periodo.textContent;
+    h1.textContent = "Gastos agrupados por " + textoPeriodo;
+    divAgrupacion.append(h1);
 
     
     for(let clave in agrup){
         let valor = agrup[clave];
 
         let agrupDato = document.createElement("div");
-        agrupDato.className("agrupacion-dato");
+        agrupDato.className = "agrupacion-dato";
 
         let agrupClave = document.createElement("span");
-        agrupClave.className("agrupacion-dato-clave");
+        agrupClave.className = "agrupacion-dato-clave";
         agrupClave.textContent = clave;
         agrupDato.append(agrupClave)
 
         let agrupValor = document.createElement("span");
-        agrupValor.className("agrupacion-dato-valor");
+        agrupValor.className = "agrupacion-dato-valor";
         agrupValor.textContent = valor;
         agrupDato.append(agrupValor);
 
-        contenedor.append(agrupDato);
+        divAgrupacion.append(agrupDato);
     }
-    
+    contenedor.append(divAgrupacion);
 }
 
 export{
