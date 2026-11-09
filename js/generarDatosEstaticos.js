@@ -46,3 +46,4 @@ for (let gasto of listaFiltradaGastos4) {
 }
 
 gpw.mostrarGastosAgrupadosWeb("agrupacion-dia", gp.agruparGastos("dia"), "dia");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-mes", gp.agruparGastos("mes"), "mes");
