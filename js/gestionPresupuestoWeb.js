@@ -1,5 +1,5 @@
-function mostarDatoEnId(id, valor){
-    document.getElementById(id).textContent = valor;
+function mostrarDatoEnId(idElemento, valor) {
+    document.getElementById(idElemento).textContent = valor;
 }
 
 function mostrarGastosWeb(idElemento, gasto){
@@ -80,7 +80,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 }
 
 export{
-    mostarDatoEnId,
+    mostrarDatoEnId,
     mostrarGastosWeb,
     mostrarGastosAgrupadosWeb
 }
