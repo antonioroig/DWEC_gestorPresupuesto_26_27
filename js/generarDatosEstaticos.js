@@ -1,22 +1,93 @@
-import * as gpw from './gestionPresupuestoWeb.js'; 
-import * as gp from './gestionPresupuesto.js'; 
 
-gp.actualizarPresupuesto(1000);
+import * as gpw from './gestionPresupuestoWeb.js';
+import * as gp from './gestionPresupuesto.js';
 
-let gasto1 = new gp.CrearGasto("Compra supermercado", 45, "2026-11-02", "comida");
-let gasto2 = new gp.CrearGasto("Gasolina", 60, "2026-11-04", "coche");
-let gasto3 = new gp.CrearGasto("Cena", 35, "2026-11-06", "comida", "ocio");
+
+gp.actualizarPresupuesto(1500);
+
+
+gpw.mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
+
+
+let gasto1 = new gp.CrearGasto("Compra carne", 23.44, "2021-10-06", "casa", "comida");
+let gasto2 = new gp.CrearGasto("Compra fruta y verdura", 14.25, "2021-09-06", "supermercado", "comida");
+let gasto3 = new gp.CrearGasto("Bonobús", 18.60, "2020-05-26", "transporte");
+let gasto4 = new gp.CrearGasto("Gasolina", 60.42, "2021-10-08", "transporte", "gasolina");
+let gasto5 = new gp.CrearGasto("Seguro hogar", 206.45, "2021-09-26", "casa", "seguros");
+let gasto6 = new gp.CrearGasto("Seguro coche", 195.78, "2021-10-06", "transporte", "seguros");
+
 
 gp.anyadirGasto(gasto1);
 gp.anyadirGasto(gasto2);
 gp.anyadirGasto(gasto3);
+gp.anyadirGasto(gasto4);
+gp.anyadirGasto(gasto5);
+gp.anyadirGasto(gasto6);
+
+
+gpw.mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos().toFixed(2) + " €");
+
+gpw.mostrarDatoEnId("balance-total", gp.calcularBalance().toFixed(2) + " €");
 
 let gastos = gp.listarGastos();
 
-
 for (let i = 0; i < gastos.length; i++) {
-    gpw.mostrarGastoWeb("lista-gastos", gastos[i]);
+    gpw.mostrarGastoWeb("listado-gastos-completo", gastos[i]);
 }
 
-let gastosAgrup = gp.agruparGastos("mes");
-gpw.mostrarGastosAgrupadosWeb("gastos-agrupados", gastosAgrup, "mes");
+let gastosFiltrados1 = gp.filtrarGastos({
+    fechaDesde: "2021-09-01",
+    fechaHasta: "2021-09-30"
+});
+
+for (let i = 0; i < gastosFiltrados1.length; i++) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-1", gastosFiltrados1[i]);
+}
+
+
+let gastosFiltrados2 = gp.filtrarGastos({
+    valorMinimo: 50.01
+});
+
+for (let i = 0; i < gastosFiltrados2.length; i++) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-2", gastosFiltrados2[i]);
+}
+
+
+let gastosFiltrados3 = gp.filtrarGastos({
+    valorMinimo: 200.01,
+    etiquetasTiene: ["seguros"]
+});
+
+for (let i = 0; i < gastosFiltrados3.length; i++) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-3", gastosFiltrados3[i]);
+}
+
+
+let gastosComida = gp.filtrarGastos({
+    valorMaximo: 49.99,
+    etiquetasTiene: ["comida"]
+});
+
+let gastosTransporte = gp.filtrarGastos({
+    valorMaximo: 49.99,
+    etiquetasTiene: ["transporte"]
+});
+
+let gastosFiltrados4 = gastosComida.concat(gastosTransporte);
+
+for (let i = 0; i < gastosFiltrados4.length; i++) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-4", gastosFiltrados4[i]);
+}
+
+
+let agrupacionDia = gp.agruparGastos("dia");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-dia", agrupacionDia, "dia");
+
+
+let agrupacionMes = gp.agruparGastos("mes");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-mes", agrupacionMes, "mes");
+
+
+let agrupacionAnyo = gp.agruparGastos("anyo");
+gpw.mostrarGastosAgrupadosWeb("agrupacion-anyo", agrupacionAnyo, "anyo");

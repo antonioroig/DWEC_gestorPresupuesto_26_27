@@ -1,8 +1,8 @@
-function mostrarDatoEnId(valor,idElemento){
-let elem= document.getElementById(idElemento);
+function mostrarDatoEnId(idElemento, valor) {
+    let elem = document.getElementById(idElemento);
     elem.textContent = valor;
-
 }
+
 function mostrarGastoWeb(idElemento, gasto){
     let elem = document.getElementById(idElemento);
 
@@ -80,3 +80,9 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
     elem.appendChild(divAgrup);
 }
+
+export {
+    mostrarDatoEnId,
+    mostrarGastoWeb,
+    mostrarGastosAgrupadosWeb
+};
