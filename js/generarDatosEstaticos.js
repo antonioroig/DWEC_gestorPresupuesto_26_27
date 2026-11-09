@@ -30,3 +30,7 @@ for(let gasto of listaFiltradaGastos){
     gpw.mostrarGastoWeb("listado-gastos-filtrado-1", gasto);
 }
 
+let listaFiltradaGastos2 = gp.filtrarGastos({valorMinimo: 50})
+for (let gasto of listaFiltradaGastos2) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-2", gasto);
+}
