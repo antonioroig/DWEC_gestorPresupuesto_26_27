@@ -21,14 +21,12 @@ gp.anyadirGasto(gasto6);
 gpw.mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
 gpw.mostrarDatoEnId("balance-total", gp.calcularBalance());
 
-let listaGastos = gp.listarGastos();
-
-for(let gasto of listaGastos){
+for (let gasto of gp.listarGastos()) {
     gpw.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
 
-let listaFiltradaGastos = gp.filtrarGastos(1-9-2021, 30-9-2021);
+let listaFiltradaGastos = gp.filtrarGastos({ fechaDesde: "2021-09-01", fechaHasta: "2021-09-30" });
 for(let gasto of listaFiltradaGastos){
-    gpw.mostrarGastosWeb("listado-gastos-filtrado-1", gasto);
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-1", gasto);
 }
 
