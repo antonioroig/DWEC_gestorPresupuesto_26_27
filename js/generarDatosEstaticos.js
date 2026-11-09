@@ -39,3 +39,8 @@ let listaFiltradaGastos3 = gp.filtrarGastos({ valorMinimo: 200, etiquetasTiene: 
 for (let gasto of listaFiltradaGastos3) {
     gpw.mostrarGastoWeb("listado-gastos-filtrado-3", gasto);
 }
+
+let listaFiltradaGastos4 = gp.filtrarGastos({ valorMaximo: 50, etiquetasTiene: ["comida", "transporte"] })
+for (let gasto of listaFiltradaGastos4) {
+    gpw.mostrarGastoWeb("listado-gastos-filtrado-4", gasto);
+}
