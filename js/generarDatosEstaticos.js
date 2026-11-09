@@ -44,3 +44,5 @@ let listaFiltradaGastos4 = gp.filtrarGastos({ valorMaximo: 50, etiquetasTiene: [
 for (let gasto of listaFiltradaGastos4) {
     gpw.mostrarGastoWeb("listado-gastos-filtrado-4", gasto);
 }
+
+gpw.mostrarGastosAgrupadosWeb("agrupacion-dia", gp.agruparGastos("dia"), "dia");
