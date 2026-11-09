@@ -11,6 +11,12 @@ gp.anyadirGasto(gasto1);
 gp.anyadirGasto(gasto2);
 gp.anyadirGasto(gasto3);
 
-gpw.mostrarDatoEnId("presupuesto", 1000);
-gpw.mostrarDatoEnId("total-gastos", gp.calcularTotalGastos());
-gpw.mostrarDatoEnId("balance", gp.calcularBalance());
+let gastos = gp.listarGastos();
+
+
+for (let i = 0; i < gastos.length; i++) {
+    gpw.mostrarGastoWeb("lista-gastos", gastos[i]);
+}
+
+let gastosAgrup = gp.agruparGastos("mes");
+gpw.mostrarGastosAgrupadosWeb("gastos-agrupados", gastosAgrup, "mes");
