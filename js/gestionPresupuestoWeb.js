@@ -2,7 +2,7 @@ function mostrarDatoEnId(idElemento, valor) {
     document.getElementById(idElemento).textContent = valor;
 }
 
-function mostrarGastosWeb(idElemento, gasto){
+function mostrarGastoWeb(idElemento, gasto){
     let contenedor = document.getElementById(idElemento);
 
     let divGasto = document.createElement("div");
@@ -15,24 +15,24 @@ function mostrarGastosWeb(idElemento, gasto){
 
     let gastoFecha = document.createElement("div");
     gastoFecha.className = "gasto-fecha";
-    gastoFecha.textContent = gasto.fecha;
-    gastoDiv.append(gastoFecha);
+    gastoFecha.textContent = new Date(gasto.fecha).toLocaleString();
+    divGasto.append(gastoFecha);
 
     let gastoValor = document.createElement("div");
     gastoValor.className = "gasto-valor";
     gastoValor.textContent = gasto.valor;
-    gastoDiv.append(gastoValor);
+    divGasto.append(gastoValor);
 
     let gastoEtiqueta = document.createElement("div");
-    gastoEtiqueta.className("gasto-etiquetas");
+    gastoEtiqueta.className = "gasto-etiquetas";
     for(let etiqueta of gasto.etiquetas){
         let etiquetaSpan = document.createElement("span");
-        etiquetaSpan.className("gasto-etiquetas-etiqueta");
+        etiquetaSpan.className = "gasto-etiquetas-etiqueta";
         etiquetaSpan.textContent = etiqueta;
         gastoEtiqueta.append(etiquetaSpan);
     }
-    gastoDiv.append(gastoEtiqueta);
-    contenedor.append(gastoDiv);
+    divGasto.append(gastoEtiqueta);
+    contenedor.append(divGasto);
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
@@ -81,6 +81,6 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
 export{
     mostrarDatoEnId,
-    mostrarGastosWeb,
+    mostrarGastoWeb,
     mostrarGastosAgrupadosWeb
 }

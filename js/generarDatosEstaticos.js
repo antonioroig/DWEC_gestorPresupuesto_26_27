@@ -24,7 +24,7 @@ gpw.mostrarDatoEnId("balance-total", gp.calcularBalance());
 let listaGastos = gp.listarGastos();
 
 for(let gasto of listaGastos){
-    gpw.mostrarGastosWeb("listado-gastos-completo", gasto);
+    gpw.mostrarGastoWeb("listado-gastos-completo", gasto);
 }
 
 let listaFiltradaGastos = gp.filtrarGastos(1-9-2021, 30-9-2021);
