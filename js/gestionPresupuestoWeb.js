@@ -1,10 +1,10 @@
 "use strict";
 
-function mostrarDatoEnId(idElemento, valor) {
+function mostrarDatoEnId(idElemento, valor){
     let elemento = document.getElementById(idElemento);
-    let p = document.createElement('p');
-    p.textContent = valor;
-    elemento.append(p);
+    if (elemento) {
+        elemento.textContent = valor;
+    }
 }
 
 function mostrarGastoWeb(idElemento, gasto) {
