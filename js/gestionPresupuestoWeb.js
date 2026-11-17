@@ -87,8 +87,7 @@ function repintar(){
     mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
     mostrarDatoEnId("balance-total", gp.calcularBalance());
 
-    let listadoGastos = document.getElementById("listado-gastos-completo");
-    listadoGastos.innerHTML = "";
+    document.getElementById("listado-gastos-completo").innerHTML = "";
 
     for(let gasto of gp.listarGastos()){
         mostrarGastoWeb("listado-gastos-completo", gasto);
