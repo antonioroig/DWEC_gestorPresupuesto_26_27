@@ -106,13 +106,35 @@ function actualizarPresupuestoWeb() {
     repintar();
 }
 
-let boton = document.getElementById("actualizarpresupuesto");
-boton.addEventListener('click', actualizarPresupuestoWeb);
+let botonActPres = document.getElementById("actualizarpresupuesto");
+botonActPres.addEventListener('click', actualizarPresupuestoWeb);
+
+function nuevoGastoWeb() {
+    let descripcion = prompt("Introduce la descripción del nuevo gasto: ");
+
+    let valor = prompt("Introduce el valor del nuevo gasto: ");
+    valor = Number(valor);
+
+    let fecha = prompt("Introduce la fecha (yyyy-mm-dd) del nuevo gasto: ");
+
+    let etiquetasComas = prompt("Introduce las etiquetas del nuevo gasto separadas por comas: ");
+    let etiquetas = etiquetasComas.split(',');
+
+    let gasto = new gp.CrearGasto(descripcion, valor, fecha, ...etiquetas);
+
+    gp.anyadirGasto(gasto);
+
+    repintar();
+}
+
+let botonNuevoGasto = document.getElementById("anyadirgasto");
+botonNuevoGasto.addEventListener('click', nuevoGastoWeb);
 
 export {
     mostrarDatoEnId, 
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
-    actualizarPresupuestoWeb
+    actualizarPresupuestoWeb,
+    nuevoGastoWeb
 }
