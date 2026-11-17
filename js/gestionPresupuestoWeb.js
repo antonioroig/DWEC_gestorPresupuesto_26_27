@@ -1,5 +1,6 @@
-
 "use strict"
+
+import * as gp from "./gestionPresupuesto.js";
 
 function mostrarDatoEnId(idElemento, valor) {
     const elemento = document.getElementById(idElemento);
@@ -80,8 +81,27 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     elemento.append(agrupacion);
 }
 
+function repintar() {
+    const presupuesto = gp.mostrarPresupuesto();
+    mostrarDatoEnId("presupuesto", presupuesto);
+
+    const gastosTotales = gp.calcularTotalGastos();
+    mostrarDatoEnId("gastos-totales", gastosTotales);
+
+    const balanceTotal = gp.calcularBalance();
+    mostrarDatoEnId("balance-total", balanceTotal);
+
+    document.getElementById("listado-gastos-completo").innerHTML = "";
+
+    const listadoGastos = gp.listarGastos();
+    for (const gasto of listadoGastos) {
+        mostrarGastoWeb("listado-gastos-completo", gasto);
+    }
+}
+
 export {
     mostrarDatoEnId, 
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    repintar
 }
