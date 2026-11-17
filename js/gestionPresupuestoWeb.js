@@ -88,8 +88,18 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
         divAgrupacionDato.append(spanAgrupacionValor);
     }
 }
+
+function repintar() {
+    mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-toatles", gp.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", gp.calcularBalance());
+    document.getElementById("listado-gastos-completo").innerHTML = "";
+    mostrarGastoWeb("listado-gastos-completo", gp.listarGastos())
+}
+
 export{
     mostrarDatoEnId,
     mostrarGastosAgrupadosWeb,
-    mostrarGastoWeb
+    mostrarGastoWeb,
+    repintar
 }
