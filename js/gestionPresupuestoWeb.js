@@ -1,5 +1,7 @@
 'use strict';
 
+import * as gp from "./gestionPresupuesto.js";
+
 function mostrarDatoEnId(idElemento, valor) {
     const elemento = document.getElementById(idElemento);
     if (elemento) {
@@ -86,7 +88,6 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
         divAgrupacionDato.append(spanAgrupacionValor);
     }
 }
-
 export{
     mostrarDatoEnId,
     mostrarGastosAgrupadosWeb,
