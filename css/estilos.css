@@ -151,4 +151,10 @@ button:disabled, button:disabled:hover {
     .gasto form {
         flex: 1;
     }
+
+    #agrupacion-dia, #agrupacion-anyo, #agrupacion-mes{
+        border: solid blueviolet;
+        padding: 20px;
+        margin-bottom: 20px;
+    }
 }

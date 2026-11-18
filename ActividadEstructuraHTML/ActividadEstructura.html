@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+</head>
+<body>
+    <style>
+ .acordeon {
+     margin: 0.5em;
+     padding: 0em 1em;
+ }
+ .acordeon-titulo {
+     cursor: pointer;
+     margin-bottom: 0.5em;
+ }
+ .acordeon-contenido {
+     max-height: 0;
+     overflow: hidden;
+     transition: max-height 0.5s;
+ }
+
+ .acordeon-contenido-visible {
+     border-top: 1px solid black;
+     max-height: 5em;
+     transition: max-height 0.5s;
+     overflow: scroll;
+ }
+</style>
+
+<div class="acordeon" data-acordeon>
+    <div class="acordeon-titulo" data-acordeon-titulo>
+	Título 1
+    </div>
+
+    <div class="acordeon-contenido">
+	Faucibus vitae aliquet nec, ullamcorper sit amet risus nullam eget felis eget nunc lobortis mattis aliquam faucibus purus in massa. Dignissim convallis aenean et tortor at risus viverra adipiscing at?
+    </div>
+
+</div>
+
+<div class="acordeon" data-acordeon>
+    <div class="acordeon-titulo" data-acordeon-titulo>
+	Título 2
+    </div>
+
+    <div class="acordeon-contenido">
+	Nullam vehicula ipsum a arcu cursus vitae congue mauris rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar pellentesque habitant morbi tristique senectus et netus et! Sed pulvinar proin gravida hendrerit.
+    </div>
+
+</div>
+
+<script>
+ // Únicamente hay un manejador de eventos para el documento
+ document.addEventListener("click", function(evento) {
+     // Cada vez que se hace 'click' en cualquier lugar del documento, se comprueba 'event.target' para ver si tiene el atributo 'data-acordeon-titulo'
+     let esAcordeonTitulo = event.target.dataset.acordeonTitulo;
+
+     // Si no lo tiene, se termina la ejecución
+     if (esAcordeonTitulo == undefined) return;
+
+     // Si lo tiene, se busca el siguiente elemento hermano de 'acordeon-titulo', que es 'acordeon-contenido'
+     let acordeonContenido = evento.target.nextElementSibling;
+
+     // Se pone o quita la clase para mostrar u ocultar el contenido
+     acordeonContenido.classList.toggle("acordeon-contenido-visible");
+ });
+
+ 
+</script>
+<div id="personas">
+    <!-- Aquí se mostrará el listado de personas junto con sus botones de edición y borrado -->
+</div>
+
+<script>
+ // Datos
+ let personas = [
+     {
+	 nombre: "Ana",
+	 apellido: "López"
+     },
+     {
+	 nombre: "Inés",
+	 apellido: "García"
+     }
+ ];
+
+ // Prototipos para los manejadores de eventos
+ // Definen el método 'handleEvent'
+ function editarPersona(){
+    this.handleEvent = function(evento) {
+	 // Lógica para la tarea de edición
+	 alert(`Editando datos de ${this.datosPersona.nombre} ${this.datosPersona.apellido}`);
+     }
+ }
+
+
+ function borrarPersona(){
+     this.handleEvent = function(evento) {
+	 // Lógica para la tarea de borrado
+	 alert(`Borrando datos de ${this.datosPersona.nombre} ${this.datosPersona.apellido}`);
+ }
+     
+ }
+
+ // Lugar donde se mostrará el listado de personas
+ let listadoDiv = document.getElementById("personas");
+
+ // Creación de la estructura HTML para cada persona
+ for (let persona of personas) {
+     // Contenedor de la estructura
+     let divPersona = document.createElement("div");
+
+     // Datos de la persona
+     divPersona.innerHTML = `<span>${persona.nombre} ${persona.apellido}</span>`;
+
+     // Botón de editar
+     let editarBoton = document.createElement("button");
+     editarBoton.setAttribute("type", "button");
+     editarBoton.textContent = "Editar";
+     // Manejador de evento de editar
+     let editarManejador = new editarPersona();
+     // Incorporamos en la propiedad 'datosPersona' el objeto persona que se está procesando
+     editarManejador.datosPersona = persona;
+     // Añadimos el manejador al botón
+     editarBoton.addEventListener("click", editarManejador);
+     // Añadimos el botón a la estructura HTML
+     divPersona.append(editarBoton);
+
+     // Botón de borrar
+     let borrarBoton = document.createElement("button");
+     borrarBoton.setAttribute("type", "button");
+     borrarBoton.textContent = "Borrar";
+     // Manejador de evento de borrar
+     let borrarManejador = new borrarPersona();
+     // Incorporamos en la propiedad 'datosPersona' el objeto persona que se está procesando
+     borrarManejador.datosPersona = persona;
+     // Añadimos el manejador al botón
+     borrarBoton.addEventListener("click", borrarManejador);
+     // Añadimos el botón a la estructura HTML
+     divPersona.append(borrarBoton);
+
+     // Por último, añadimos la estructura al listado
+     listadoDiv.append(divPersona);
+ }
+</script>
+</body>
+</html>
