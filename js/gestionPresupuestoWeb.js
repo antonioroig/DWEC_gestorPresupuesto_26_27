@@ -44,7 +44,7 @@ function mostrarGastoWeb(idElemento, gasto){
         span.addEventListener("click", borrarEtiGasto);
 
         divEtiq.append(span); 
-    }   
+    }    
 
      const editorGasto = new EditarHandle();
     editorGasto.gasto = gasto;
