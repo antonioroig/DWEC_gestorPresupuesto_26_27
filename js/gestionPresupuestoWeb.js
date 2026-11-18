@@ -76,7 +76,8 @@ function repintar(){
     mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos().toFixed(2));
     mostrarDatoEnId('balance-total', gp.calcularBalance().toFixed(2));
     
-    
+    document.getElementById("listado-gastos-completo").innerHTML = "";
+
     let listadoCompleto = gp.listarGastos();
     for (let i = 0; i < listadoCompleto.length; i++) {
         mostrarGastoWeb('listado-gastos-completo', listadoCompleto[i]);
@@ -113,10 +114,21 @@ function repintar(){
     
 }
 
+function actualizarPresupuestoWeb(){
+    let presupuesto = Number.parseInt(prompt("Dime el nuevo presupuesto"))
+
+    gp.actualizarPresupuesto(presupuesto)
+
+    repintar()
+}
+
+let actualizarPresupuestoBoton = document.getElementById("actualizarpresupuesto")
+actualizarPresupuestoBoton.addEventListener("click", actualizarPresupuestoWeb)
 
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
-    repintar
+    repintar,
+    actualizarPresupuestoWeb
 }

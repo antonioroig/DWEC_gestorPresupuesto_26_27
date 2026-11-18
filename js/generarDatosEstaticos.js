@@ -56,3 +56,4 @@ gpw.mostrarGastosAgrupadosWeb('agrupacion-mes', agrupacionMes, 'mes');
 let agrupacionAnyo = gp.agruparGastos('anyo');
 gpw.mostrarGastosAgrupadosWeb('agrupacion-anyo', agrupacionAnyo, 'año');
 
+gpw.repintar()
