@@ -186,6 +186,7 @@ function agruparGastos(periodo = "mes",etiquetas = [], fechaDesde, fechaHasta){
 
 
 
+
 export {
     mostrarPresupuesto,
     actualizarPresupuesto,
