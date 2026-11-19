@@ -75,10 +75,17 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     contenedor.appendChild(divAgrup);
 }
 function repintar(){
-    
+    mostrarDatoEnId('presupuesto', gp.mostrarPresupuesto());
+    mostrarDatoEnId('gastos-totales', gp.mostrarTotalGastos());
+    mostrarDatoEnId('balance', gp.calcularBalance());
+    document.getElementById('listado-gastos-completo').innerHTML = '';
+    for(const gasto of gp.listarGastos()){
+        mostrarGastoWeb('listado-gastos-completo', gasto);
+    }
 }
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    repintar
 }
