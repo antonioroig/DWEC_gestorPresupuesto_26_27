@@ -89,10 +89,21 @@ function repintar() {
     }
 }
 
+function actualizarPresupuestoWeb() {
+    let nuevoPresupuestoStr = prompt("Introduce el nuevo presupuesto:");
+    let nuevoPresupuesto = Number(nuevoPresupuestoStr);
+    gestionPresupuesto.actualizarPresupuesto(nuevoPresupuesto);
+    repintar();
+}
+
+let btnActualizarPresupuesto = document.getElementById("actualizarpresupuesto");
+btnActualizarPresupuesto.addEventListener("click", actualizarPresupuestoWeb);
+
 export {
 
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
-    repintar
+    repintar,
+    actualizarPresupuestoWeb
 }
