@@ -153,7 +153,14 @@ function EditarHandle() {
 
 function BorrarHandle() {
     this.handleEvent = function(evento) {
-        this.borrarGasto(this.gasto.idGasto);
+        this.gasto.borrarGasto(this.gasto.idGasto);
+        repintar();
+    }
+}
+
+function BorrarEtiquetasHandle() {
+    this.handleEvent = function(evento) {
+        this.gasto.borrarEtiquetas(this.etiqueta);
         repintar();
     }
 }
