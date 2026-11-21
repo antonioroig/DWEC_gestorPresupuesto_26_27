@@ -151,6 +151,13 @@ function EditarHandle() {
     }
 }
 
+function BorrarHandle() {
+    this.handleEvent = function(evento) {
+        this.borrarGasto(this.gasto.idGasto);
+        repintar();
+    }
+}
+
 export {
     mostrarDatoEnId, 
     mostrarGastoWeb,
