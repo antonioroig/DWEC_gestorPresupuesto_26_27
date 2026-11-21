@@ -130,6 +130,27 @@ function nuevoGastoWeb() {
 let botonNuevoGasto = document.getElementById("anyadirgasto");
 botonNuevoGasto.addEventListener('click', nuevoGastoWeb);
 
+function EditarHandle() {
+    this.handleEvent = function(evento) {
+    let descripcion = prompt("Introduce la nueva descripción del gasto:");
+
+    let valor = prompt("Escribe el nuevo valor del gasto:");
+    valor = Number(valor);
+
+    let fecha = prompt("Introduce la nueva fecha (yyyy-mm-dd) del gasto: ");
+
+    let etiquetasComas = prompt("Introduce las neuvas etiquetas del gasto separadas por comas: ");
+    let etiquetas = etiquetasComas.split(',');
+
+    this.gasto.actualizarDescripcion(descripcion);
+    this.gasto.actualizarValor(valor);
+    this.gasto.actualizarFecha(fecha);
+    this.gasto.anyadirEtiquetas(...etiquetas);
+
+    repintar();
+    }
+}
+
 export {
     mostrarDatoEnId, 
     mostrarGastoWeb,
