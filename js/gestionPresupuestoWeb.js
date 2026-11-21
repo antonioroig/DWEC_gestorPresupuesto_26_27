@@ -28,15 +28,40 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
     gastoValor.textContent = objetoGasto.valor.toFixed(2);     
     gasto.append(gastoValor);
 
-
     const gastoEtiquetas = document.createElement("div");
     gastoEtiquetas.className = "gasto-etiquetas";
-    gasto.append(gastoEtiquetas);    
+    gasto.append(gastoEtiquetas);  
+
+    const manejadorEditar = new EditarHandle();
+    manejadorEditar.gasto = objetoGasto;
     
+    const botonEditar = document.createElement("button");
+    botonEditar.type = "button";
+    botonEditar.className = "gasto-editar";
+    botonEditar.textContent = "Editar";   
+    botonEditar.addEventListener('click', manejadorEditar);
+    gasto.append(botonEditar);
+
+    const manejadorBorrar = new BorrarHandle();
+    manejadorBorrar.gasto = objetoGasto;
+
+    const botonBorrar = document.createElement("button");
+    botonBorrar.type = "button";
+    botonBorrar.className = "gasto-borrar";
+    botonBorrar.textContent = "Borrar";
+    botonBorrar.addEventListener('click', manejadorBorrar);
+    gasto.append(botonBorrar);
+        
     for (const etiqueta of objetoGasto.etiquetas) {
     const gastoEtiquetasEtiqueta = document.createElement("span");
     gastoEtiquetasEtiqueta.className = "gasto-etiquetas-etiqueta";
     gastoEtiquetasEtiqueta.textContent = etiqueta + " ";
+
+    const manejadorBorrarEtiquetas = new BorrarEtiquetasHandle();
+    manejadorBorrarEtiquetas.gasto = objetoGasto;
+    manejadorBorrarEtiquetas.etiqueta = etiqueta;
+    gastoEtiquetasEtiqueta.addEventListener('click', manejadorBorrarEtiquetas);
+
     gastoEtiquetas.append(gastoEtiquetasEtiqueta);
 }
 
