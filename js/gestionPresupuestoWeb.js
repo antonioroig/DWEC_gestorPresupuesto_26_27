@@ -106,6 +106,28 @@ let botonActualizar = document.getElementById('actualizarpresupuesto');
 
 botonActualizar.addEventListener('click', actualizarPresupuestoWeb);
 
+function nuevoGastoWeb(){
+    let descripcion = prompt("Introduce la descripción:");
+    let valorTexto = prompt("Introduce el valor:");
+    let valor = Number(valorTexto);
+    let fecha = prompt("Introduce la fecha:");
+    let etiquetasTexto = prompt("Introduce las etiquetas:");
+    let etiquetas;
+
+    if (etiquetasTexto) {
+        etiquetas = etiquetasTexto.split(",");
+    } else {
+        etiquetas = [];
+    }
+
+    let gasto = new gp.CrearGasto(descripcion, valor, fecha, ...etiquetas);
+    gp.anyadirGasto(gasto);
+    repintar();
+}
+let botonAnyadir = document.getElementById('anyadirgasto');
+
+botonAnyadir.addEventListener('click', nuevoGastoWeb);    
+
 export {
         mostrarDatoEnId,
         mostrarGastoWeb,
