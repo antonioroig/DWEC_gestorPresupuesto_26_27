@@ -52,6 +52,27 @@ function mostrarGastoWeb(idElemento, gasto) {
         elemento.appendChild(divGasto);        
     }
 
+    let botonEditar = document.createElement("button");
+    botonEditar.type = "button";
+    botonEditar.className = "gasto-editar";
+    botonEditar.textContent = "Editar";
+
+    let manejadorEditar = new EditarHandle();
+    manejadorEditar.gasto = gasto;
+    botonEditar.addEventListener("click", manejadorEditar);
+    divGasto.appendChild(botonEditar);
+
+    let botonBorrar = document.createElement("button");
+    botonBorrar.type = "button";
+    botonBorrar.className = "gasto-borrar";
+    botonBorrar.textContent = "Borrar";
+
+    let manejadorBorrar = new BorrarHandle();
+    manejadorBorrar.gasto = gasto;
+    botonBorrar.addEventListener("click", manejadorBorrar);
+    divGasto.appendChild(botonBorrar);
+
+    elemento.appendChild(divGasto);
     
 }
 
@@ -86,6 +107,37 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     }
 
     elemento.appendChild(divAgrupacion);
+}
+
+function repintar() {
+    mostrarDatoEnId("presupuesto", logica.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", logica.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", logica.calcularBalance());
+
+    let divListado = document.getElementById("listado-gastos-completo");
+    if (divListado) {
+        divListado.innerHTML = "";
+    }
+
+    let listaGastos = logica.listarGastos();
+    for (let i = 0; i < listaGastos.length; i++) {
+        mostrarGastoWeb("listado-gastos-completo", listaGastos[i]);
+    }
+}
+
+function nuevoGastoWeb() {
+    let descripcion = prompt("Introduce la descripcion del gasto");
+    let valorStr = prompt("Introduce el valor del gasto:");
+    let fecha = prompt("Introduce la fecha del gasto (yyyy-mm-dd):");
+    let etiquetasStr = prompt("Introduce las etiquetas separadas por comas (ej: comida,casa):");
+
+    let valor = number(valorStr);
+    let etiquetas = etiquetasStr ? etiquetasStr.split(",") : [];
+
+    let nuevoGasto = new logica.CrearGasto(descripcion, valor, fecha, ...etiquetas);
+    logica.anyadirGasto(nuevoGasto);
+    
+    repintar();
 }
 
 
