@@ -140,6 +140,37 @@ function nuevoGastoWeb() {
     repintar();
 }
 
+let btnAnyadirGasto = document.getElementById("anyadirgasto");
+if (btnAnyadirGasto) {
+    btnAnyadirGasto.addEventListener("click", nuevoGastoWeb);
+}
+
+function EditarHandle(){
+    this.handleEvent = function(){
+        let anyo = this.gasto.fecha.getFullYear();
+        let mes = String(this.gasto.fecha.getMonth() + 1).padStart(2, '0');
+        let dia = String(this.gasto.fecha.getDate()).padStart(2, '0');
+        let fechaActualStr = `${anyo}-${mes}-${dia}`;
+
+        let etiquetasActualesStr = this.gasto.etiquetas.join(",");
+
+        let nuevaDescripcion = prompt("Introduce la nueva descripción:", this.gasto.descripcion);
+        let nuevoValorStr = prompt("Introduce el nuevo valor:", this.gasto.valor);
+        let nuevaFecha = prompt("Introduce la nueva fecha (yyyy-mm-dd):", fechaActualStr);
+        let nuevasEtiquetasStr = prompt("Introduce las nuevas etiquetas separadas por comas:", etiquetasActualesStr);
+
+        let nuevoValor = Number(nuevoValorStr);
+        let nuevasEtiquetas = nuevasEtiquetasStr ? nuevasEtiquetasStr.split(",") : [];
+
+        this.gasto.actualizarDescripcion(nuevaDescripcion);
+        this.gasto.actualizarValor(nuevoValor);
+        this.gasto.actualizarFecha(nuevaFecha);
+        this.gasto.anyadirEtiquetas(...nuevasEtiquetas);
+
+        repintar();
+    };
+}
+
 
 export {
     mostrarDatoEnId,
