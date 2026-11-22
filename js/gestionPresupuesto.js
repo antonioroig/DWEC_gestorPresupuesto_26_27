@@ -108,6 +108,8 @@ function agruparGastos(periodo = "mes", etiquetas = [], fechaDesde, fechaHasta) 
 
         acc[clavePeriodo] += gastoActual.valor;
 
+        acc[clavePeriodo] = Number(acc[clavePeriodo].toFixed(2));
+
         return acc;
     }, {});
 }
