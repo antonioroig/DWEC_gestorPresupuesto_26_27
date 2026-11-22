@@ -81,9 +81,20 @@ function repintar() {
         mostrarGastoWeb("listado-gastos-completo", gasto);
     }
 }
+function actualizarPresupuestoWeb() {
+    const respuesta = prompt("Introduce un presupuesto:");
+    const presupuesto = parseFloat(respuesta);
+    gestion.actualizarPresupuesto(presupuesto);
+    repintar();
+}
+document
+    .getElementById("actualizarpresupuesto")
+    .addEventListener("click", actualizarPresupuestoWeb);
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
-    repintar
+    repintar,
+    actualizarPresupuestoWeb
+
 };
