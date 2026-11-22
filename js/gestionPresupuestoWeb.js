@@ -47,9 +47,7 @@ function mostrarGastoWeb(idElemento, gasto) {
         manejadorBorrarEtiqueta.etiqueta = etiqueta;
         spanEtiqueta.addEventListener("click", manejadorBorrarEtiqueta);
 
-        divEtiquetas.appendChild(spanEtiqueta);
-        
-        elemento.appendChild(divGasto);        
+        divEtiquetas.appendChild(spanEtiqueta);       
     }
 
     let botonEditar = document.createElement("button");
@@ -188,7 +186,7 @@ function BorrarEtiquetasHandle() {
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb,
     nuevoGastoWeb,
