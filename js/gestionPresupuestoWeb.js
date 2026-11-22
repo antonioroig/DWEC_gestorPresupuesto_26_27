@@ -123,13 +123,26 @@ function repintar() {
     }
 }
 
+function actualizarPresupuestoWeb() {
+    let nuevoPresupuestoStr = prompt("Introduce el nuevo presupuesto:");
+    let nuevoPresupuesto = Number(nuevoPresupuestoStr);
+    
+    logica.actualizarPresupuesto(nuevoPresupuesto);
+    repintar();
+}
+
+let btnActualizarPresupuesto = document.getElementById("actualizarpresupuesto");
+if (btnActualizarPresupuesto) {
+    btnActualizarPresupuesto.addEventListener("click", actualizarPresupuestoWeb);
+}
+
 function nuevoGastoWeb() {
     let descripcion = prompt("Introduce la descripcion del gasto");
     let valorStr = prompt("Introduce el valor del gasto:");
     let fecha = prompt("Introduce la fecha del gasto (yyyy-mm-dd):");
     let etiquetasStr = prompt("Introduce las etiquetas separadas por comas (ej: comida,casa):");
 
-    let valor = number(valorStr);
+    let valor = Number(valorStr);
     let etiquetas = etiquetasStr ? etiquetasStr.split(",") : [];
 
     let nuevoGasto = new logica.CrearGasto(descripcion, valor, fecha, ...etiquetas);
