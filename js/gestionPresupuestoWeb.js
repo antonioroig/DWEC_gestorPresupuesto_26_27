@@ -1,5 +1,7 @@
 'use strict';
 
+import * as logica from './gestionPresupuesto.js';
+
 function mostrarDatoEnId(idElemento, valor){
     let elemento = document.getElementById(idElemento);
     if (elemento) {
@@ -40,10 +42,17 @@ function mostrarGastoWeb(idElemento, gasto) {
         spanEtiqueta.className = "gasto-etiquetas-etiqueta";
         spanEtiqueta.textContent = etiqueta;
 
-        divEtiquetas.appendChild(spanEtiqueta);        
+        let manejadorBorrarEtiqueta = new BorrarEtiquetasHandle();
+        manejadorBorrarEtiqueta.gasto = gasto;
+        manejadorBorrarEtiqueta.etiqueta = etiqueta;
+        spanEtiqueta.addEventListener("click", manejadorBorrarEtiqueta);
+
+        divEtiquetas.appendChild(spanEtiqueta);
+        
+        elemento.appendChild(divGasto);        
     }
 
-    elemento.appendChild(divGasto);
+    
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
