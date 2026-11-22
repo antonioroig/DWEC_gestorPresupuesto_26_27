@@ -152,6 +152,21 @@ function EditarHandler(){
 
     repintar();
 }
+
+function BorrarHandler(){
+    this.HandleEvent = function(){
+        gp.borrarGasto(this.gasto);
+    }
+    repintar();
+}
+
+function BorrarEtiquetasHandler(){
+    this.HandleEvent = function(){
+        this.gasto.borrarEtiquetas(this.etiqueta);
+
+        repintar();
+    }
+}
 export {
         mostrarDatoEnId,
         mostrarGastoWeb,
