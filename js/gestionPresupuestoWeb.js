@@ -171,9 +171,22 @@ function EditarHandle(){
     };
 }
 
+function BorrarHandle() {
+    this.handleEvent = function() {
+        logica.borrarGasto(this.gasto.id);
+        repintar();
+    };
+}
+
 
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb
+    repintar,
+    actualizarPresupuestoWeb,
+    nuevoGastoWeb,
+    EditarHandle,
+    BorrarHandle,
+    BorrarEtiquetasHandle
 }
