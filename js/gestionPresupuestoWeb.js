@@ -36,6 +36,12 @@ function mostrarGastoWeb(idElemento, gasto) {
         const spanGastoEtiquetas = document.createElement('span');
         spanGastoEtiquetas.setAttribute('class', 'gasto-etiquetas-etiqueta');
         spanGastoEtiquetas.textContent = etiqueta + " ";
+        
+        let borrarEtiquetasHandler = new BorrarEtiquetasHandler();
+        borrarEtiquetasHandler.gasto = gasto;
+        borrarEtiquetasHandler.etiqueta = etiqueta;
+        
+        spanGastoEtiquetas.addEventListener("click", borrarEtiquetasHandler);        
         divGastoEtiquetas.append(spanGastoEtiquetas);
     }
 
