@@ -128,6 +128,30 @@ let botonAnyadir = document.getElementById('anyadirgasto');
 
 botonAnyadir.addEventListener('click', nuevoGastoWeb);    
 
+function EditarHandler(){
+    this.HandleEvent = function(){
+    let descripcion = prompt("Introduce la descripción:", this.gasto.descripcion);
+    let valorTexto = prompt("Introduce el valor:", this.gasto.valor);
+    let valor = Number(valorTexto);
+    let fecha = prompt("Introduce la fecha:", this.gasto.fecha);
+    let etiquetasTexto = prompt("Introduce las etiquetas:", this.gasto.etiquetas.join(","));
+    let etiquetas;
+
+    if (etiquetasTexto) {
+        etiquetas = etiquetasTexto.split(",");
+    } else {
+        etiquetas = [];
+    }
+
+    }
+
+    this.gasto.actualizarDescripcion(descripcion);
+    this.gasto.actualizarValor(valor);
+    this.gasto.actualizarFecha(fecha);
+    this.gasto.anyadirEtiquetas(...etiquetas);
+
+    repintar();
+}
 export {
         mostrarDatoEnId,
         mostrarGastoWeb,
