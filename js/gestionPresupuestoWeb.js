@@ -38,6 +38,28 @@ function mostrarGastoWeb(idElemento, gasto) {
         spanGastoEtiquetas.textContent = etiqueta + " ";
         divGastoEtiquetas.append(spanGastoEtiquetas);
     }
+
+    const botonEditar = document.createElement('button');
+    botonEditar.type = "button";
+    botonEditar.setAttribute('class', 'gasto-editar');
+    botonEditar.textContent = "Editar";
+    
+    let editarHandler = new EditarHandler();
+    editarHandler.gasto = gasto;
+
+    botonEditar.addEventListener("click", editarHandler);
+    divGasto.append(botonEditar);
+
+    const botonBorrar = document.createElement('button');
+    botonBorrar.type = "button";
+    botonBorrar.setAttribute('class', 'gasto-borrar');
+    botonBorrar.textContent = "Borrar";
+
+    let borrarHandler = new BorrarHandler();
+    borrarHandler.gasto = gasto;
+
+    botonBorrar.addEventListener("click", borrarHandler);
+    divGasto.append(botonBorrar);
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
@@ -129,7 +151,7 @@ let botonAnyadir = document.getElementById('anyadirgasto');
 botonAnyadir.addEventListener('click', nuevoGastoWeb);    
 
 function EditarHandler(){
-    this.HandleEvent = function(){
+    this.handleEvent = function(){
     let descripcion = prompt("Introduce la descripción:", this.gasto.descripcion);
     let valorTexto = prompt("Introduce el valor:", this.gasto.valor);
     let valor = Number(valorTexto);
@@ -143,27 +165,25 @@ function EditarHandler(){
         etiquetas = [];
     }
 
-    }
-
     this.gasto.actualizarDescripcion(descripcion);
     this.gasto.actualizarValor(valor);
     this.gasto.actualizarFecha(fecha);
     this.gasto.anyadirEtiquetas(...etiquetas);
 
     repintar();
+    }
 }
 
 function BorrarHandler(){
-    this.HandleEvent = function(){
-        gp.borrarGasto(this.gasto);
+    this.handleEvent = function(){
+        gp.borrarGasto(this.gasto.id);
+        repintar();
     }
-    repintar();
 }
 
 function BorrarEtiquetasHandler(){
-    this.HandleEvent = function(){
+    this.handleEvent = function(){
         this.gasto.borrarEtiquetas(this.etiqueta);
-
         repintar();
     }
 }
