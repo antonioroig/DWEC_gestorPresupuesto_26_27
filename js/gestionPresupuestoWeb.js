@@ -32,6 +32,12 @@ function mostrarGastoWeb(idElemento, gasto){
         let span = document.createElement('span');
         span.className = 'gasto-etiquetas-etiqueta';
         span.textContent = etiqueta;
+
+        const borrarEtiquetasHandle = new BorrarEtiquetasHandle();
+        borrarEtiquetasHandle.gasto = gasto;
+        borrarEtiquetasHandle.etiqueta = etiqueta;
+        span.addEventListener("click", borrarEtiquetasHandle);
+
         divEtiquetas.appendChild(span);
     }
     divGasto.appendChild(divEtiquetas);
@@ -44,6 +50,15 @@ function mostrarGastoWeb(idElemento, gasto){
     editarHandle.gasto = gasto;
     botonEditar.addEventListener("click", editarHandle);
     divGasto.appendChild(botonEditar);
+    const botonBorrar = document.createElement("button");
+    botonBorrar.type = "button";
+    botonBorrar.textContent = "Borrar";
+    botonBorrar.classList.add("gasto-borrar");
+
+    const borrarHandle = new BorrarHandle();
+    borrarHandle.gasto = gasto;
+    botonBorrar.addEventListener("click", borrarHandle);
+    divGasto.appendChild(botonBorrar);
 
     contenedor.appendChild(divGasto);
     
@@ -126,6 +141,19 @@ function EditarHandle() {
     repintar();
   };
 }
+function BorrarHandle() {
+  this.handleEvent = function () {
+    gp.borrarGasto(this.gasto.id);
+    repintar();
+  };
+}
+
+function BorrarEtiquetasHandle() {
+  this.handleEvent = function () {
+    this.gasto.borrarEtiquetas(this.etiqueta);
+    repintar();
+  };
+}
 const botonAnyadir = document.getElementById("anyadirgasto");
 botonAnyadir.addEventListener("click", nuevoGastoWeb);
 const botonActualizar = document.getElementById("actualizarpresupuesto");
@@ -136,5 +164,7 @@ export {
     mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb,
-    nuevoGastoWeb
+    nuevoGastoWeb,
+    BorrarHandle,
+    BorrarEtiquetasHandle
 }
