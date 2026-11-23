@@ -36,7 +36,17 @@ function mostrarGastoWeb(idElemento, gasto){
     }
     divGasto.appendChild(divEtiquetas);
 
+    const botonEditar = document.createElement("button");
+    botonEditar.type = "button";
+    botonEditar.textContent = "Editar";
+    botonEditar.classList.add("gasto-editar");
+    const editarHandle = new EditarHandle();
+    editarHandle.gasto = gasto;
+    botonEditar.addEventListener("click", editarHandle);
+    divGasto.appendChild(botonEditar);
+
     contenedor.appendChild(divGasto);
+    
 }
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
     let contenedor = document.getElementById(idElemento);
@@ -76,8 +86,8 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 }
 function repintar(){
     mostrarDatoEnId('presupuesto', gp.mostrarPresupuesto());
-    mostrarDatoEnId('gastos-totales', gp.mostrarTotalGastos());
-    mostrarDatoEnId('balance', gp.calcularBalance());
+    mostrarDatoEnId('gastos-totales', gp.calcularTotalGastos());
+    mostrarDatoEnId('balance-total', gp.calcularBalance());
     document.getElementById('listado-gastos-completo').innerHTML = '';
     for(const gasto of gp.listarGastos()){
         mostrarGastoWeb('listado-gastos-completo', gasto);
@@ -95,7 +105,7 @@ function nuevoGastoWeb(){
   const valor = parseFloat(prompt("Introduce el valor:"));
   const fecha = prompt("Introduce la fecha (yyyy-mm-dd):");
   const etiquetas = prompt("Introduce las etiquetas separadas por comas:").split(",");
-  const gasto = gp.CrearGasto(descripcion, valor, fecha, ...etiquetas);
+  const gasto = new gp.CrearGasto(descripcion, valor, fecha, ...etiquetas);
   gp.anyadirGasto(gasto);
   repintar();
 }
@@ -103,7 +113,8 @@ function EditarHandle() {
   this.handleEvent = function () {
     const descripcion = prompt("Introduce la descripción:", this.gasto.descripcion);
     const valor = parseFloat(prompt("Introduce el valor:", this.gasto.valor));
-    const fecha = prompt("Introduce la fecha (yyyy-mm-dd):", this.gasto.fecha);
+    const fecha = prompt("Introduce la fecha (yyyy-mm-dd):",
+    new Date(this.gasto.fecha).toISOString().substring(0, 10));
     const etiquetas = prompt(
       "Introduce las etiquetas separadas por comas:",
       this.gasto.etiquetas.join(",")
