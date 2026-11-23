@@ -1,8 +1,10 @@
 import * as gestion from "./gestionPresupuesto.js";
+
 function mostrarDatoEnId(idElemento, valor) {
     const elemento = document.getElementById(idElemento);
     elemento.textContent = valor;
 }
+
 function mostrarGastoWeb(idElemento, gasto) {
     const destino = document.getElementById(idElemento);
 
@@ -28,12 +30,35 @@ function mostrarGastoWeb(idElemento, gasto) {
         const span = document.createElement("span");
         span.classList.add("gasto-etiquetas-etiqueta");
         span.textContent = etiqueta;
+
+        const borrarEtiquetas = new BorrarEtiquetasHandle();
+        borrarEtiquetas.gasto = gasto;
+        borrarEtiquetas.etiqueta = etiqueta;
+        span.addEventListener("click", borrarEtiquetas);
+
         etiquetas.append(span);
     }
 
-    contenedor.append(descripcion, fecha, valor, etiquetas);
+    const botonEditar = document.createElement("button");
+    botonEditar.type = "button";
+    botonEditar.classList.add("gasto-editar");
+    botonEditar.textContent = "Editar";
+    const editar = new EditarHandle();
+    editar.gasto = gasto;
+    botonEditar.addEventListener("click", editar);
+
+    const botonBorrar = document.createElement("button");
+    botonBorrar.type = "button";
+    botonBorrar.classList.add("gasto-borrar");
+    botonBorrar.textContent = "Borrar";
+    const borrar = new BorrarHandle();
+    borrar.gasto = gasto;
+    botonBorrar.addEventListener("click", borrar);
+
+    contenedor.append(descripcion, fecha, valor, etiquetas, botonEditar, botonBorrar);
     destino.append(contenedor);
 }
+
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     const destino = document.getElementById(idElemento);
 
@@ -70,6 +95,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
     destino.append(contenedor);
 }
+
 function repintar() {
     mostrarDatoEnId("presupuesto", gestion.mostrarPresupuesto());
     mostrarDatoEnId("gastos-totales", gestion.calcularTotalGastos());
@@ -81,12 +107,14 @@ function repintar() {
         mostrarGastoWeb("listado-gastos-completo", gasto);
     }
 }
+
 function actualizarPresupuestoWeb() {
     const respuesta = prompt("Introduce un presupuesto:");
     const presupuesto = parseFloat(respuesta);
     gestion.actualizarPresupuesto(presupuesto);
     repintar();
 }
+
 document
     .getElementById("actualizarpresupuesto")
     .addEventListener("click", actualizarPresupuestoWeb);
@@ -101,9 +129,11 @@ function nuevoGastoWeb() {
     gestion.anyadirGasto(gasto);
     repintar();
 }
+
 document
     .getElementById("anyadirgasto")
     .addEventListener("click", nuevoGastoWeb);
+
 function EditarHandle() {
     this.handleEvent = function () {
         const descripcion = prompt("Descripción del gasto:", this.gasto.descripcion);
@@ -125,18 +155,21 @@ function EditarHandle() {
         repintar();
     };
 }
+
 function BorrarHandle() {
     this.handleEvent = function () {
         gestion.borrarGasto(this.gasto.id);
         repintar();
     };
 }
+
 function BorrarEtiquetasHandle() {
     this.handleEvent = function () {
         this.gasto.borrarEtiquetas(this.etiqueta);
         repintar();
     };
 }
+
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
@@ -146,6 +179,5 @@ export {
     nuevoGastoWeb,
     EditarHandle,
     BorrarHandle,
-     BorrarEtiquetasHandle
-
+    BorrarEtiquetasHandle
 };
