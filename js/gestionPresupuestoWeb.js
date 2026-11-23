@@ -109,7 +109,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 function repintar(){  
 
     mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
-    mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
+    mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos().toFixed(2));
     mostrarDatoEnId("balance-total", gp.calcularBalance());
 
     document.getElementById("listado-gastos-completo").innerHTML = "";
