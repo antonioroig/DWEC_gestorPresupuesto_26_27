@@ -1,5 +1,8 @@
 "use strict";
 
+import * as gestionPresupuesto from './gestionPresupuesto.js';
+
+
 function mostrarDatoEnId(idElemento, valor){
     let elemento = document.getElementById(idElemento);
     if (elemento) {
@@ -70,6 +73,16 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
     });
 
     elemento.append(divAgrupacion);
+}
+function repintar() {
+    mostrarDatoEnId('presupuesto', gestionPresupuesto.mostrarPresupuesto());
+    mostrarDatoEnId('gastos-totales', gestionPresupuesto.calcularTotalGastos());
+    mostrarDatoEnId('balance-total', gestionPresupuesto.calcularBalance());
+    document.getElementById('listado-gastos-completo').innerHTML = "";
+
+    for (const gasto of gestionPresupuesto.listarGastos()) {
+        mostrarGastoWeb('listado-gastos-completo', gasto);
+    }
 }
 
 export {
