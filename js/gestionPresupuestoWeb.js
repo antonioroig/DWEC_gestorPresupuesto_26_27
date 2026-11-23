@@ -34,16 +34,44 @@ function mostrarGastoWeb(idElemento, gasto)
     divEtiquetas.className = "gasto-etiquetas";
     divGasto.appendChild(divEtiquetas);
 
-   if (gasto.etiquetas) {
+    if (gasto.etiquetas) {
         for (let i = 0; i < gasto.etiquetas.length; i++) {
             let etiqueta = gasto.etiquetas[i];
             
             let spanEtiqueta = document.createElement("span");
             spanEtiqueta.className = "gasto-etiquetas-etiqueta";
-            spanEtiqueta.textContent = etiqueta; 
+            spanEtiqueta.textContent = etiqueta;
+
+            let manejadorBorrarEtiqueta = new BorrarEtiquetasHandle();
+            manejadorBorrarEtiqueta.gasto = gasto;
+            manejadorBorrarEtiqueta.etiqueta = etiqueta;
+            spanEtiqueta.addEventListener("click", manejadorBorrarEtiqueta);
+
             divEtiquetas.appendChild(spanEtiqueta);
         }
     }
+
+    let btnEditar = document.createElement("button");
+    btnEditar.type = "button";
+    btnEditar.className = "gasto-editar";
+    btnEditar.textContent = "Editar";
+
+    let manejadorEditar = new EditarHandle();
+    manejadorEditar.gasto = gasto;
+    btnEditar.addEventListener("click", manejadorEditar);
+
+    divGasto.appendChild(btnEditar);
+
+    let btnBorrar = document.createElement("button");
+    btnBorrar.type = "button";
+    btnBorrar.className = "gasto-borrar";
+    btnBorrar.textContent = "Borrar";
+
+    let manejadorBorrar = new BorrarHandle();
+    manejadorBorrar.gasto = gasto;
+    btnBorrar.addEventListener("click", manejadorBorrar);
+
+    divGasto.appendChild(btnBorrar);
 
     elemento.appendChild(divGasto);
 }
