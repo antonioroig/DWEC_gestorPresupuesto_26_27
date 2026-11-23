@@ -1,3 +1,6 @@
+import * as gestionPresupuesto from './gestionPresupuesto.js';
+
+
 function mostrarDatoEnId(idElemento, valor) {
 
     document.getElementById(idElemento).textContent=valor
@@ -5,39 +8,65 @@ function mostrarDatoEnId(idElemento, valor) {
 
 }
 
-function mostrarGastoWeb(idElemento, gasto){
+function mostrarGastoWeb(idElemento, gasto) {
+    let contenedor = document.getElementById(idElemento);
 
-    let DivGasto = document.createElement('div');
-    DivGasto.className = "gasto";
+    let divGasto = document.createElement("div");
+    divGasto.className = "gasto";
 
-    let gastoDescripcion = document.createElement('div');
-    gastoDescripcion.className = "gasto-descripcion";
-    gastoDescripcion.textContent = gasto.descripcion;
+    let divDescripcion = document.createElement("div");
+    divDescripcion.className = "gasto-descripcion";
+    divDescripcion.textContent = gasto.descripcion;
+    divGasto.appendChild(divDescripcion);
 
-    let gastoFecha = document.createElement('div');
-    gastoFecha.className = "gasto-fecha";
-    gastoFecha.textContent = new Date(gasto.fecha).toLocaleString();
+    let divFecha = document.createElement("div");
+    divFecha.className = "gasto-fecha";
+    divFecha.textContent = new Date(gasto.fecha).toLocaleDateString();
+    divGasto.appendChild(divFecha);
 
-    let gastoValor = document.createElement('div');
-    gastoValor.className = "gasto-valor";
-    gastoValor.textContent = gasto.valor;
+    let divValor = document.createElement("div");
+    divValor.className = "gasto-valor";
+    divValor.textContent = gasto.valor;
+    divGasto.appendChild(divValor);
 
-    let gastoEtiquetas = document.createElement('div');
-    gastoEtiquetas.className = "gasto-etiquetas";
+    let divEtiquetas = document.createElement("div");
+    divEtiquetas.className = "gasto-etiquetas";
 
-    document.getElementById(idElemento).append(DivGasto);
-    DivGasto.append(gastoDescripcion);
-    DivGasto.append(gastoFecha);
-    DivGasto.append(gastoValor);
-    DivGasto.append(gastoEtiquetas);
+    for (let etiqueta of gasto.etiquetas) {
+        let spanEtiqueta = document.createElement("span");
+        spanEtiqueta.className = "gasto-etiquetas-etiqueta";
+        spanEtiqueta.textContent = etiqueta;
 
-    for (let i = 0; i < gasto.etiquetas.length; i++)
-    {
-        let etiqueta = document.createElement('span');
-        etiqueta.textContent = gasto.etiquetas[i];
-        etiqueta.className = "gasto-etiquetas-etiqueta";
-        gastoEtiquetas.append(etiqueta);
+        let handleBorrarEtiqueta = new BorrarEtiquetasHandle();
+        handleBorrarEtiqueta.gasto = gasto;
+        handleBorrarEtiqueta.etiqueta = etiqueta;
+        spanEtiqueta.addEventListener("click", handleBorrarEtiqueta);
+
+        divEtiquetas.appendChild(spanEtiqueta);
     }
+    divGasto.appendChild(divEtiquetas);
+
+    let btnEditar = document.createElement("button");
+    btnEditar.type = "button";
+    btnEditar.className = "gasto-editar";
+    btnEditar.textContent = "Editar";
+
+    let handleEditar = new EditarHandle();
+    handleEditar.gasto = gasto;
+    btnEditar.addEventListener("click", handleEditar);
+    divGasto.appendChild(btnEditar);
+
+    let btnBorrar = document.createElement("button");
+    btnBorrar.type = "button";
+    btnBorrar.className = "gasto-borrar";
+    btnBorrar.textContent = "Borrar";
+
+    let handleBorrar = new BorrarHandle();
+    handleBorrar.gasto = gasto;
+    btnBorrar.addEventListener("click", handleBorrar);
+    divGasto.appendChild(btnBorrar);
+
+    contenedor.appendChild(divGasto);
 }
 
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo)
@@ -109,7 +138,7 @@ function nuevoGastoWeb() {
     let valor = Number(valorStr);
     let etiquetas = etiquetasStr ? etiquetasStr.split(",") : [];
 
-    let nuevoGasto = new gestionPresupuesto.crearGasto(descripcion, valor, fecha, ...etiquetas);
+    let nuevoGasto = new gestionPresupuesto.CrearGasto(descripcion, valor, fecha, ...etiquetas);
     gestionPresupuesto.anyadirGasto(nuevoGasto);
     repintar();
 }
@@ -143,6 +172,13 @@ function BorrarHandle() {
     };
 }
 
+function BorrarEtiquetasHandle() {
+    this.handleEvent = function (event) {
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar();
+    };
+}
+
 export {
 
     mostrarDatoEnId,
@@ -150,5 +186,7 @@ export {
     mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb,
-    EditarHandle
+    EditarHandle,
+    BorrarHandle,
+    BorrarEtiquetasHandle
 }
