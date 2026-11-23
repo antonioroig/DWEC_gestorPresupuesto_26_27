@@ -97,6 +97,15 @@ function repintar() {
     mostrarGastoWeb("listado-gastos-completo", gp.listarGastos())
 }
 
+let botonActualizarPres = document.getElementById("actualizarpresupuesto");
+    botonActualizarPres.addEventListener("click", actualizarPresupuestoWeb);
+
+function actualizarPresupuestoWeb(){
+    const presupuesto = parseInt(prompt("Introduce el presupuesto actualizado"));
+    gp.actualizarPresupuesto(presupuesto);
+    repintar();
+}
+
 export{
     mostrarDatoEnId,
     mostrarGastosAgrupadosWeb,
