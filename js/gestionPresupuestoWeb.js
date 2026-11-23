@@ -183,10 +183,10 @@ function EditarHandle() {
 
     let nuevasEtiquetas = nuevasEtiquetasTexto.split(",");
 
-    actualizarDescripcion(this.gasto, nuevaDescripcion);
-    actualizarValor(this.gasto, nuevoValor);
-    actualizarFecha(this.gasto, nuevaFecha);
-    anyadirEtiquetas(this.gasto, nuevasEtiquetas);
+    this.gasto.actualizarDescripcion(nuevaDescripcion);
+    this.gasto.actualizarValor(nuevoValor);
+    this.gasto.actualizarFecha(nuevaFecha);
+    this.gasto.anyadirEtiquetas(...nuevasEtiquetas);
 
     repintar();
   };
@@ -194,19 +194,17 @@ function EditarHandle() {
 
 function BorrarHandle() {
   this.handleEvent = function (evento) {
-    borrarGasto(this.gasto.id);
+    gestionP.borrarGasto(this.gasto.id);
     repintar();
   };
 }
 
-let botonBorrar = document.createElement("button");
-botonBorrar.textContent = "Borrar";
-
-let manejadorBorrar = new BorrarHandle();
-manejadorBorrar.gasto = gastoActual;
-
-botonBorrar.addEventListener("click", manejadorBorrar);
-
+function BorrarEtiquetasHandle() {
+    this.handleEvent = function (evento) {
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar();
+    };
+}
 
 export{
     mostrarDatoEnId,
