@@ -25,7 +25,7 @@ function mostrarPresupuesto() {
 function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
 
     if(typeof valor === "number" && valor > 0){
-        this.valor = valor;   
+        this.valor = valor;
         this.descripcion = descripcion;   
     }
     else{
@@ -138,7 +138,7 @@ function borrarGasto(idGastoABorrar){
 }
 
 function calcularBalance(){
-    let gastosTotales = calcularTotalGastos();
+    let gastosTotales = calcularTotalGastos().toFixed(2);
     let balance = presupuesto - gastosTotales;
     return balance;
 }

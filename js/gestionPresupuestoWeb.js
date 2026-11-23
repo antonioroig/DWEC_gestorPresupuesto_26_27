@@ -17,12 +17,12 @@ function mostrarGastoWeb(idElemento, gasto){
 
     let gastoFecha = document.createElement("div");
     gastoFecha.className = "gasto-fecha";
-    gastoFecha.textContent = new Date(gasto.fecha).toLocaleString();
+    gastoFecha.textContent = new Date(gasto.fecha).toLocaleDateString('es');
     divGasto.append(gastoFecha);
 
     let gastoValor = document.createElement("div");
     gastoValor.className = "gasto-valor";
-    gastoValor.textContent = gasto.valor;
+    gastoValor.textContent = gasto.valor.toFixed(2);
     divGasto.append(gastoValor);
 
     let gastoEtiqueta = document.createElement("div");
@@ -31,6 +31,11 @@ function mostrarGastoWeb(idElemento, gasto){
         let etiquetaSpan = document.createElement("span");
         etiquetaSpan.className = "gasto-etiquetas-etiqueta";
         etiquetaSpan.textContent = etiqueta;
+
+        let manejadorBorrarEtiqueta = new BorrarEtiquetasHandle();
+        manejadorBorrarEtiqueta.gasto = gasto;
+        manejadorBorrarEtiqueta.etiqueta = etiqueta;
+        etiquetaSpan.addEventListener("click", manejadorBorrarEtiqueta)
         gastoEtiqueta.append(etiquetaSpan);
     }
     divGasto.append(gastoEtiqueta);
@@ -39,10 +44,19 @@ function mostrarGastoWeb(idElemento, gasto){
     botonEditar.className = "gasto-editar";
     botonEditar.type = "button";
     botonEditar.textContent = "Editar";
-    let manejador = new EditarHandle();
-    manejador.gasto = gasto;
-    botonEditar.addEventListener("click", manejador);
+    let manejadorEditar = new EditarHandle();
+    manejadorEditar.gasto = gasto;
+    botonEditar.addEventListener("click", manejadorEditar);
     divGasto.append(botonEditar);
+
+    let botonBorrar = document.createElement("button");
+    botonBorrar.className = "gasto-borrar";
+    botonBorrar.type = "button";
+    botonBorrar.textContent = "Borrar";
+    let manejadorBorrar = new BorrarHandle();
+    manejadorBorrar.gasto = gasto;
+    botonBorrar.addEventListener("click", manejadorBorrar);
+    divGasto.append(botonBorrar);
 
 
     contenedor.append(divGasto);
@@ -123,11 +137,10 @@ function nuevoGastoWeb(){
     nuevoValor = Number(nuevoValor);
 
     let nuevaFecha = prompt("Introduzca la nueva fecha (yyyy-mm-dd)");
-
     let nuevaEtiqueta = prompt("Introduzca las nuevas etiquetas");
     nuevaEtiqueta = nuevaEtiqueta.split(',');
 
-    let nuevoGasto = gp.CrearGasto(nuevaDesc, nuevoValor, nuevaFecha, ...nuevaEtiqueta);
+    let nuevoGasto = new gp.CrearGasto(nuevaDesc, nuevoValor, nuevaFecha, ...nuevaEtiqueta);
     gp.anyadirGasto(nuevoGasto);
 
     repintar();
@@ -159,7 +172,7 @@ function EditarHandle(){
 
 function BorrarHandle(){
     this.handleEvent = function(){
-        gp.borrarGasto(this.gasto.idGasto)
+        gp.borrarGasto(this.gasto.id)
         repintar();
     }
 }
