@@ -131,6 +131,12 @@ function BorrarHandle() {
         repintar();
     };
 }
+function BorrarEtiquetasHandle() {
+    this.handleEvent = function () {
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar();
+    };
+}
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
@@ -139,6 +145,7 @@ export {
     actualizarPresupuestoWeb,
     nuevoGastoWeb,
     EditarHandle,
-    BorrarHandle
+    BorrarHandle,
+     BorrarEtiquetasHandle
 
 };
