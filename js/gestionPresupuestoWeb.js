@@ -164,6 +164,13 @@ function EditarHandle() {
   };
 }
 
+function BorrarHandle() {
+  this.handleEvent = function (evento) {
+    borrarGasto(this.gasto.id);
+    repintar();
+  };
+}
+
 
 
 
