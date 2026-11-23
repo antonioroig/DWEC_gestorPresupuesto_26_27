@@ -99,7 +99,12 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     const gasto_fecha = document.createElement("div");
     gasto_fecha.className = "gasto-fecha";
-    gasto_fecha.textContent = gasto.fecha;
+    let fecha = new Date(gasto.fecha).toLocaleDateString("es", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric"
+    });;
+    gasto_fecha.textContent = fecha;
 
     const gasto_valor = document.createElement("div");
     gasto_valor.className = "gasto-valor";
@@ -139,12 +144,11 @@ function mostrarGastoWeb(idElemento, gasto) {
         editBorrarEti.etiqueta = eti;
         spanEti.addEventListener("click", editBorrarEti);
 
-        gasto_etiquetas.append(spanEti);       
+        gasto_etiquetas.append(spanEti);
     }
 
     Elemento.append(div_gasto);
     div_gasto.append(gasto_des, gasto_fecha, gasto_valor, gasto_etiquetas, boton_editar, boton_borrar);
-
 
 };
 
