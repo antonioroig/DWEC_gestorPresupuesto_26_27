@@ -43,6 +43,28 @@ function mostrarGastoWeb(idElemento, gasto) {
     }
     divGasto.append(divEtiquetas);
 
+    let botonEditar = document.createElement('button');
+    botonEditar.type = 'button';
+    botonEditar.setAttribute('class', 'gasto-editar');
+    botonEditar.textContent = "Editar";
+
+    let editarHandler = new EditarHandle();
+    editarHandler.gasto = gasto;
+
+    botonEditar.addEventListener("click", editarHandler);
+    divGasto.append(botonEditar);
+
+    let botonBorrar = document.createElement('button');
+    botonBorrar.type = 'button';
+    botonBorrar.setAttribute('class', 'gasto-editar');
+    botonBorrar.textContent = "Editar";
+
+    let borrarHandler = new BorrarHandle();
+    borrarHandlerHandler.gasto = gasto;
+
+    botonBorrar.addEventListener("click", borrarHandler);
+    divGasto.append(botonBorrar);
+
     contenedor.append(divGasto);
 }
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
@@ -94,11 +116,9 @@ function repintar() {
     mostrarDatoEnId("gastos-toatles", gp.calcularTotalGastos());
     mostrarDatoEnId("balance-total", gp.calcularBalance());
     document.getElementById("listado-gastos-completo").innerHTML = "";
-    mostrarGastoWeb("listado-gastos-completo", gp.listarGastos())
-}
-
-let botonActualizarPres = document.getElementById("actualizarpresupuesto");
-    botonActualizarPres.addEventListener("click", actualizarPresupuestoWeb);
+    for(let gasto of gp.listarGastos()){
+        mostrarGastoWeb("listado-gastos-completo", gasto)
+}}
 
 function actualizarPresupuestoWeb(){
     const presupuesto = parseInt(prompt("Introduce el presupuesto actualizado"));
@@ -106,12 +126,12 @@ function actualizarPresupuestoWeb(){
     repintar();
 }
 
-let botonAnyadirGasto = document.getElementById("anyadirgasto");
-    botonAnyadirGasto.addEventListener("click", nuevoGastoWeb);
+let botonActualizarPres = document.getElementById("actualizarpresupuesto");
+    botonActualizarPres.addEventListener("click", actualizarPresupuestoWeb);
 
 function nuevoGastoWeb(){
     const descripcion = prompt("Introduce una descripción");
-    const valor = parseInt(prompt("Introduce el valor"));
+    const valor = Number(prompt("Introduce el valor"));
     const fecha = Date.parse(prompt("Introduce la fecha"));
     const etiquetas = prompt("Introduce la/las etiqueta/s").split(", ");
 
@@ -119,6 +139,34 @@ function nuevoGastoWeb(){
     gp.anyadirGasto(gasto);
 
     repintar();
+}
+
+let botonAnyadirGasto = document.getElementById('anyadirgasto');
+    botonAnyadirGasto.addEventListener('click', nuevoGastoWeb);
+
+function EditarHandle() {
+    this.handleEvent = function (event) {
+        let descripcion = prompt("Introduce la descripción del gasto:", this.gasto.descripcion);
+        let valor = prompt("Introduce el valor del gasto:", this.gasto.valor);
+        let fecha = prompt("Introduce la fecha (yyyy-mm-dd):", this.gasto.fecha);
+
+        let etiquetas = prompt(
+            "Introduce las etiquetas separadas por comas:",
+            this.gasto.etiquetas.join(", ")
+        );
+
+        valor = parseFloat(valor);
+
+        let arrayEtiquetas = etiquetas.split(",");
+
+        
+        this.gasto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarValor(valor);
+        this.gasto.actualizarFecha(fecha);
+        this.gasto.anyadirEtiquetas(...arrayEtiquetas);
+
+        repintar();
+    };
 }
 
 export{
