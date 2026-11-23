@@ -33,13 +33,37 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     let divEtiquetas = document.createElement('div');
     divEtiquetas.classList.add('gasto-etiquetas');
-    gasto.etiquetas.forEach(etiqueta => {
+    for (const etiqueta of gasto.etiquetas) {
         let span = document.createElement('span');
         span.classList.add('gasto-etiquetas-etiqueta');
         span.textContent = etiqueta;
+
+        let handleEtiqueta = new BorrarEtiquetasHandle();
+        handleEtiqueta.gasto = gasto;
+        handleEtiqueta.etiqueta = etiqueta;
+        span.addEventListener('click', handleEtiqueta);
+
         divEtiquetas.append(span);
-    });
+    }
     divGasto.append(divEtiquetas);
+
+    let botonEditar = document.createElement('button');
+    botonEditar.type = 'button';
+    botonEditar.classList.add('gasto-editar');
+    botonEditar.textContent = 'Editar';
+    let handleEditar = new EditarHandle();
+    handleEditar.gasto = gasto;
+    botonEditar.addEventListener('click', handleEditar);
+    divGasto.append(botonEditar);
+
+    let botonBorrar = document.createElement('button');
+    botonBorrar.type = 'button';
+    botonBorrar.classList.add('gasto-borrar');
+    botonBorrar.textContent = 'Borrar';
+    let handleBorrar = new BorrarHandle();
+    handleBorrar.gasto = gasto;
+    botonBorrar.addEventListener('click', handleBorrar);
+    divGasto.append(botonBorrar);
 
     elemento.append(divGasto);
 }
@@ -98,7 +122,7 @@ function nuevoGastoWeb() {
     let textoEtiquetas = prompt("Introduce las etiquetas separadas por comas: ");
     let etiquetas = textoEtiquetas.split(",");
 
-    let gasto = gestionPresupuesto.crearGasto(descripcion, valor, fecha, ...etiquetas);
+    let gasto = new gestionPresupuesto.CrearGasto(descripcion, valor, fecha, ...etiquetas);
     gestionPresupuesto.anyadirGasto(gasto);
     repintar();
 }
@@ -150,5 +174,11 @@ document.getElementById("anyadirgasto")
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
-}
+    mostrarGastosAgrupadosWeb,
+    repintar,
+    actualizarPresupuestoWeb,
+    nuevoGastoWeb,
+    EditarHandle,
+    BorrarHandle,
+    BorrarEtiquetasHandle
+};
