@@ -104,13 +104,34 @@ function nuevoGastoWeb() {
 document
     .getElementById("anyadirgasto")
     .addEventListener("click", nuevoGastoWeb);
+function EditarHandle() {
+    this.handleEvent = function () {
+        const descripcion = prompt("Descripción del gasto:", this.gasto.descripcion);
+        const valor = parseFloat(prompt("Valor del gasto:", this.gasto.valor));
+        const fecha = prompt(
+            "Fecha del gasto (yyyy-mm-dd):",
+            new Date(this.gasto.fecha).toISOString().slice(0, 10)
+        );
+        const etiquetas = prompt(
+            "Etiquetas (separadas por comas):",
+            this.gasto.etiquetas.join(",")
+        ).split(",");
 
+        this.gasto.actualizarValor(valor);
+        this.gasto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarFecha(fecha);
+        this.gasto.anyadirEtiquetas(...etiquetas);
+
+        repintar();
+    };
+}
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb,
-     nuevoGastoWeb
+    nuevoGastoWeb,
+    EditarHandle
 
 };
