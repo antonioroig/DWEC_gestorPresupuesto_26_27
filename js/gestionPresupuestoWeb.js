@@ -99,6 +99,22 @@ function nuevoGastoWeb(){
   gp.anyadirGasto(gasto);
   repintar();
 }
+function EditarHandle() {
+  this.handleEvent = function () {
+    const descripcion = prompt("Introduce la descripción:", this.gasto.descripcion);
+    const valor = parseFloat(prompt("Introduce el valor:", this.gasto.valor));
+    const fecha = prompt("Introduce la fecha (yyyy-mm-dd):", this.gasto.fecha);
+    const etiquetas = prompt(
+      "Introduce las etiquetas separadas por comas:",
+      this.gasto.etiquetas.join(",")
+    ).split(",");
+    this.gasto.actualizarValor(valor);
+    this.gasto.actualizarDescripcion(descripcion);
+    this.gasto.actualizarFecha(fecha);
+    this.gasto.anyadirEtiquetas(...etiquetas);
+    repintar();
+  };
+}
 const botonAnyadir = document.getElementById("anyadirgasto");
 botonAnyadir.addEventListener("click", nuevoGastoWeb);
 const botonActualizar = document.getElementById("actualizarpresupuesto");
