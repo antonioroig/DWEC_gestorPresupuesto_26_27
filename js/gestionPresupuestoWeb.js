@@ -62,8 +62,8 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     let botonBorrar = document.createElement('button');
     botonBorrar.type = 'button';
-    botonBorrar.setAttribute('class', 'gasto-editar');
-    botonBorrar.textContent = "Editar";
+    botonBorrar.setAttribute('class', 'gasto-borrar');
+    botonBorrar.textContent = "Borrar";
 
     let borrarHandler = new BorrarHandle();
     borrarHandler.gasto = gasto;
@@ -119,7 +119,7 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
 function repintar() {
     mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
-    mostrarDatoEnId("gastos-toatles", gp.calcularTotalGastos());
+    mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
     mostrarDatoEnId("balance-total", gp.calcularBalance());
     document.getElementById("listado-gastos-completo").innerHTML = "";
     for(let gasto of gp.listarGastos()){
@@ -185,7 +185,7 @@ function BorrarHandle() {
 function BorrarEtiquetasHandle(){
     this.handleEvent = function(){
         this.gasto.borrarEtiquetas(this.etiqueta);
-        repintar;
+        repintar();
     }
 }
 export{
