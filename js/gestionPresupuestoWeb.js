@@ -150,10 +150,18 @@ let manejador = new EditarHandle();
 manejador.gasto = gasto;
 manejador.addEventListener("click", manejador)
 
+function BorrarHandle(){
+    this.handleEvent = function(){
+        gp.borrarGasto(this.gasto.idGasto)
+    }
+    repintar();
+}
+
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
-    actualizarPresupuestoWeb
+    actualizarPresupuestoWeb,
+    EditarHandle
 }
