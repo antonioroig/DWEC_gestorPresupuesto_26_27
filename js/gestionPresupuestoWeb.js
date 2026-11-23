@@ -114,7 +114,7 @@ function nuevoGastoWeb(){
     let nuevaFecha = prompt("Introduzca la nueva fecha (yyyy-mm-dd)");
 
     let nuevaEtiqueta = prompt("Introduzca las nuevas etiquetas");
-    nuevaEtiqueta.split(',');
+    nuevaEtiqueta = nuevaEtiqueta.split(',');
 
     let nuevoGasto = gp.CrearGasto(nuevaDesc, nuevoValor, nuevaFecha, ...nuevaEtiqueta);
     gp.anyadirGasto(nuevoGasto);
@@ -124,6 +124,31 @@ function nuevoGastoWeb(){
 
 let botonNuevoGasto = document.getElementById("anyadirgasto");
 botonNuevoGasto.addEventListener("click", nuevoGastoWeb);
+
+function EditarHandle(){
+
+    this.handleEvent = function(){
+        let nuevaDesc = prompt("Introduzca la nueva descripción", this.gasto.descripcion);
+        this.gasto.actualizarDescripcion(nuevaDesc);
+
+        let nuevoValor = prompt("Introduzca el nuevo valor", this.gasto.valor);
+        nuevoValor = Number(nuevoValor);
+        this.gasto.actualizarValor(nuevoValor);
+
+        let nuevaFecha = prompt("Introduzca la nueva fecha (yyyy-mm-dd)", this.gasto.fecha);
+        this.gasto.actualizarFecha(nuevaFecha);
+
+        let nuevaEtiqueta = prompt("Introduzca las nuevas etiquetas", this.gasto.etiquetas);
+        nuevaEtiqueta = nuevaEtiqueta.split(',');
+        this.gasto.anyadirEtiquetas(...nuevaEtiqueta);
+
+        repintar();
+    }
+}
+
+let manejador = new EditarHandle();
+manejador.gasto = gasto;
+manejador.addEventListener("click", manejador)
 
 export{
     mostrarDatoEnId,
