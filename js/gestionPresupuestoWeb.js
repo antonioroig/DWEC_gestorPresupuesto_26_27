@@ -36,8 +36,33 @@ function mostrarGastoWeb(idElemento, valor){
         span_etiqueta.classList.add("gasto-etiquetas-etiqueta")
         span_etiqueta.textContent = valor.etiquetas[i]
 
+        let borrarEtiqueta = new BorrarEtiquetasHandle();
+        borrarEtiqueta.gasto = valor;
+        borrarEtiqueta.etiqueta = valor.etiquetas[i];
+        span_etiqueta.addEventListener("click", borrarEtiqueta);
+
         divetiquetas.append(span_etiqueta)
     }
+
+    let botonEditar = document.createElement("button")
+    botonEditar.type = "button"
+    botonEditar.classList.add("gasto-editar")
+    botonEditar.textContent = "Editar"
+
+    let editarGasto = new EditarHandle()
+    editarGasto.gasto = valor
+    botonEditar.addEventListener("click", editarGasto)
+    divgasto.append(botonEditar)
+
+    let botonBorrar = document.createElement("button")
+    botonBorrar.type = "button"
+    botonBorrar.classList.add("gasto-borrar")
+    botonBorrar.textContent = "Borrar"
+
+    let borrarGasto = new BorrarHandle()
+    borrarGasto.gasto = valor
+    botonBorrar.addEventListener("click", borrarGasto)
+    divgasto.append(botonBorrar)
 
     document.getElementById(idElemento).append(divgasto)
 }
@@ -127,7 +152,7 @@ actualizarPresupuestoBoton.addEventListener("click", actualizarPresupuestoWeb)
 
 function nuevoGastoWeb(){
     let descripción = prompt("Dime el nuevo descripción")
-    let valor = Number.parseInt(prompt("Dime el nuevo valor"))
+    let valor = Number(prompt("Dime el nuevo valor"))
     let fecha  = prompt("Dime la nueva fecha")
     let etiquetas = prompt("Dime las nuevas etiquetas")
     etiquetas= etiquetas.split(",")
@@ -140,11 +165,51 @@ function nuevoGastoWeb(){
 let anyadirgastoBoton = document.getElementById("anyadirgasto")
 anyadirgastoBoton.addEventListener("click", nuevoGastoWeb)
 
+function EditarHandle(){
+
+    this.handleEvent = function (event) {
+
+        let fechaString = new Date(this.gasto.fecha).toISOString()
+
+        let descripción = prompt("Dime el nuevo descripción", this.gasto.descripcion)
+        let valor = Number(prompt("Dime el nuevo valor", this.gasto.valor))
+        let fecha  = prompt("Dime la nueva fecha",fechaString)
+        let etiquetas = prompt("Dime las nuevas etiquetas", this.gasto.etiquetas)
+        etiquetas= etiquetas.split(",")
+
+        this.gasto.actualizarDescripcion(descripción)
+        this.gasto.actualizarValor(valor)
+        this.gasto.actualizarFecha(fecha)
+        this.gasto.anyadirEtiquetas(...etiquetas)
+
+        repintar();
+    };
+
+    
+}
+
+function BorrarHandle() {
+    this.handleEvent = function (event) {
+        gp.borrarGasto(this.gasto.id);
+        repintar();
+    };
+}
+
+function BorrarEtiquetasHandle() {
+    this.handleEvent = function (event) {
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar();
+    };
+}
+
 export{
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
     actualizarPresupuestoWeb,
-    nuevoGastoWeb
+    nuevoGastoWeb,
+    EditarHandle,
+    BorrarHandle,
+    BorrarEtiquetasHandle
 }

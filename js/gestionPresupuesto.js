@@ -92,6 +92,7 @@ function CrearGasto(descripcion, valor, fecha, ...etiquetas) {
         if(typeof fecha !== "string" ){
             return
         }
+        
         let fechaString = new Date(this.fecha).toISOString()
 
         if(fecha == "dia")
