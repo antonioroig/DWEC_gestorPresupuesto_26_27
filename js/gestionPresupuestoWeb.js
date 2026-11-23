@@ -16,7 +16,13 @@ function mostrarGastoWeb(idElemento, gasto){
 
     const divFecha = document.createElement('div');
     divFecha.className = 'gasto-fecha';
-    divFecha.textContent = gasto.fecha;
+    const fechaBruto = new Date(gasto.fecha);
+    const fecha = fechaBruto.toLocaleDateString('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+    });
+    divFecha.textContent = fecha;
     divMaestro.append(divFecha);
 
     const divValor = document.createElement('div');
