@@ -90,11 +90,27 @@ function actualizarPresupuestoWeb() {
 document
     .getElementById("actualizarpresupuesto")
     .addEventListener("click", actualizarPresupuestoWeb);
+
+function nuevoGastoWeb() {
+    const descripcion = prompt("Descripción del gasto:");
+    const valor = parseFloat(prompt("Valor del gasto:"));
+    const fecha = prompt("Fecha del gasto (yyyy-mm-dd):");
+    const etiquetas = prompt("Etiquetas (separadas por comas):").split(",");
+
+    const gasto = new gestion.CrearGasto(descripcion, valor, fecha, ...etiquetas);
+    gestion.anyadirGasto(gasto);
+    repintar();
+}
+document
+    .getElementById("anyadirgasto")
+    .addEventListener("click", nuevoGastoWeb);
+
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
     mostrarGastosAgrupadosWeb,
     repintar,
-    actualizarPresupuestoWeb
+    actualizarPresupuestoWeb,
+     nuevoGastoWeb
 
 };
