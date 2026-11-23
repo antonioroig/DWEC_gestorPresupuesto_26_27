@@ -16,7 +16,7 @@ function mostrarGastoWeb(idElemento, gasto){
     divMaestro.append(divDes);
     const divFecha = document.createElement("div");
     divFecha.className = "gasto-fecha";
-    divFecha.textContent = gasto.fecha;
+    divFecha.textContent = segundosADDMMAAAA(gasto.fecha);
     divMaestro.append(divFecha);
     const divValor = document.createElement("div");
     divValor.className = "gasto-valor";
@@ -167,6 +167,16 @@ function BorrarEtiquetasHandle(){
         this.gasto.borrarEtiquetas(this.etiqueta);
         repintar();
     }
+}
+
+function segundosADDMMAAAA(segundos) {
+  const fecha = new Date(segundos);
+
+  const dia = String(fecha.getDate()).padStart(2, "0");
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0");
+  const anio = fecha.getFullYear();
+
+  return `${dia}/${mes}/${anio}`;
 }
 
 export {
