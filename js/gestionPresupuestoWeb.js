@@ -20,7 +20,7 @@ function mostrarGastoWeb(idElemento, objetoGasto) {
 
     const gastoFecha = document.createElement("div");
     gastoFecha.className = "gasto-fecha";
-    gastoFecha.textContent = objetoGasto.fecha;
+    gastoFecha.textContent = new Date(objetoGasto.fecha).toLocaleString().split(",")[0];
     gasto.append(gastoFecha);
 
     const gastoValor = document.createElement("div");
