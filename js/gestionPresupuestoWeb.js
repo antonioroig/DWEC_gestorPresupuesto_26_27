@@ -1,3 +1,5 @@
+import * as gestionP from "./gestionPresupuesto.js";
+
 function mostrarDatoEnId(idElemento, valor)
 {
     let elemento = document.getElementById(idElemento);
@@ -80,6 +82,56 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo)
 
     elemento.appendChild(divAgrup);
 }
+
+function repintar()
+{
+    mostrarDatoEnId("presupuesto", gestionP.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", gestionP.calcularTotalGastos());
+    mostrarDatoEnId("balance-total", gestionP.calcularBalance());
+    
+    let listadoGastos = document.getElementById("listado-gastos-completo");
+    listadoGastos.innerHTML = "";
+
+    let listaGastos = gestionP.listarGastos();
+    for(let i = 0; i < listaGastos.length; i++)
+    {
+        mostrarGastoWeb("listado-gastos-completo", listaGastos[i]);
+    }
+}
+
+function actualizarPresupuestoWeb()
+{
+    let presupuesto = parseFloat(prompt("Introduzca un presupuesto"));
+    if(!Number.isNaN(presupuesto))
+    {
+        gestionP.actualizarPresupuesto(presupuesto);
+        repintar();
+    }
+}
+
+let btnActualizarPresupuesto = document.getElementById("actualizarpresupuesto");
+btnActualizarPresupuesto.addEventListener("click", actualizarPresupuestoWeb);
+
+function nuevoGastoWeb()
+{
+    let descripcion = prompt("Introduzca la descripcion del gasto: ");
+    let valor = parseFloat(prompt("Introduzca el valor del gato"));
+
+    let fecha = prompt("Introduzca la fecha del gasto");
+    let fechaObj = new Date(fecha);
+
+    let etiquetasTxt = prompt("Introduce las etiquetass del gasto separadas por comas");
+    let etiquetas = etiquetasTxt.split(",");
+
+    let gasto = new gestionP.CrearGasto(descripcion, valor, fecha, ...etiquetas);
+    gestionP.anyadirGasto(gasto);
+
+    repintar();
+}
+
+let btnAnyadirGasto = document.getElementById("anyadirgasto");
+btnAnyadirGasto.addEventListener("click", nuevoGastoWeb);
+
 
 
 

@@ -20,7 +20,7 @@ function actualizarPresupuesto(dinero) {
 
 function mostrarPresupuesto() {
     return `Tu presupuesto actual es de ${presupuesto} €`;
-}
+} 
 
 function CrearGasto(descripcion, valor = 0, fecha, ...etiquetas) {
     this.descripcion = descripcion;
