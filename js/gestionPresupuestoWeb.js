@@ -19,12 +19,13 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     const divGastoFecha = document.createElement('div');
     divGastoFecha.setAttribute('class', 'gasto-fecha');
-    divGastoFecha.textContent = gasto.fecha;
+    let miFecha = new Date(gasto.fecha);
+    divGastoFecha.textContent = miFecha.toLocaleDateString('es-ES');
     divGasto.append(divGastoFecha);
 
     const divGastoValor = document.createElement('div');
     divGastoValor.setAttribute('class', 'gasto-valor');
-    divGastoValor.textContent = gasto.valor;
+    divGastoValor.textContent = gasto.valor.toFixed(2);
     divGasto.append(divGastoValor);
 
     const divGastoEtiquetas = document.createElement('div');
