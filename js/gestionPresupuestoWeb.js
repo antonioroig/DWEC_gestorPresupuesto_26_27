@@ -90,7 +90,18 @@ function actualizarPresupuestoWeb() {
     gestionPresupuesto.actualizarPresupuesto(presupuesto);
     repintar();
 }
+function nuevoGastoWeb() {
+    let descripcion = prompt("Introduce la descripción: ");
+    let texto = prompt("Introduce el valor: ");
+    let valor = Number(texto);
+    let fecha = prompt("Introduce la fecha (yyyy-mm-dd): ");
+    let textoEtiquetas = prompt("Introduce las etiquetas separadas por comas: ");
+    let etiquetas = textoEtiquetas.split(",");
 
+    let gasto = gestionPresupuesto.crearGasto(descripcion, valor, fecha, ...etiquetas);
+    gestionPresupuesto.anyadirGasto(gasto);
+    repintar();
+}
 
 
 
