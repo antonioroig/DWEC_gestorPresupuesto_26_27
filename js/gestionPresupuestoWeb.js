@@ -31,9 +31,33 @@ function mostrarGastoWeb(idElemento, gasto){
         const spanEtiqueta = document.createElement('span');
         spanEtiqueta.className = 'gasto-etiquetas-etiqueta';
         spanEtiqueta.textContent = etiqueta + " ";
+        let eliminar = new BorrarEtiquetasHandle();
+        eliminar.gasto = gasto;
+        eliminar.etiqueta = etiqueta;
         divEtiquetas.append(spanEtiqueta);
+
+        spanEtiqueta.addEventListener("click", eliminar)
+        
     }
     divMaestro.append(divEtiquetas);
+
+    const btnEditar = document.createElement('button');
+    btnEditar.className = 'gasto-editar'
+    btnEditar.textContent = "Editar gasto";
+    divMaestro.append(btnEditar);
+    let editar = new EditarHandle();
+    editar.gasto = gasto;
+
+    btnEditar.addEventListener("click", editar)
+
+    const btnBorrar = document.createElement('button');
+    btnBorrar.className = 'gasto-borrar'
+    btnBorrar.textContent = "Eliminar gasto";
+    divMaestro.append(btnBorrar);
+    let eliminar = new BorrarHandle();
+    eliminar.gasto = gasto;
+
+    btnBorrar.addEventListener("click", eliminar)
 }
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
@@ -101,18 +125,33 @@ let botonNuevoGasto = document.getElementById('anyadirgasto');
 botonNuevoGasto.addEventListener("click", nuevoGastoWeb);
 
 function EditarHandle(){
-    this.handleEvent = function(gasto){
-        this.gasto = gasto;
+    this.handleEvent = function(){
+        let gasto = this.gasto.id;
         let descripcion = prompt("Introduzca la descripcion del gasto");
-        gasto.gPresupuesto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarDescripcion(descripcion);
         let valor = prompt("Introduzca el valor del gasto");
         valor = parseFloat(valor);
-        gasto.gPresupuesto.actualizarValor(valor);
+        this.gasto.actualizarValor(valor);
         let fecha = prompt("Introduce la fecha en la que se realizo el gasto (yyyy-mm-dd)");
-        gasto.gPresupuesto.actualizarFecha(fecha);
+        this.gasto.actualizarFecha(fecha);
         let etiquetas = prompt("Introduce las etiquetas separadas por comas");
-        etiquetas = etiquetas.split(", ");
-        gasto.gPresupuesto.actualizarEtiquetas(etiquetas);
+        etiquetas = etiquetas.split(",");
+        this.gasto.anyadirEtiquetas(etiquetas);
+        repintar()
+    }
+}
+
+function BorrarHandle(){
+    this.handleEvent = function(){
+        let gasto = this.gasto.id;
+        gPresupuesto.borrarGasto(gasto)
+        repintar()
+    }
+}
+
+function BorrarEtiquetasHandle(){
+    this.handleEvent = function(){
+        this.gasto.borrarEtiquetas(this.etiqueta)
         repintar()
     }
 }
