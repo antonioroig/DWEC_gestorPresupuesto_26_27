@@ -15,7 +15,8 @@ function mostrarGastoWeb(idElemento, gasto){
 
     const nodoHijo2 = document.createElement("div")
     nodoHijo2.className = "gasto-fecha"
-    nodoHijo2.textContent = gasto.fecha
+    let date = new Date(gasto.fecha)
+    nodoHijo2.textContent = date.toLocaleDateString('es')
     nodoPadre.append(nodoHijo2)
 
     const nodoHijo3 = document.createElement("div")
