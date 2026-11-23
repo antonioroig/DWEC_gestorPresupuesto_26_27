@@ -90,6 +90,9 @@ function actualizarPresupuestoWeb(){
     repintar();
 
 }
+
+const botonActualizar = document.getElementById("actualizarpresupuesto");
+botonActualizar.addEventListener("click", actualizarPresupuestoWeb);
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
