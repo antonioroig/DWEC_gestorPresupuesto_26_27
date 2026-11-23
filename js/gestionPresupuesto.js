@@ -134,7 +134,7 @@ function filtrarGastos({fechaDesde,fechaHasta,valorMinimo,valorMaximo,descripcio
 
     if(Array.isArray(etiquetasTiene))
     {
-        result = result.filter(gasto => gasto.etiquetas.some(etiqueta => etiquetasTiene.includes(etiqueta.toLowerCase())));
+        result = result.filter(gasto => gasto.etiquetas.some(etiqueta => etiquetasTiene.includes(etiqueta)));
     }
 
     return result
