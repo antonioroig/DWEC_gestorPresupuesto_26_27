@@ -99,7 +99,8 @@ function nuevoGastoWeb(){
   gp.anyadirGasto(gasto);
   repintar();
 }
-
+const botonAnyadir = document.getElementById("anyadirgasto");
+botonAnyadir.addEventListener("click", nuevoGastoWeb);
 const botonActualizar = document.getElementById("actualizarpresupuesto");
 botonActualizar.addEventListener("click", actualizarPresupuestoWeb);
 export {
