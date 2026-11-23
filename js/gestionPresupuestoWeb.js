@@ -171,7 +171,13 @@ function BorrarHandle() {
   };
 }
 
+let botonBorrar = document.createElement("button");
+botonBorrar.textContent = "Borrar";
 
+let manejadorBorrar = new BorrarHandle();
+manejadorBorrar.gasto = gastoActual;
+
+botonBorrar.addEventListener("click", manejadorBorrar);
 
 
 export{
