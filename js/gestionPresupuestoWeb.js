@@ -39,6 +39,12 @@ function mostrarGastoWeb(idElemento, gasto) {
         const span = document.createElement('span');
         span.classList.add('gasto-etiquetas-etiqueta');
         span.textContent = etiqueta;
+
+        let borrarEtiquetas = new BorrarEtiquetasHandle();
+        borrarEtiquetas.gasto = gasto;
+        borrarEtiquetas.etiqueta = etiqueta;
+
+        span.addEventListener("click", borrarEtiquetas)
         divEtiquetas.append(span);
     }
     divGasto.append(divEtiquetas);
@@ -60,7 +66,7 @@ function mostrarGastoWeb(idElemento, gasto) {
     botonBorrar.textContent = "Editar";
 
     let borrarHandler = new BorrarHandle();
-    borrarHandlerHandler.gasto = gasto;
+    borrarHandler.gasto = gasto;
 
     botonBorrar.addEventListener("click", borrarHandler);
     divGasto.append(botonBorrar);
@@ -169,11 +175,24 @@ function EditarHandle() {
     };
 }
 
+function BorrarHandle() {
+    this.handleEvent = function(){
+        gp.borrarGasto(this.gasto.id);
+        repintar();
+    }
+}
+
+function BorrarEtiquetasHandle(){
+    this.handleEvent = function(){
+        this.gasto.borrarEtiquetas(this.etiqueta);
+        repintar;
+    }
+}
 export{
     mostrarDatoEnId,
     mostrarGastosAgrupadosWeb,
     mostrarGastoWeb,
     repintar,
     actualizarPresupuestoWeb,
-    nuevoGastoWeb
+    nuevoGastoWeb,
 }
