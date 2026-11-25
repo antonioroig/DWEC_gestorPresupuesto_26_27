@@ -80,9 +80,36 @@ function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
 
     elem.appendChild(divAgrup);
 }
+function repintar() {
+
+    mostrarDatoEnId("presupuesto", gp.mostrarPresupuesto());
+    mostrarDatoEnId("gastos-totales", gp.calcularTotalGastos());
+
+    mostrarDatoEnId("balance-total", gp.calcularBalance());
+
+    let elem = document.getElementById("listado-gastos-completo");
+    elem.innerHTML = "";
+    let gastos = gp.listarGastos();
+
+    for (let i = 0; i < gastos.length; i++) {
+        mostrarGastoWeb("listado-gastos-completo", gastos[i]);
+    }
+}
+function actualizarPresupuestoWeb() {
+
+    let presupuesto = prompt("Introduce el nuevo presupuesto:");
+    presupuesto = Number(presupuesto);
+    gp.actualizarPresupuesto(presupuesto);
+
+    repintar();
+}
+let botonActualizarPresupuesto = document.getElementById("actualizarpresupuesto");
+
+botonActualizarPresupuesto.addEventListener("click", actualizarPresupuestoWeb);
 
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,
-    mostrarGastosAgrupadosWeb
+    mostrarGastosAgrupadosWeb,
+    repintar
 };
