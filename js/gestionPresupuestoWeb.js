@@ -24,11 +24,16 @@ function mostrarGastoWeb(idElemento, gasto) {
 
     let etiquetas = document.createElement("div");
     etiquetas.className = "gasto-etiquetas";
-
     for (let i = 0; i < gasto.etiquetas.length; i++) {
         let etiqueta = document.createElement("span");
         etiqueta.className = "gasto-etiquetas-etiqueta";
         etiqueta.textContent = gasto.etiquetas[i];
+
+        let borrarEtiquetaHandle = new BorrarEtiquetasHandle();
+        borrarEtiquetaHandle.gasto = gasto;
+        borrarEtiquetaHandle.etiqueta = gasto.etiquetas[i];
+
+        etiqueta.addEventListener("click", borrarEtiquetaHandle);
 
         etiquetas.appendChild(etiqueta);
     }
@@ -42,21 +47,21 @@ function mostrarGastoWeb(idElemento, gasto) {
     editarHandle.gasto = gasto;
     botonEditar.addEventListener("click", editarHandle);
 
-let botonBorrar = document.createElement("button");
-botonBorrar.type = "button";
-botonBorrar.className = "gasto-borrar";
-botonBorrar.textContent = "Borrar";
+    let botonBorrar = document.createElement("button");
+    botonBorrar.type = "button";
+    botonBorrar.className = "gasto-borrar";
+    botonBorrar.textContent = "Borrar";
 
-let borrarHandle = new BorrarHandle();
-borrarHandle.gasto = gasto;
+    let borrarHandle = new BorrarHandle();
+    borrarHandle.gasto = gasto;
 
-botonBorrar.addEventListener("click", borrarHandle);
+    botonBorrar.addEventListener("click", borrarHandle);
     divGasto.appendChild(descr);
     divGasto.appendChild(fecha);
     divGasto.appendChild(valor);
     divGasto.appendChild(etiquetas);
-divGasto.appendChild(botonEditar);
-divGasto.appendChild(botonBorrar);
+    divGasto.appendChild(botonEditar);
+    divGasto.appendChild(botonBorrar);
     elem.appendChild(divGasto);
 }
 function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
@@ -176,6 +181,15 @@ function BorrarHandle() {
     this.handleEvent = function () {
 
         gp.borrarGasto(this.gasto.id);
+
+        repintar();
+    };
+}
+function BorrarEtiquetasHandle() {
+
+    this.handleEvent = function () {
+
+        this.gasto.borrarEtiquetas(this.etiqueta);
 
         repintar();
     };
