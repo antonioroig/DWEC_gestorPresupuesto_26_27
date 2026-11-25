@@ -1,9 +1,10 @@
+import * as gp from './gestionPresupuesto.js';
 function mostrarDatoEnId(idElemento, valor) {
     let elem = document.getElementById(idElemento);
     elem.textContent = valor;
 }
 
-function mostrarGastoWeb(idElemento, gasto){
+function mostrarGastoWeb(idElemento, gasto) {
     let elem = document.getElementById(idElemento);
 
     let divGasto = document.createElement("div");
@@ -32,14 +33,33 @@ function mostrarGastoWeb(idElemento, gasto){
         etiquetas.appendChild(etiqueta);
     }
 
+    let botonEditar = document.createElement("button");
+    botonEditar.type = "button";
+    botonEditar.className = "gasto-editar";
+    botonEditar.textContent = "Editar";
+
+    let editarHandle = new EditarHandle();
+    editarHandle.gasto = gasto;
+    botonEditar.addEventListener("click", editarHandle);
+
+let botonBorrar = document.createElement("button");
+botonBorrar.type = "button";
+botonBorrar.className = "gasto-borrar";
+botonBorrar.textContent = "Borrar";
+
+let borrarHandle = new BorrarHandle();
+borrarHandle.gasto = gasto;
+
+botonBorrar.addEventListener("click", borrarHandle);
     divGasto.appendChild(descr);
     divGasto.appendChild(fecha);
     divGasto.appendChild(valor);
     divGasto.appendChild(etiquetas);
-
+divGasto.appendChild(botonEditar);
+divGasto.appendChild(botonBorrar);
     elem.appendChild(divGasto);
 }
-function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo){
+function mostrarGastosAgrupadosWeb(idElemento, agrup, periodo) {
 
     let elem = document.getElementById(idElemento);
 
@@ -124,6 +144,42 @@ function nuevoGastoWeb() {
 let botonAnyadirGasto = document.getElementById("anyadirgasto");
 botonAnyadirGasto.addEventListener("click", nuevoGastoWeb);
 
+function EditarHandle() {
+
+    this.handleEvent = function () {
+
+        let descripcion = prompt("Introduce la descripción:", this.gasto.descripcion);
+
+        let valor = prompt("Introduce el valor:", this.gasto.valor);
+
+        let fecha = prompt("Introduce la fecha (yyyy-mm-dd):",
+            new Date(this.gasto.fecha).toISOString().slice(0, 10));
+
+        let etiquetas = prompt("Introduce las etiquetas separadas por comas:",
+            this.gasto.etiquetas.join(","));
+
+        valor = Number(valor);
+        etiquetas = etiquetas.split(",");
+
+        this.gasto.actualizarDescripcion(descripcion);
+        this.gasto.actualizarValor(valor);
+        this.gasto.actualizarFecha(fecha);
+
+        this.gasto.borrarEtiquetas(...this.gasto.etiquetas);
+        this.gasto.anyadirEtiquetas(...etiquetas);
+
+        repintar();
+    };
+}
+function BorrarHandle() {
+
+    this.handleEvent = function () {
+
+        gp.borrarGasto(this.gasto.id);
+
+        repintar();
+    };
+}
 export {
     mostrarDatoEnId,
     mostrarGastoWeb,

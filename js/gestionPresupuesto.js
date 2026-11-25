@@ -1,4 +1,4 @@
-import * as gp from './gestionPresupuesto.js';
+
 'use strict';
 // TODO: Crear las funciones, objetos y variables indicadas en el enunciado
 
